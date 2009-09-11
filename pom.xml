@@ -9,7 +9,7 @@
 
     <groupId>org.jvnet.hudson.plugins</groupId>
     <artifactId>chucknorris</artifactId>
-    <version>0.2-SNAPSHOT</version>
+    <version>1.0-SNAPSHOT</version>
     <name>Chuck Norris Plugin</name>
     <url>http://wiki.hudson-ci.org/display/HUDSON/ChuckNorris+Plugin</url>
     <packaging>hpi</packaging>
@@ -45,4 +45,5 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+    
 </project>
