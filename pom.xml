@@ -9,7 +9,7 @@
 
     <groupId>org.jvnet.hudson.plugins</groupId>
     <artifactId>chucknorris</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>0.1</version>
     <name>Chuck Norris Plugin</name>
     <url>http://wiki.hudson-ci.org/display/HUDSON/ChuckNorris+Plugin</url>
     <packaging>hpi</packaging>
@@ -46,4 +46,10 @@
         </dependency>
     </dependencies>
     
+
+  <scm>
+    <connection>scm:svn:https://guest@svn.dev.java.net/svn/hudson/tags/chucknorris-0.1</connection>
+    <developerConnection>scm:svn:https://svn.dev.java.net/svn/hudson/tags/chucknorris-0.1</developerConnection>
+    <url>https://hudson.dev.java.net/source/browse/hudson/hudson/plugins/chucknorris/tags/chucknorris-0.1</url>
+  </scm>
 </project>
