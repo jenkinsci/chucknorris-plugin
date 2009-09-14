@@ -7,7 +7,8 @@
         Element.setStyle($('main-panel'), {
             'background-image': 'url(${rootURL}/plugin/chucknorris/images/<j:out value="${from.style.toString().toLowerCase()}"/>.jpg)',
             'background-repeat': 'no-repeat',
-            'background-position': 'bottom right'
+            'background-position': 'bottom right',
+            'padding-bottom': '270px'
         });
     </script>
 </j:jelly>
