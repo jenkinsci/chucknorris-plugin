@@ -2,9 +2,10 @@ package hudson.plugins.chucknorris;
 
 import hudson.Launcher;
 import hudson.model.AbstractBuild;
+import hudson.model.AbstractProject;
 import hudson.model.Action;
 import hudson.model.BuildListener;
-import hudson.model.Project;
+import hudson.tasks.BuildStepMonitor;
 import hudson.tasks.Recorder;
 
 import java.io.IOException;
@@ -28,7 +29,8 @@ public class CordellWalkerRecorder extends Recorder {
 		LOGGER.info("Chuck Norris is activated");
 	}
 
-	public Action getProjectAction(Project project) {
+	@Override
+	public Action getProjectAction(AbstractProject<?,?> project) {
 		Action action = null;
 		if (project.getLastBuild() != null) {
 			Style style = Style.get(project.getLastBuild().getResult());
@@ -38,11 +40,16 @@ public class CordellWalkerRecorder extends Recorder {
 		return action;
 	}
 
+	@Override
 	public boolean perform(AbstractBuild<?, ?> build, Launcher launcher,
 			BuildListener listener) throws InterruptedException, IOException {
 		Style style = Style.get(build.getResult());
 		String fact = factGenerator.random();
 		build.getActions().add(new RoundhouseAction(style, fact));
 		return true;
+	}
+
+	public BuildStepMonitor getRequiredMonitorService() {
+		return BuildStepMonitor.NONE;
 	}
 }
