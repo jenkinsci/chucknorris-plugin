@@ -3,14 +3,15 @@
     <parent>
         <groupId>org.jvnet.hudson.plugins</groupId>
         <artifactId>plugin</artifactId>
-        <version>1.319</version><!-- which version of Hudson is this plugin built against? -->
+        <version>1.319</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <groupId>org.jvnet.hudson.plugins</groupId>
     <artifactId>chucknorris</artifactId>
     <version>0.3-SNAPSHOT</version>
-    <name>Chuck Norris Plugin</name>
+    <name>ChuckNorris Plugin</name>
+    <description>Displays a picture of Chuck Norris (instead of Hudson the butler) and a random Chuck Norris 'The Programmer' fact on each build page.</description>
     <url>http://wiki.hudson-ci.org/display/HUDSON/ChuckNorris+Plugin</url>
     <packaging>hpi</packaging>
 
@@ -22,6 +23,12 @@
             <timezone>+10</timezone>
         </developer>
     </developers>
+    <licenses>
+        <license>
+            <name>MIT License</name>
+            <url>LICENSE.txt</url>
+        </license>
+    </licenses>
   
     <repositories>
         <repository>
@@ -45,4 +52,63 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+    
+    <reporting>
+        <plugins>
+            <plugin>
+                <artifactId>maven-changes-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>cobertura-maven-plugin</artifactId>
+                <configuration>
+                    <formats>
+                        <format>xml</format>
+                        <format>html</format>
+                    </formats>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>findbugs-maven-plugin</artifactId>
+                <configuration>
+                    <xmlOutput>true</xmlOutput>
+                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <configuration>
+                    <show>private</show>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>javancss-maven-plugin</artifactId>
+                <version>2.0-beta-1</version>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>jdepend-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <artifactId>maven-jxr-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <artifactId>maven-pmd-plugin</artifactId>
+                <configuration>  
+                    <targetJdk>1.5</targetJdk>  
+                </configuration> 
+            </plugin>
+            <plugin>
+                <artifactId>maven-site-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <artifactId>maven-surefire-report-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </reporting>
+      
 </project>
