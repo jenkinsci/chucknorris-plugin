@@ -9,7 +9,7 @@
 
     <groupId>org.jvnet.hudson.plugins</groupId>
     <artifactId>chucknorris</artifactId>
-    <version>0.4-SNAPSHOT</version>
+    <version>0.3-SNAPSHOT</version>
     <name>ChuckNorris Plugin</name>
     <description>Displays a picture of Chuck Norris (instead of Hudson the butler) and a random Chuck Norris 'The Programmer' fact on each build page.</description>
     <url>http://wiki.hudson-ci.org/display/HUDSON/ChuckNorris+Plugin</url>
