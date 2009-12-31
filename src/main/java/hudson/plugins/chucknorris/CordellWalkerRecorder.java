@@ -52,7 +52,7 @@ public class CordellWalkerRecorder extends Recorder {
     /**
      * Fact generator.
      */
-    private FactGenerator mFactGenerator;
+    private FactGenerator factGenerator;
 
     /**
      * Constructs a {@link CordellWalkerRecorder} with default
@@ -70,7 +70,7 @@ public class CordellWalkerRecorder extends Recorder {
      *            the fact generator
      */
     public CordellWalkerRecorder(final FactGenerator factGenerator) {
-        this.mFactGenerator = factGenerator;
+        this.factGenerator = factGenerator;
         LOGGER.info("Chuck Norris is activated");
     }
 
@@ -86,7 +86,7 @@ public class CordellWalkerRecorder extends Recorder {
         Action action = null;
         if (project.getLastBuild() != null) {
             Style style = Style.get(project.getLastBuild().getResult());
-            String fact = mFactGenerator.random();
+            String fact = factGenerator.random();
             action = new RoundhouseAction(style, fact);
         }
         return action;
@@ -112,7 +112,7 @@ public class CordellWalkerRecorder extends Recorder {
             final Launcher launcher, final BuildListener listener)
             throws InterruptedException, IOException {
         Style style = Style.get(build.getResult());
-        String fact = mFactGenerator.random();
+        String fact = factGenerator.random();
         build.getActions().add(new RoundhouseAction(style, fact));
         return true;
     }
