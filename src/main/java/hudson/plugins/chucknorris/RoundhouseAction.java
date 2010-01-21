@@ -33,10 +33,20 @@ import hudson.model.Action;
 public final class RoundhouseAction implements Action {
 
     /**
+     * The style - for backward compatibility to version 0.2.
+     */
+    private Style style;
+    
+    /**
      * The style.
      */
     private Style mStyle;
 
+    /**
+     * The fact - for backward compatibility to version 0.2.
+     */
+    private String fact;
+    
     /**
      * The fact.
      */
@@ -84,7 +94,13 @@ public final class RoundhouseAction implements Action {
      * @return the style
      */
     public Style getStyle() {
-        return mStyle;
+        Style theStyle;
+        if (mStyle != null) {
+            theStyle = mStyle;
+        } else {
+            theStyle = style;
+        }
+        return theStyle;
     }
 
     /**
@@ -92,6 +108,12 @@ public final class RoundhouseAction implements Action {
      * @return the fact
      */
     public String getFact() {
-        return mFact;
+        String theFact;
+        if (mFact != null) {
+            theFact = mFact;
+        } else {
+            theFact = fact;
+        }
+        return theFact;
     }
 }
