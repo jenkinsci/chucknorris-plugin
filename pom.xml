@@ -9,7 +9,7 @@
 
     <groupId>org.jvnet.hudson.plugins</groupId>
     <artifactId>chucknorris</artifactId>
-    <version>0.4-SNAPSHOT</version>
+    <version>0.4</version>
     <name>ChuckNorris Plugin</name>
     <description>Displays a picture of Chuck Norris (instead of Hudson the butler) and a random Chuck Norris 'The Programmer' fact on each build page.</description>
     <url>http://wiki.hudson-ci.org/display/HUDSON/ChuckNorris+Plugin</url>
@@ -110,4 +110,10 @@
             </plugin>
         </plugins>
     </reporting>
+
+  <scm>
+    <connection>scm:svn:https://guest@svn.dev.java.net/svn/hudson/tags/chucknorris-0.4</connection>
+    <developerConnection>scm:svn:https://svn.dev.java.net/svn/hudson/tags/chucknorris-0.4</developerConnection>
+    <url>https://hudson.dev.java.net/source/browse/hudson/hudson/plugins/chucknorris/tags/chucknorris-0.4</url>
+  </scm>
 </project>
