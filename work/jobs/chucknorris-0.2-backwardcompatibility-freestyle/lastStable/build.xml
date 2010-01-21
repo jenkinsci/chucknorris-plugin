@@ -1,0 +1,26 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<build>
+  <actions>
+    <hudson.model.CauseAction>
+      <causes>
+        <hudson.model.Cause_-UserCause>
+          <authenticationName>anonymous</authenticationName>
+        </hudson.model.Cause_-UserCause>
+      </causes>
+    </hudson.model.CauseAction>
+    <hudson.plugins.chucknorris.RoundhouseAction>
+      <style>THUMB_UP</style>
+      <fact>For Chuck Norris, NP-Hard = O(1).</fact>
+    </hudson.plugins.chucknorris.RoundhouseAction>
+  </actions>
+  <number>1</number>
+  <result>SUCCESS</result>
+  <duration>871</duration>
+  <charset>MacRoman</charset>
+  <keepLog>false</keepLog>
+  <builtOn></builtOn>
+  <workspace>/Users/cliffano/dev/eclipse-workspace/chucknorris-0.2/./work/jobs/chucknorris-0.2-backwardcompatibility-freestyle/workspace</workspace>
+  <hudsonVersion>1.319</hudsonVersion>
+  <scm class="hudson.scm.NullChangeLogParser"/>
+  <culprits/>
+</build>
