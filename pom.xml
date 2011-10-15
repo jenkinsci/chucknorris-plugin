@@ -1,10 +1,9 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>org.jvnet.hudson.plugins</groupId>
+        <groupId>org.jenkins-ci.plugins</groupId>
         <artifactId>plugin</artifactId>
-        <version>1.377</version>
-        <relativePath>../pom.xml</relativePath>
+        <version>1.434</version>
     </parent>
 
     <groupId>org.jvnet.hudson.plugins</groupId>
@@ -29,20 +28,6 @@
             <url>LICENSE.txt</url>
         </license>
     </licenses>
-  
-    <repositories>
-        <repository>
-            <id>m.g.o-public</id>
-            <url>http://maven.glassfish.org/content/groups/public/</url>
-        </repository>
-    </repositories>
-
-    <pluginRepositories>
-        <pluginRepository>
-            <id>m.g.o-public</id>
-            <url>http://maven.glassfish.org/content/groups/public/</url>
-        </pluginRepository>
-    </pluginRepositories>
 
     <dependencies>
         <dependency>
@@ -52,6 +37,35 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+
+    <repositories>
+        <repository>
+            <id>jenkins-release-repo</id>
+            <url>http://maven.jenkins-ci.org:8081/content/groups/artifacts/</url>                   
+            <releases>  
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <parallel>true</parallel>
+                    <threadCount>10</threadCount>
+                    <systemPropertyVariables>
+                        <java.awt.headless>true</java.awt.headless>
+                    </systemPropertyVariables>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build
     
     <reporting>
         <plugins>
