@@ -40,8 +40,8 @@
 
     <repositories>
         <repository>
-            <id>jenkins-release-repo</id>
-            <url>http://maven.jenkins-ci.org:8081/content/groups/artifacts/</url>                   
+            <id>repo.jenkins-ci.org</id>
+            <url>http://repo.jenkins-ci.org/public/</url>
             <releases>  
                 <enabled>true</enabled>
             </releases>
@@ -130,4 +130,12 @@
         <developerConnection>scm:git:git@github.com:jenkinsci/chucknorris-plugin.git</developerConnection>
         <url>https://github.com/jenkinsci/chucknorris-plugin</url>
     </scm>
-</project>
+
+    <pluginRepositories>
+        <pluginRepository>
+            <id>repo.jenkins-ci.org</id>
+            <url>http://repo.jenkins-ci.org/public/</url>
+        </pluginRepository>
+    </pluginRepositories>
+</project>  
+
