@@ -5,13 +5,13 @@
     </tr>
     <script>
         Element.setStyle($('main-table'), {
-            'background-image': 'none'
+            backgroundImage: 'none'
         });
         Element.setStyle($('main-panel'), {
-            'background-image': 'url(${rootURL}/plugin/chucknorris/images/<j:out value="${it.style.toString().toLowerCase()}"/>.jpg)',
-            'background-repeat': 'no-repeat',
-            'background-position': 'bottom right',
-            'padding-bottom': '270px'
+            backgroundImage: 'url(${rootURL}/plugin/chucknorris/images/<j:out value="${it.style.toString().toLowerCase()}"/>.jpg)',
+            backgroundRepeat: 'no-repeat',
+            backgroundPosition: 'bottom right',
+            paddingBottom: '270px'
         });
     </script>
 </j:jelly>
