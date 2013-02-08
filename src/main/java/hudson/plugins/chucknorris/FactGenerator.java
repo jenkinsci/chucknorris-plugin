@@ -58,7 +58,7 @@ public class FactGenerator {
             "Chuck Norris doesn't need a debugger, he just stares down the bug until the code confesses.",
             "Chuck Norris can access private methods.",
             "Chuck Norris can instantiate an abstract class.",
-            "Chuck Norris doesn'tt need to know about class factory pattern. He can instantiate interfaces.",
+            "Chuck Norris doesn't need to know about class factory pattern. He can instantiate interfaces.",
             "The class object inherits from Chuck Norris.",
             "For Chuck Norris, NP-Hard = O(1).",
             "Chuck Norris knows the last digit of PI.",
