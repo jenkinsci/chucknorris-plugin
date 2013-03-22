@@ -75,7 +75,7 @@ public class FactGenerator {
             "There is no Esc key on Chuck Norris' keyboard, because no one escapes Chuck Norris.",
             "Chuck Norris doesn't delete files, he blows them away.",
             "Chuck Norris can binary search unsorted data.",
-            "Chuck norris breaks RSA 128-bit encrypted codes in milliseconds.",
+            "Chuck Norris breaks RSA 128-bit encrypted codes in milliseconds.",
             "Chuck Norris went out of an infinite loop.",
             "Chuck Norris can read all encrypted data, because nothing can hide from Chuck Norris.",
             "Chuck Norris hosting is 101% uptime guaranteed.",
@@ -90,12 +90,20 @@ public class FactGenerator {
             "Chuck Norris doesn't need an OS.",
             "Chuck Norris can compile syntax errors.",
             "Chuck Norris compresses his files by doing a flying round house kick to the hard drive.",
-            "Chuck Norris doesn't use a computer because a computer does everything slower than Chuck Norris." };
+            "Chuck Norris doesn't use a computer because a computer does everything slower than Chuck Norris.",
+            "You don't disable the Chuck Norris plug-in, it disables you.",
+            "Chuck Norris doesn't need a java compiler, he goes straight to .war",
+            "Chuck Norris can use GOTO as much as he wants to. Telling him otherwise is considered harmful.",
+            "There is nothing regular about Chuck Norris' expressions.",
+            "Quantum cryptography does not work on Chuck Norris. When something is being observed by Chuck it stays in the same state until he's finished. ",
+            "There is no need to try catching Chuck Norris' exceptions for recovery; every single throw he does is fatal.",
+            "Chuck Norris' beard is immutable.",
+            "Chuck Norris' preferred IDE is hexedit."};
 
     /**
      * Random instance.
      */
-    private static final Random RANDOM = new Random();;
+    private static final Random RANDOM = new Random();
 
     /**
      * Retrieves a random fact.
