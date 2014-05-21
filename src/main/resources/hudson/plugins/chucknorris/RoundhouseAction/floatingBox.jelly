@@ -1,9 +1,6 @@
 <j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:d="jelly:define" xmlns:l="/lib/layout" xmlns:t="/lib/hudson" xmlns:f="/lib/form" xmlns:i="jelly:fmt" xmlns:local="local">
     <img src="${rootURL}/plugin/chucknorris/images/icon.jpg" width="16" height="16" alt="${from.displayName} Icon"/><st:nbsp/><j:out value="${from.fact}"/>
     <script>
-        Element.setStyle($('main-table'), {
-            backgroundImage: 'none'
-        });
         Element.setStyle($('main-panel'), {
             backgroundImage: 'url(${rootURL}/plugin/chucknorris/images/<j:out value="${from.style.toString().toLowerCase()}"/>.jpg)',
             backgroundRepeat: 'no-repeat',
