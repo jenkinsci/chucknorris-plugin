@@ -7,5 +7,6 @@
             backgroundPosition: 'bottom right',
             paddingBottom: '270px'
         });
+        document.evaluate("//tr[td[@id='side-panel']]/td[2]/div[2]", document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue.style.height = "";
     </script>
 </j:jelly>
