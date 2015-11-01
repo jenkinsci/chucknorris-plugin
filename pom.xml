@@ -16,10 +16,10 @@
 
     <developers>
         <developer>
-            <id>cliffano</id>
-            <name>Cliffano Subagio</name>
-            <email>blah@cliffano.com</email>
-            <timezone>+10</timezone>
+            <id>batmat</id>
+            <name>Baptiste Mathus</name>
+            <email>batmat@batmat.net</email>
+            <timezone>Europe/Paris</timezone>
         </developer>
     </developers>
     <licenses>
