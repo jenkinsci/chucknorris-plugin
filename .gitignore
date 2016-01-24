@@ -5,3 +5,4 @@
 .classpath
 bin/
 .java-version
+*.iml
