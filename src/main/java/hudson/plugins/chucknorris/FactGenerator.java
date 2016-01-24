@@ -98,7 +98,20 @@ public class FactGenerator {
             "Quantum cryptography does not work on Chuck Norris. When something is being observed by Chuck it stays in the same state until he's finished. ",
             "There is no need to try catching Chuck Norris' exceptions for recovery; every single throw he does is fatal.",
             "Chuck Norris' beard is immutable.",
-            "Chuck Norris' preferred IDE is hexedit."};
+            "Chuck Norris' preferred IDE is hexedit.",
+            "Chuck Norris is immutable. If something's going to change, it's going to have to be the rest of the universe.",
+            "Chuck Norris' addition operator doesn't commute; it teleports to where he needs it to be.",
+            "Anonymous methods and anonymous types are really all called Chuck Norris. They just don't like to boast.",
+            "Chuck Norris doesn't have performance bottlenecks. He just makes the universe wait its turn.",
+            "Chuck Norris does not use exceptions when programming. He has not been able to identify any of his code that is not exceptional.",
+            "When Chuck Norris' code fails to compile the compiler apologises.",
+            "Chuck Norris does not use revision control software. None of his code has ever needed revision.",
+            "Chuck Norris can recite π. Backwards.",
+            "When Chuck Norris points to null, null quakes in fear.",
+            "Chuck Norris has root access to your system.",
+            "When Chuck Norris gives a method an argument, the method loses",
+            "Chuck Norris' keyboard doesn't have F1 key, the computer asks for help from him.",
+            "When Chuck Norris presses Ctrl+Alt+Delete, worldwide computers restart is initiated."};
 
     /**
      * Random instance.
