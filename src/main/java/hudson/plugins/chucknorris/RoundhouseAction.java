@@ -21,6 +21,7 @@
  */
 package hudson.plugins.chucknorris;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import hudson.model.Action;
 
 /**
@@ -93,6 +94,8 @@ public final class RoundhouseAction implements Action {
      * Gets the Chuck Norris style.
      * @return the style
      */
+    // TODO : check infra statistics to see if someone still has chucknorris in 0.2...
+    @SuppressFBWarnings(value = "UWF_UNWRITTEN_FIELD", justification = "that field could have been deserialized from old <= 0.2")
     public Style getStyle() {
         Style theStyle;
         if (mStyle != null) {
@@ -107,6 +110,7 @@ public final class RoundhouseAction implements Action {
      * Gets the Chuck Norris fact.
      * @return the fact
      */
+    @SuppressFBWarnings(value = "UWF_UNWRITTEN_FIELD", justification = "that field could have been deserialized from old <= 0.2")
     public String getFact() {
         String theFact;
         if (mFact != null) {
