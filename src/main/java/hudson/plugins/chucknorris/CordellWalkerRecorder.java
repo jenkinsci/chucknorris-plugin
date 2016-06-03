@@ -21,18 +21,24 @@
  */
 package hudson.plugins.chucknorris;
 
+import hudson.FilePath;
 import hudson.Launcher;
 import hudson.model.AbstractBuild;
 import hudson.model.AbstractProject;
 import hudson.model.Action;
 import hudson.model.BuildListener;
+import hudson.model.Run;
+import hudson.model.TaskListener;
 import hudson.tasks.BuildStepMonitor;
 import hudson.tasks.Recorder;
 
 import java.io.IOException;
 import java.util.logging.Logger;
 
+import jenkins.tasks.SimpleBuildStep;
 import org.kohsuke.stapler.DataBoundConstructor;
+
+import javax.annotation.Nonnull;
 
 /**
  * This class associates a RoundhouseAction to a job or a build. For more info
@@ -41,7 +47,7 @@ import org.kohsuke.stapler.DataBoundConstructor;
  * >http://www.imdb.com/character/ch0038386/</a>.
  * @author cliffano
  */
-public class CordellWalkerRecorder extends Recorder {
+public class CordellWalkerRecorder extends Recorder implements SimpleBuildStep {
 
     /**
      * Logger.
@@ -111,10 +117,32 @@ public class CordellWalkerRecorder extends Recorder {
     public final boolean perform(final AbstractBuild<?, ?> build,
             final Launcher launcher, final BuildListener listener)
             throws InterruptedException, IOException {
-        Style style = Style.get(build.getResult());
-        String fact = factGenerator.random();
-        build.getActions().add(new RoundhouseAction(style, fact));
+        perform(build);
         return true;
+    }
+
+    /**
+     * Adds RoundhouseAction to the run actions. This is applicable for each
+     * run.
+     * @param run
+     *            the run
+     * @param workspace
+     *            the workspace
+     * @param launcher
+     *            the launcher
+     * @param listener
+     *            the listener
+     * @throws InterruptedException
+     *             when there's an interruption
+     * @throws IOException
+     *             when there's an IO error
+     */
+    @Override
+    public final void perform(
+            @Nonnull final Run<?, ?> run, @Nonnull final FilePath workspace,
+            @Nonnull final Launcher launcher, @Nonnull final TaskListener listener)
+            throws InterruptedException, IOException {
+        perform(run);
     }
 
     /**
@@ -124,4 +152,17 @@ public class CordellWalkerRecorder extends Recorder {
     public final BuildStepMonitor getRequiredMonitorService() {
         return BuildStepMonitor.NONE;
     }
+
+    /**
+     * Adds RoundhouseAction to the run actions. This is applicable for each
+     * run.
+     * @param run
+     *            the run
+     */
+    private void perform(final Run<?, ?> run) {
+        Style style = Style.get(run.getResult());
+        String fact = factGenerator.random();
+        run.addAction(new RoundhouseAction(style, fact));
+    }
+
 }

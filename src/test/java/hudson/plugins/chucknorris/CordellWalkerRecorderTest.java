@@ -1,6 +1,10 @@
 package hudson.plugins.chucknorris;
 
+import static org.mockito.Matchers.same;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import hudson.Launcher;
 import hudson.model.AbstractBuild;
@@ -10,10 +14,8 @@ import hudson.model.Build;
 import hudson.model.BuildListener;
 import hudson.model.Result;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import junit.framework.TestCase;
+import org.mockito.ArgumentCaptor;
 
 public class CordellWalkerRecorderTest extends TestCase {
 
@@ -50,24 +52,22 @@ public class CordellWalkerRecorderTest extends TestCase {
 
 	public void testPerformWithFailureResultAddsRoundHouseActionWithBadAssStyleAndExpectedFact()
 			throws Exception {
-		List<Action> actions = new ArrayList<Action>();
 		AbstractBuild mockBuild = mock(AbstractBuild.class);
 		when(mockBuild.getResult()).thenReturn(Result.FAILURE);
-		when(mockBuild.getActions()).thenReturn(actions);
+
+		ArgumentCaptor<RoundhouseAction> actionCaptor = ArgumentCaptor.forClass(RoundhouseAction.class);
+		doNothing().when(mockBuild).addAction(actionCaptor.capture());
 
 		when(mockGenerator.random()).thenReturn(
 				"Chuck Norris burst the dot com bubble.");
 
-		assertEquals(0, actions.size());
-
 		recorder.perform(mockBuild, mock(Launcher.class),
 				mock(BuildListener.class));
 
-		assertEquals(1, actions.size());
-		assertTrue(actions.get(0) instanceof RoundhouseAction);
-		assertEquals(Style.BAD_ASS, ((RoundhouseAction) actions.get(0))
-				.getStyle());
-		assertEquals("Chuck Norris burst the dot com bubble.",
-				((RoundhouseAction) actions.get(0)).getFact());
+		RoundhouseAction action = actionCaptor.getValue();
+
+		verify(mockBuild, times(1)).addAction(same(action));
+		assertEquals(Style.BAD_ASS, (action).getStyle());
+		assertEquals("Chuck Norris burst the dot com bubble.", action.getFact());
 	}
 }
