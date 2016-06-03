@@ -27,6 +27,7 @@ import hudson.model.AbstractBuild;
 import hudson.model.AbstractProject;
 import hudson.model.Action;
 import hudson.model.BuildListener;
+import hudson.model.Result;
 import hudson.model.Run;
 import hudson.model.TaskListener;
 import hudson.tasks.BuildStepMonitor;
@@ -90,10 +91,14 @@ public class CordellWalkerRecorder extends Recorder implements SimpleBuildStep {
     @Override
     public final Action getProjectAction(final AbstractProject<?, ?> project) {
         Action action = null;
-        if (project.getLastBuild() != null) {
-            Style style = Style.get(project.getLastBuild().getResult());
-            String fact = factGenerator.random();
-            action = new RoundhouseAction(style, fact);
+        AbstractBuild<?, ?> build = project.getLastBuild();
+        if (build != null) {
+            Result result = build.getResult();
+            if (result != null) {
+                Style style = Style.get(result);
+                String fact = factGenerator.random();
+                action = new RoundhouseAction(style, fact);
+            }
         }
         return action;
     }
