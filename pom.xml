@@ -8,7 +8,7 @@
     </parent>
     <groupId>org.jvnet.hudson.plugins</groupId>
     <artifactId>chucknorris</artifactId>
-    <version>1.1-SNAPSHOT</version>
+    <version>1.1.alpha-1-dontuse</version>
     <name>ChuckNorris Plugin</name>
     <description>Displays a picture of Chuck Norris (instead of Jenkins the butler) and a random Chuck Norris 'The Programmer' fact on each build page.</description>
 
@@ -140,7 +140,7 @@
         <connection>scm:git:git://github.com/jenkinsci/chucknorris-plugin.git</connection>
         <developerConnection>scm:git:git@github.com:jenkinsci/chucknorris-plugin.git</developerConnection>
         <url>https://github.com/jenkinsci/chucknorris-plugin</url>
-      <tag>HEAD</tag>
+      <tag>chucknorris-1.1.alpha-1-dontuse</tag>
   </scm>
 
     <pluginRepositories>
