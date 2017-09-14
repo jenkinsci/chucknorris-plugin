@@ -21,8 +21,13 @@
  */
 package hudson.plugins.chucknorris;
 
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import hudson.model.Action;
+import jenkins.tasks.SimpleBuildStep.LastBuildAction;
 
 /**
  * {@link RoundhouseAction} keeps the style and fact associated with the action.
@@ -31,7 +36,7 @@ import hudson.model.Action;
  * >http://www.youtube.com/watch?v=Vb7lnpk3tRY</a>
  * @author cliffano
  */
-public final class RoundhouseAction implements Action {
+public final class RoundhouseAction implements Action, LastBuildAction {
 
     /**
      * The style - for backward compatibility to version 0.2.
@@ -120,4 +125,15 @@ public final class RoundhouseAction implements Action {
         }
         return theFact;
     }
+
+    /**
+     * Returns this action as a collection of all project actions.
+     *
+     * @return the project actions
+     */
+    @Override
+    public Collection<? extends Action> getProjectActions() {
+        return Collections.singletonList(this);
+    }
+
 }

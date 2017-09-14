@@ -13,7 +13,7 @@
     <description>Displays a picture of Chuck Norris (instead of Jenkins the butler) and a random Chuck Norris 'The Programmer' fact on each build page.</description>
 
     <properties>
-        <jenkins.version>1.434</jenkins.version>
+        <jenkins.version>1.577</jenkins.version>
         <hpi-plugin.version>1.115</hpi-plugin.version>
         <jenkins-test-harness.version>${jenkins.version}</jenkins-test-harness.version>
     </properties>
@@ -40,7 +40,7 @@
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-core</artifactId>
-            <version>1.7</version>
+            <version>1.8.0</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
