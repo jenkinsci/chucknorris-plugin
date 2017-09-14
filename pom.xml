@@ -102,7 +102,7 @@
             <plugin>
                 <artifactId>maven-pmd-plugin</artifactId>
                 <configuration>
-                    <targetJdk>1.5</targetJdk>
+                    <targetJdk>1.${java.level}</targetJdk>
                 </configuration>
             </plugin>
             <plugin>
