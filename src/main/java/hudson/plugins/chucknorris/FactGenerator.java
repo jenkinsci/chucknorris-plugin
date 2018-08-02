@@ -114,10 +114,10 @@ public class FactGenerator {
             "Chuck Norris is too hard for soft deletes.",
             "Project managers never ask Chuck Norris for estimations…ever.",
             "Chuck Norris doesn’t use web standards as the web will conform to him.",
-            "\“It works on my machine\” always holds true for Chuck Norris.",
+            "'It works on my machine' always holds true for Chuck Norris.",
             "Chuck Norris doesn’t do Burn Down charts, he does Smack Down charts.",
             "Chuck Norris can delete the Recycling Bin.",
-            "When Chuck Norris is web surfing websites get the message \“Warning: Internet Explorer has deemed this user to be malicious or dangerous. Proceed?\”.",
+            "When Chuck Norris is web surfing websites get the message 'Warning: Internet Explorer has deemed this user to be malicious or dangerous. Proceed?'.",
             "When Chuck Norris presses Ctrl+Alt+Delete, worldwide computers restart is initiated."};
 
     /**
