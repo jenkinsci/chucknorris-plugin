@@ -78,7 +78,7 @@ public class CordellWalkerRecorder extends Recorder implements SimpleBuildStep {
      */
     public CordellWalkerRecorder(final FactGenerator factGenerator) {
         this.factGenerator = factGenerator;
-        LOGGER.info("Chuck Norris is activated");
+        LOGGER.fine("Chuck Norris is activated");
     }
 
     /**
@@ -164,7 +164,7 @@ public class CordellWalkerRecorder extends Recorder implements SimpleBuildStep {
      * @param run
      *            the run
      */
-    private void perform(final Run<?, ?> run) {
+    public void perform(final Run<?, ?> run) {
         Style style = Style.get(run.getResult());
         String fact = factGenerator.random();
         run.addAction(new RoundhouseAction(style, fact));

@@ -117,8 +117,11 @@ public class FactGenerator {
             "'It works on my machine' always holds true for Chuck Norris.",
             "Chuck Norris doesn’t do Burn Down charts, he does Smack Down charts.",
             "Chuck Norris can delete the Recycling Bin.",
-            "When Chuck Norris is web surfing websites get the message 'Warning: Internet Explorer has deemed this user to be malicious or dangerous. Proceed?'.",
-            "When Chuck Norris presses Ctrl+Alt+Delete, worldwide computers restart is initiated."};
+            "When Chuck Norris presses Ctrl+Alt+Delete, worldwide computers restart is initiated.",
+            "When Chuck Norris throws exceptions, it’s across the room.",
+            "Chuck Norris doesn’t do Burn Down charts, he does Smack Down charts.",
+            "When Chuck Norris is web surfing websites get the message \"Warning: Internet Explorer has deemed this user to be malicious or dangerous. Proceed?\"."
+    };
 
     /**
      * Random instance.
