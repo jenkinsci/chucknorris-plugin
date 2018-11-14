@@ -14,6 +14,7 @@
 
     <properties>
         <jenkins.version>1.651.3</jenkins.version>
+		<workflow.version>1.14</workflow.version>
     </properties>
 
     <url>http://wiki.jenkins-ci.org/display/JENKINS/ChuckNorris+Plugin</url>
@@ -35,6 +36,11 @@
     </licenses>
 
     <dependencies>
+		<dependency>
+			<groupId>org.jenkins-ci.plugins.workflow</groupId>
+			<artifactId>workflow-step-api</artifactId>
+			<version>${workflow.version}</version>
+		</dependency>
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-core</artifactId>
@@ -47,6 +53,19 @@
               </exclusion>
             </exclusions>
         </dependency>
+		<dependency>
+			<groupId>org.jenkins-ci.plugins.workflow</groupId>
+			<artifactId>workflow-aggregator</artifactId>
+			<version>${workflow.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.jenkins-ci.plugins.workflow</groupId>
+			<artifactId>workflow-support</artifactId>
+			<version>${workflow.version}</version>
+			<classifier>tests</classifier>
+			<scope>test</scope>
+		</dependency>
     </dependencies>
 
     <repositories>

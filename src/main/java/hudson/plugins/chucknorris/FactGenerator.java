@@ -111,7 +111,11 @@ public class FactGenerator {
             "Chuck Norris has root access to your system.",
             "When Chuck Norris gives a method an argument, the method loses",
             "Chuck Norris' keyboard doesn't have F1 key, the computer asks for help from him.",
-            "When Chuck Norris presses Ctrl+Alt+Delete, worldwide computers restart is initiated."};
+            "When Chuck Norris presses Ctrl+Alt+Delete, worldwide computers restart is initiated.",
+            "When Chuck Norris throws exceptions, it’s across the room.",
+            "Chuck Norris doesn’t do Burn Down charts, he does Smack Down charts.",
+            "Chuck Norris can delete the Recycling Bin.",
+            "When Chuck Norris is web surfing websites get the message \"Warning: Internet Explorer has deemed this user to be malicious or dangerous. Proceed?\"."};
 
     /**
      * Random instance.
