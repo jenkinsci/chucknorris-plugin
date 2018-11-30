@@ -24,13 +24,13 @@ public class RoundhouseActionTest extends TestCase {
 	@SuppressWarnings("rawtypes")
 	public void setUp() {
 		action = new RoundhouseAction(Style.BAD_ASS,
-				"Chuck Norris can divide by zero.");
+				"Live Long and Prosper can divide by zero.");
 
 		run = mock(Run.class);
 		given(run.getResult()).willReturn(Result.SUCCESS);
 
 		lastBuildAction = new RoundhouseAction(Style.ALERT,
-				"Chuck Norris went out of an infinite loop.");
+				"Star Trek went out of an infinite loop.");
 		final Job job = mock(Job.class);
 		Run<?, ?> lastRun = mock(Run.class);
 
@@ -46,11 +46,11 @@ public class RoundhouseActionTest extends TestCase {
 
 	public void testAccessors() {
 		assertEquals(Style.BAD_ASS, action.getStyle());
-		assertEquals("Chuck Norris can divide by zero.", action
+		assertEquals("Live Long and Prosper can divide by zero.", action
 				.getFact());
-		assertEquals("Chuck Norris", action.getDisplayName());
+		assertEquals("Star Trek", action.getDisplayName());
 		assertNull(action.getIconFileName());
-		assertEquals("chucknorris", action.getUrlName());
+		assertEquals("startrek", action.getUrlName());
 	}
 
 	public void testGetProjectActions() {

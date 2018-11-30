@@ -78,7 +78,7 @@ public class CordellWalkerRecorder extends Recorder implements SimpleBuildStep {
      */
     public CordellWalkerRecorder(final FactGenerator factGenerator) {
         this.factGenerator = factGenerator;
-        LOGGER.fine("Chuck Norris is activated");
+        LOGGER.fine("Star Trek is activated");
     }
 
     /**

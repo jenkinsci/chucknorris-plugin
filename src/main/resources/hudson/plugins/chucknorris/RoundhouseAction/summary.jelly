@@ -1,12 +1,12 @@
 <?jelly escape-by-default='true'?>
 <j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:d="jelly:define" xmlns:l="/lib/layout" xmlns:t="/lib/hudson" xmlns:f="/lib/form" xmlns:i="jelly:fmt" xmlns:local="local">
     <tr>
-        <td><img src="${rootURL}/plugin/chucknorris/images/icon.jpg" width="48" height="48" alt="${it.displayName} Icon"/></td>
+        <td><img src="${rootURL}/plugin/startrek/images/icon.jpg" width="48" height="48" alt="${it.displayName} Icon"/></td>
         <td style="vertical-align:middle"><j:out value="${it.fact}"/></td>
     </tr>
     <style>
         .chuck-style {
-          background-image: url(${rootURL}/plugin/chucknorris/images/<j:out value="${it.style.toString().toLowerCase()}"/>.jpg);
+          background-image: url(${rootURL}/plugin/startrek/images/<j:out value="${it.style.toString().toLowerCase()}"/>.jpg);
           background-repeat: no-repeat;
           background-position: bottom right;
           padding-bottom: 270px !important;
@@ -16,6 +16,6 @@
         if($('main-table')) {
             $('main-table').setStyle({ backgroundImage: 'none' });
         }
-        $('main-panel').addClassName('chuck-style');
+        $('main-panel').addClassName('startrek-style');
     </script>
 </j:jelly>

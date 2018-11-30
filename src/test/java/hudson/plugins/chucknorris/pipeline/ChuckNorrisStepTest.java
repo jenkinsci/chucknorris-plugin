@@ -27,7 +27,7 @@ public class ChuckNorrisStepTest {
 			public void evaluate() throws Throwable {
 				WorkflowJob p = story.j.jenkins.createProject(WorkflowJob.class, "p");
 				p.setDefinition(new CpsFlowDefinition(
-						"chuckNorris()\n" +
+						"starTrek()\n" +
 						"semaphore 'wait'\n"
 				));
 				WorkflowRun b1 = p.scheduleBuild2(0).waitForStart();
@@ -51,7 +51,7 @@ public class ChuckNorrisStepTest {
 			public void evaluate() throws Throwable {
 				WorkflowJob p = story.j.jenkins.createProject(WorkflowJob.class, "p");
 				p.setDefinition(new CpsFlowDefinition(
-						"chuckNorris()\n" +
+						"starTrek()\n" +
 						"semaphore 'wait'\n"
 				));
 				WorkflowRun b1 = p.scheduleBuild2(0).waitForStart();
@@ -76,7 +76,7 @@ public class ChuckNorrisStepTest {
 			public void evaluate() throws Throwable {
 				WorkflowJob p = story.j.jenkins.createProject(WorkflowJob.class, "p");
 				p.setDefinition(new CpsFlowDefinition(
-						"chuckNorris()\n" +
+						"starTrek()\n" +
 						"semaphore 'wait'\n"
 				));
 				WorkflowRun b1 = p.scheduleBuild2(0).waitForStart();
@@ -100,7 +100,7 @@ public class ChuckNorrisStepTest {
 			public void evaluate() throws Throwable {
 				WorkflowJob p = story.j.jenkins.createProject(WorkflowJob.class, "p");
 				p.setDefinition(new CpsFlowDefinition(
-						"chuckNorris()\n" +
+						"starTrek()\n" +
 						"semaphore 'wait'\n"
 				));
 				WorkflowRun b1 = p.scheduleBuild2(0).waitForStart();

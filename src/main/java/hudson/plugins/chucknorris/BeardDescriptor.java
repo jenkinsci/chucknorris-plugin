@@ -50,7 +50,7 @@ public class BeardDescriptor extends BuildStepDescriptor<Publisher> {
      */
     @Override
     public final String getDisplayName() {
-        return "Activate Chuck Norris";
+        return "Activate Star Trek";
     }
 
     /**
