@@ -1,4 +1,4 @@
-package hudson.plugins.chucknorris;
+package hudson.plugins.startrek;
 
 import static org.mockito.Matchers.same;
 import static org.mockito.Mockito.doNothing;
@@ -20,12 +20,12 @@ import org.mockito.ArgumentCaptor;
 public class CordellWalkerRecorderTest extends TestCase {
 
 	private FactGenerator mockGenerator;
-	private CordellWalkerRecorder recorder;
+	private FederationRecorder recorder;
 
 	@Override
 	public void setUp() {
 		mockGenerator = mock(FactGenerator.class);
-		recorder = new CordellWalkerRecorder(mockGenerator);
+		recorder = new FederationRecorder(mockGenerator);
 	}
 
 	public void testGetProjectActionWithNoLastBuildGivesNullAction() {

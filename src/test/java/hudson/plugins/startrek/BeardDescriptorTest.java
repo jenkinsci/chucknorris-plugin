@@ -1,4 +1,4 @@
-package hudson.plugins.chucknorris;
+package hudson.plugins.startrek;
 
 import static org.mockito.Mockito.mock;
 import hudson.model.AbstractProject;

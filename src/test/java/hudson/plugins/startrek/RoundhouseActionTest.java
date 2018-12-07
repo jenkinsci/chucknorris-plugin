@@ -1,4 +1,4 @@
-package hudson.plugins.chucknorris;
+package hudson.plugins.startrek;
 
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.eq;

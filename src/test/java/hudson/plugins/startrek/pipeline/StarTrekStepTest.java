@@ -1,4 +1,4 @@
-package hudson.plugins.chucknorris.pipeline;
+package hudson.plugins.startrek.pipeline;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -13,15 +13,15 @@ import org.junit.runners.model.Statement;
 import org.jvnet.hudson.test.RestartableJenkinsRule;
 
 import hudson.model.Result;
-import hudson.plugins.chucknorris.RoundhouseAction;
-import hudson.plugins.chucknorris.Style;
+import hudson.plugins.startrek.RoundhouseAction;
+import hudson.plugins.startrek.Style;
 
-public class ChuckNorrisStepTest {
+public class StarTrekStepTest {
 	@Rule
 	public RestartableJenkinsRule story = new RestartableJenkinsRule();
 
     @Test
-    public void badAssChuckNorris() throws Exception {
+    public void badAssStarTrek() throws Exception {
 		story.addStep(new Statement() {
 			@Override
 			public void evaluate() throws Throwable {
@@ -45,7 +45,7 @@ public class ChuckNorrisStepTest {
     }
 
     @Test
-    public void alertChuckNorris() throws Exception {
+    public void alertStarTrek() throws Exception {
 		story.addStep(new Statement() {
 			@Override
 			public void evaluate() throws Throwable {
@@ -70,7 +70,7 @@ public class ChuckNorrisStepTest {
     }
 
     @Test
-    public void thumbsUpChuckNorris() throws Exception {
+    public void thumbsUpStarTrek() throws Exception {
 		story.addStep(new Statement() {
 			@Override
 			public void evaluate() throws Throwable {
@@ -94,7 +94,7 @@ public class ChuckNorrisStepTest {
     }
 
     @Test
-    public void projectPageChuckNorris() throws Exception {
+    public void projectPageStarTrek() throws Exception {
 		story.addStep(new Statement() {
 			@Override
 			public void evaluate() throws Throwable {
