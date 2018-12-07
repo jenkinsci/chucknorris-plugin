@@ -19,7 +19,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package hudson.plugins.chucknorris;
+package hudson.plugins.startrek;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -82,7 +82,7 @@ public final class RoundhouseAction implements RunAction2, LastBuildAction {
      * @return the display name
      */
     public String getDisplayName() {
-        return "Chuck Norris";
+        return "Star trek";
     }
 
     /**
@@ -98,11 +98,11 @@ public final class RoundhouseAction implements RunAction2, LastBuildAction {
      * @return the URL name
      */
     public String getUrlName() {
-        return "chucknorris";
+        return "startrek";
     }
 
     /**
-     * Gets the Chuck Norris style.
+     * Gets the Star Trek style.
      * @return the style
      */
     // TODO : check infra statistics to see if someone still has chucknorris in 0.2...
@@ -120,7 +120,7 @@ public final class RoundhouseAction implements RunAction2, LastBuildAction {
     }
 
     /**
-     * Gets the Chuck Norris fact.
+     * Gets the Star Trek fact.
      * @return the fact
      */
     @SuppressFBWarnings(value = "UWF_UNWRITTEN_FIELD", justification = "that field could have been deserialized from old <= 0.2")

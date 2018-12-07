@@ -30,7 +30,7 @@
     </developers>
     <licenses>
         <license>
-            <name>GPL3</name>
+            <name>MIT</name>
             <url>LICENSE.txt</url>
         </license>
     </licenses>
@@ -77,7 +77,7 @@
             </releases>
             <snapshots>
                 <enabled>false</enabled>
-            </snapshots>
+           </snapshots>
         </repository>
     </repositories>
 

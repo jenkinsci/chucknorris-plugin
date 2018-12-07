@@ -28,7 +28,7 @@ public class StarTrekStep extends AbstractStepImpl {
 		@Nonnull
 		@Override
 		public String getDisplayName() {
-			return "Submit to Chuck Norris' will";
+			return "Submit to Federations will";
 		}
 	}
 }
