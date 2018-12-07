@@ -19,7 +19,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package hudson.plugins.chucknorris;
+package hudson.plugins.startrek;
 
 import hudson.FilePath;
 import hudson.Launcher;
@@ -48,13 +48,13 @@ import javax.annotation.Nonnull;
  * >http://www.imdb.com/character/ch0038386/</a>.
  * @author cliffano
  */
-public class CordellWalkerRecorder extends Recorder implements SimpleBuildStep {
+public class FederationRecorder extends Recorder implements SimpleBuildStep {
 
     /**
      * Logger.
      */
     private static final Logger LOGGER = Logger
-            .getLogger(CordellWalkerRecorder.class.getName());
+            .getLogger(FederationRecorder.class.getName());
 
     /**
      * Fact generator.
@@ -62,21 +62,21 @@ public class CordellWalkerRecorder extends Recorder implements SimpleBuildStep {
     private FactGenerator factGenerator;
 
     /**
-     * Constructs a {@link CordellWalkerRecorder} with default
+     * Constructs a {@link FederationRecorder} with default
      * {@link FactGenerator}.
      */
     @DataBoundConstructor
-    public CordellWalkerRecorder() {
+    public FederationRecorder() {
         this(new FactGenerator());
     }
 
     /**
-     * Constructs a {@link CordellWalkerRecorder} with specified
+     * Constructs a {@link FederationRecorder} with specified
      * {@link FactGenerator}.
      * @param factGenerator
      *            the fact generator
      */
-    public CordellWalkerRecorder(final FactGenerator factGenerator) {
+    public FederationRecorder(final FactGenerator factGenerator) {
         this.factGenerator = factGenerator;
         LOGGER.fine("Star Trek is activated");
     }

@@ -19,7 +19,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package hudson.plugins.chucknorris;
+package hudson.plugins.startrek;
 
 import hudson.Extension;
 import hudson.model.AbstractProject;
@@ -40,7 +40,7 @@ public class BeardDescriptor extends BuildStepDescriptor<Publisher> {
      * Constructs a {@link BeardDescriptor}.
      */
     public BeardDescriptor() {
-        super(CordellWalkerRecorder.class);
+        super(FederationRecorder.class);
     }
 
     /**

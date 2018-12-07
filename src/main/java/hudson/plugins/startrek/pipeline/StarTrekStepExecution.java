@@ -1,13 +1,13 @@
-package hudson.plugins.chucknorris.pipeline;
+package hudson.plugins.startrek.pipeline;
 
 import org.jenkinsci.plugins.workflow.steps.AbstractSynchronousNonBlockingStepExecution;
 import org.jenkinsci.plugins.workflow.steps.StepContextParameter;
 
 import hudson.model.Run;
 import hudson.model.TaskListener;
-import hudson.plugins.chucknorris.CordellWalkerRecorder;
+import hudson.plugins.startrek.FederationRecorder;
 
-public class ChuckNorrisStepExecution extends AbstractSynchronousNonBlockingStepExecution<Void> {
+public class StarTrekStepExecution extends AbstractSynchronousNonBlockingStepExecution<Void> {
 
 	/** serialVersionUID. */
 	private static final long serialVersionUID = 1L;
@@ -20,9 +20,9 @@ public class ChuckNorrisStepExecution extends AbstractSynchronousNonBlockingStep
 
 	@Override
 	protected Void run() throws Exception {
-		listener.getLogger().println("Submitting to Chuck's will");
+		listener.getLogger().println("Submitting to Star Trek will");
 		
-		CordellWalkerRecorder recorder = new CordellWalkerRecorder();
+		FederationRecorder recorder = new FederationRecorder();
 		recorder.perform(run);
 		
 		return null;

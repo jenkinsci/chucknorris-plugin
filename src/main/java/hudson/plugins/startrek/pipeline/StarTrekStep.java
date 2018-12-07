@@ -1,4 +1,4 @@
-package hudson.plugins.chucknorris.pipeline;
+package hudson.plugins.startrek.pipeline;
 
 import javax.annotation.Nonnull;
 
@@ -8,21 +8,21 @@ import org.kohsuke.stapler.DataBoundConstructor;
 
 import hudson.Extension;
 
-public class ChuckNorrisStep extends AbstractStepImpl {
+public class StarTrekStep extends AbstractStepImpl {
 
 	@DataBoundConstructor
-	public ChuckNorrisStep() {
+	public StarTrekStep() {
 	}
 
 	@Extension
 	public static class DescriptorImpl extends AbstractStepDescriptorImpl {
 		public DescriptorImpl() {
-			super(ChuckNorrisStepExecution.class);
+			super(StarTrekStepExecution.class);
 		}
 
 		@Override
 		public String getFunctionName() {
-			return "chuckNorris";
+			return "StarTrek";
 		}
 
 		@Nonnull
