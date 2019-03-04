@@ -14,7 +14,7 @@
 
     <properties>
         <jenkins.version>1.651.3</jenkins.version>
-		<workflow.version>1.14</workflow.version>
+		<workflow.version>2.6</workflow.version>
     </properties>
 
     <url>http://wiki.jenkins-ci.org/display/JENKINS/ChuckNorris+Plugin</url>
