@@ -3,7 +3,7 @@
     <parent>
         <groupId>org.jenkins-ci.plugins</groupId>
         <artifactId>plugin</artifactId>
-        <version>2.33</version>
+        <version>3.39</version>
         <relativePath />
     </parent>
     <groupId>org.jvnet.hudson.plugins</groupId>
@@ -13,7 +13,8 @@
     <description>Displays a picture of Chuck Norris (instead of Jenkins the butler) and a random Chuck Norris 'The Programmer' fact on each build page.</description>
 
     <properties>
-        <jenkins.version>1.651.3</jenkins.version>
+        <java.level>8</java.level>
+        <jenkins.version>2.60.3</jenkins.version>
 		<workflow.version>1.14</workflow.version>
     </properties>
 
