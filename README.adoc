@@ -8,3 +8,4 @@ Seeing that, already many thousands (yes, *thousands*!) of people have decided t
 plunge and install this plugin to finally see the light. Why not you?
 
 For more details, please see the link:https://wiki.jenkins-ci.org/display/JENKINS/ChuckNorris+Plugin[associated wiki page].
+
