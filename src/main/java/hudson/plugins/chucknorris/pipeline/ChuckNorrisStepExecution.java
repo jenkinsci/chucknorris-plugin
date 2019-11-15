@@ -11,24 +11,22 @@ import org.jenkinsci.plugins.workflow.steps.SynchronousNonBlockingStepExecution;
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
 import java.io.IOException;
+import java.util.Objects;
 
 public class ChuckNorrisStepExecution extends SynchronousNonBlockingStepExecution {
 
 	/** serialVersionUID. */
 	private static final long serialVersionUID = 1L;
-	private TaskListener listener;
+	private transient TaskListener listener;
     private transient Run<?, ?> run;
 
     @Inject
 	protected ChuckNorrisStepExecution(@Nonnull StepContext context) throws IOException, InterruptedException {
 		super(context);
-		ChuckNorrisStepExecution c = context.get(ChuckNorrisStepExecution.class);
-		listener = c.listener;
-		run = c.run;
 	}
 
 	@Override
-	protected Object run() throws IOException, InterruptedException {
+	protected Object run() {
 
 		listener.getLogger().println("Submitting to Chuck's will");
 				CordellWalkerRecorder recorder = new CordellWalkerRecorder();
@@ -36,6 +34,14 @@ public class ChuckNorrisStepExecution extends SynchronousNonBlockingStepExecutio
 		
 		return null;
 
+	}
+
+	public Run<?, ?> getRun() {
+		return run;
+	}
+
+	public TaskListener getListener() {
+		return listener;
 	}
 
 }
