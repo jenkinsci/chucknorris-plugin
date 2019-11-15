@@ -22,8 +22,9 @@ public class ChuckNorrisStepExecution extends SynchronousNonBlockingStepExecutio
     @Inject
 	protected ChuckNorrisStepExecution(@Nonnull StepContext context) throws IOException, InterruptedException {
 		super(context);
-		run = context.get(Run.class);
-		listener = context.get(TaskListener.class);
+		ChuckNorrisStepExecution c = context.get(ChuckNorrisStepExecution.class);
+		listener = c.listener;
+		run = c.run;
 	}
 
 	@Override
