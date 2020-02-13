@@ -62,7 +62,7 @@ public final class RoundhouseAction implements RunAction2, LastBuildAction {
     /**
      * The run
      */
-    private transient Run<?, ?> mRun;
+    private Run<?, ?> mRun;
 
     /**
      * Constructs a RoundhouseAction with specified style and fact.

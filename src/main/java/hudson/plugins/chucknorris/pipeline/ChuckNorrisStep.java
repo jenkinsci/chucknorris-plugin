@@ -1,23 +1,42 @@
 package hudson.plugins.chucknorris.pipeline;
 
-import javax.annotation.Nonnull;
-
-import org.jenkinsci.plugins.workflow.steps.AbstractStepDescriptorImpl;
-import org.jenkinsci.plugins.workflow.steps.AbstractStepImpl;
+import com.google.common.collect.ImmutableSet;
+import hudson.Extension;
+import hudson.model.Run;
+import hudson.model.TaskListener;
+import org.jenkinsci.plugins.workflow.steps.*;
 import org.kohsuke.stapler.DataBoundConstructor;
 
-import hudson.Extension;
+import javax.annotation.Nonnull;
+import java.util.Set;
 
-public class ChuckNorrisStep extends AbstractStepImpl {
+public class ChuckNorrisStep extends Step {
 
 	@DataBoundConstructor
 	public ChuckNorrisStep() {
+		//DataBoundConstructor
+	}
+
+	@Override
+	public StepExecution start(StepContext stepContext) throws Exception {
+		return new ChuckNorrisStepExecution(stepContext);
+	}
+
+	@Override
+	public StepDescriptor getDescriptor() {
+		return new ChuckNorrisStepDescriptor();
 	}
 
 	@Extension
-	public static class DescriptorImpl extends AbstractStepDescriptorImpl {
-		public DescriptorImpl() {
-			super(ChuckNorrisStepExecution.class);
+	public static class ChuckNorrisStepDescriptor extends StepDescriptor {
+
+		public ChuckNorrisStepDescriptor() {
+			//Descriptor constructor
+		}
+
+		@Override
+		public Set<? extends Class<?>> getRequiredContext() {
+			return ImmutableSet.of(Run.class, TaskListener.class);
 		}
 
 		@Override
@@ -30,5 +49,7 @@ public class ChuckNorrisStep extends AbstractStepImpl {
 		public String getDisplayName() {
 			return "Submit to Chuck Norris' will";
 		}
+
 	}
+
 }

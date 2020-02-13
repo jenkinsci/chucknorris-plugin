@@ -154,6 +154,7 @@ public class CordellWalkerRecorder extends Recorder implements SimpleBuildStep {
      * Gets the required monitor service.
      * @return the BuildStepMonitor
      */
+    @Override
     public final BuildStepMonitor getRequiredMonitorService() {
         return BuildStepMonitor.NONE;
     }
