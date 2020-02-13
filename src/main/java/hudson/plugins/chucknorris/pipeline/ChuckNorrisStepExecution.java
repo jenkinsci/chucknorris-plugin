@@ -15,8 +15,8 @@ public class ChuckNorrisStepExecution extends SynchronousNonBlockingStepExecutio
 
 	/** serialVersionUID. */
 	private static final long serialVersionUID = 1L;
-	private transient TaskListener listener = getContext().get(TaskListener.class);
-	private transient Run<?, ?> run = getContext().get(Run.class);
+	private TaskListener listener = getContext().get(TaskListener.class);
+	private Run<?, ?> run = getContext().get(Run.class);
 
     @Inject
 	protected ChuckNorrisStepExecution(@Nonnull StepContext context) throws IOException, InterruptedException {
