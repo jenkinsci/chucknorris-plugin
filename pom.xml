@@ -18,7 +18,7 @@
         <jenkins.version>2.190.1</jenkins.version>
     </properties>
 
-    <url>https://wiki.jenkins-ci.org/display/JENKINS/ChuckNorris+Plugin</url>
+    <url>https://github.com/jenkinsci/chucknorris-plugin</url>
     <packaging>hpi</packaging>
 
     <developers>
