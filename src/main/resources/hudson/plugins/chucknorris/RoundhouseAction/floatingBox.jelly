@@ -3,7 +3,7 @@
     <img src="${rootURL}/plugin/chucknorris/images/icon.jpg" width="16" height="16" alt="${from.displayName} Icon"/><st:nbsp/><j:out value="${from.fact}"/>
     <style>
         .chuck-style {
-          background-image: url(${rootURL}/plugin/chucknorris/images/<j:out value="${from.style.toString().toLowerCase()}"/>.jpg);
+          background-image: url(${rootURL}/plugin/chucknorris/images/<j:out value="${from.style.toString().toLowerCase()}"/>.png);
           background-repeat: no-repeat;
           background-position: bottom right;
           padding-bottom: 270px !important;
