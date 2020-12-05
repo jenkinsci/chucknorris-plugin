@@ -28,7 +28,7 @@ public class ChuckNorrisStepTest {
 				WorkflowJob p = story.j.jenkins.createProject(WorkflowJob.class, "p");
 				p.setDefinition(new CpsFlowDefinition(
 						"chuckNorris()\n" +
-						"semaphore 'wait'\n"
+						"semaphore 'wait'\n", true
 				));
 				WorkflowRun b1 = p.scheduleBuild2(0).waitForStart();
 				SemaphoreStep.waitForStart("wait/1", b1);
@@ -52,7 +52,7 @@ public class ChuckNorrisStepTest {
 				WorkflowJob p = story.j.jenkins.createProject(WorkflowJob.class, "p");
 				p.setDefinition(new CpsFlowDefinition(
 						"chuckNorris()\n" +
-						"semaphore 'wait'\n"
+						"semaphore 'wait'\n", true
 				));
 				WorkflowRun b1 = p.scheduleBuild2(0).waitForStart();
 				SemaphoreStep.waitForStart("wait/1", b1);
@@ -77,7 +77,7 @@ public class ChuckNorrisStepTest {
 				WorkflowJob p = story.j.jenkins.createProject(WorkflowJob.class, "p");
 				p.setDefinition(new CpsFlowDefinition(
 						"chuckNorris()\n" +
-						"semaphore 'wait'\n"
+						"semaphore 'wait'\n", true
 				));
 				WorkflowRun b1 = p.scheduleBuild2(0).waitForStart();
 				SemaphoreStep.waitForStart("wait/1", b1);
@@ -101,7 +101,7 @@ public class ChuckNorrisStepTest {
 				WorkflowJob p = story.j.jenkins.createProject(WorkflowJob.class, "p");
 				p.setDefinition(new CpsFlowDefinition(
 						"chuckNorris()\n" +
-						"semaphore 'wait'\n"
+						"semaphore 'wait'\n", true
 				));
 				WorkflowRun b1 = p.scheduleBuild2(0).waitForStart();
 				SemaphoreStep.waitForStart("wait/1", b1);
