@@ -94,7 +94,7 @@
     </repositories>
 
     <scm>
-        <connection>scm:git:git://github.com/jenkinsci/chucknorris-plugin.git</connection>
+        <connection>scm:git:https://github.com/jenkinsci/chucknorris-plugin.git</connection>
         <developerConnection>scm:git:git@github.com:jenkinsci/chucknorris-plugin.git</developerConnection>
         <url>https://github.com/jenkinsci/chucknorris-plugin</url>
         <tag>HEAD</tag>
