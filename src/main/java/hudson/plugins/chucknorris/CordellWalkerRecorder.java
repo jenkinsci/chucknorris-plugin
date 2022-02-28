@@ -39,7 +39,7 @@ import java.util.logging.Logger;
 import jenkins.tasks.SimpleBuildStep;
 import org.kohsuke.stapler.DataBoundConstructor;
 
-import javax.annotation.Nonnull;
+import edu.umd.cs.findbugs.annotations.NonNull;
 
 /**
  * This class associates a RoundhouseAction to a job or a build. For more info
@@ -144,8 +144,8 @@ public class CordellWalkerRecorder extends Recorder implements SimpleBuildStep {
      */
     @Override
     public final void perform(
-            @Nonnull final Run<?, ?> run, @Nonnull final FilePath workspace,
-            @Nonnull final Launcher launcher, @Nonnull final TaskListener listener)
+            @NonNull final Run<?, ?> run, @NonNull final FilePath workspace,
+            @NonNull final Launcher launcher, @NonNull final TaskListener listener)
             throws InterruptedException, IOException {
         perform(run);
     }
