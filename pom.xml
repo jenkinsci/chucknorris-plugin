@@ -3,7 +3,7 @@
     <parent>
         <groupId>org.jenkins-ci.plugins</groupId>
         <artifactId>plugin</artifactId>
-        <version>4.13</version>
+        <version>4.37</version>
         <relativePath />
     </parent>
     <groupId>org.jvnet.hudson.plugins</groupId>
@@ -14,7 +14,7 @@
 
     <properties>
         <java.level>8</java.level>
-        <jenkins.version>2.190.1</jenkins.version>
+        <jenkins.version>2.303.1</jenkins.version>
     </properties>
 
     <url>https://github.com/jenkinsci/chucknorris-plugin</url>
@@ -44,8 +44,8 @@
         <dependencies>
             <dependency>
                 <groupId>io.jenkins.tools.bom</groupId>
-                <artifactId>bom-2.190.x</artifactId>
-                <version>16</version>
+                <artifactId>bom-2.303.x</artifactId>
+                <version>1155.v77b_fd92a_26fc</version>
                 <scope>import</scope>
                 <type>pom</type>
             </dependency>
@@ -78,16 +78,6 @@
             <artifactId>workflow-cps</artifactId>
             <scope>test</scope>
         </dependency>
-        <!-- RequireUpperBoundDeps -->
-        <dependency>
-            <groupId>org.jenkins-ci.plugins.workflow</groupId>
-            <artifactId>workflow-api</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.jenkins-ci.plugins</groupId>
-            <artifactId>script-security</artifactId>
-        </dependency>
     </dependencies>
 
     <repositories>
@@ -104,7 +94,7 @@
     </repositories>
 
     <scm>
-        <connection>scm:git:git://github.com/jenkinsci/chucknorris-plugin.git</connection>
+        <connection>scm:git:https://github.com/jenkinsci/chucknorris-plugin.git</connection>
         <developerConnection>scm:git:git@github.com:jenkinsci/chucknorris-plugin.git</developerConnection>
         <url>https://github.com/jenkinsci/chucknorris-plugin</url>
         <tag>HEAD</tag>

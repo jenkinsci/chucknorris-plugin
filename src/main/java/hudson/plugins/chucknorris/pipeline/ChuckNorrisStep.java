@@ -1,6 +1,6 @@
 package hudson.plugins.chucknorris.pipeline;
 
-import javax.annotation.Nonnull;
+import edu.umd.cs.findbugs.annotations.NonNull;
 
 import org.jenkinsci.plugins.workflow.steps.AbstractStepDescriptorImpl;
 import org.jenkinsci.plugins.workflow.steps.AbstractStepImpl;
@@ -25,7 +25,7 @@ public class ChuckNorrisStep extends AbstractStepImpl {
 			return "chuckNorris";
 		}
 
-		@Nonnull
+		@NonNull
 		@Override
 		public String getDisplayName() {
 			return "Submit to Chuck Norris' will";
