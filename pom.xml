@@ -8,13 +8,12 @@
     </parent>
     <groupId>org.jvnet.hudson.plugins</groupId>
     <artifactId>chucknorris</artifactId>
-    <version>${revision}${changelist}</version>
+    <version>${changelist}</version>
     <name>ChuckNorris Plugin</name>
     <description>Displays a picture of Chuck Norris (instead of Jenkins the butler) and a random Chuck Norris 'The Programmer' fact on each build page.</description>
 
     <properties>
-        <revision>1.5</revision>
-        <changelist>-SNAPSHOT</changelist>
+        <changelist>999999-SNAPSHOT</changelist>
         <gitHubRepo>jenkinsci/chucknorris-plugin</gitHubRepo>
         <java.level>8</java.level>
         <jenkins.version>2.303.1</jenkins.version>

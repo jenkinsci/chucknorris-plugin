@@ -1,2 +1,1 @@
 _extends: .github
-tag-template: chucknorris-$NEXT_MINOR_VERSION
