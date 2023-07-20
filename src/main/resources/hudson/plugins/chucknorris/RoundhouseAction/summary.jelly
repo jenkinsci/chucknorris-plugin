@@ -13,9 +13,9 @@
         }
     </style>
     <script>
-        if($('main-table')) {
-            $('main-table').setStyle({ backgroundImage: 'none' });
+        if(document.getElementById('main-table')) {
+            document.getElementById('main-table').style.backgroundImage = 'none';
         }
-        $('main-panel').addClassName('chuck-style');
+        document.getElementById('main-panel').classList.add('chuck-style');
     </script>
 </j:jelly>
