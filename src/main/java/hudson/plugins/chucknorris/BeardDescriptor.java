@@ -60,8 +60,7 @@ public class BeardDescriptor extends BuildStepDescriptor<Publisher> {
      * @return true - of course the beard is applicable
      */
     @Override
-    public final boolean isApplicable(
-            final Class<? extends AbstractProject> clazz) {
+    public final boolean isApplicable(final Class<? extends AbstractProject> clazz) {
         return true;
     }
 }
