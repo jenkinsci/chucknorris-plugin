@@ -1,9 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.jenkins-ci.plugins</groupId>
         <artifactId>plugin</artifactId>
-        <version>4.41</version>
+        <version>4.71</version>
         <relativePath />
     </parent>
     <groupId>org.jvnet.hudson.plugins</groupId>
@@ -14,12 +15,11 @@
 
     <properties>
         <changelist>999999-SNAPSHOT</changelist>
-        <gitHubRepo>jenkinsci/chucknorris-plugin</gitHubRepo>
-        <java.level>8</java.level>
-        <jenkins.version>2.303.1</jenkins.version>
+        <gitHubRepo>jenkinsci/${project.artifactId}-plugin</gitHubRepo>
+        <jenkins.version>2.387.3</jenkins.version>
     </properties>
 
-    <url>https://github.com/jenkinsci/chucknorris-plugin</url>
+    <url>https://github.com/jenkinsci/${project.artifactId}-plugin</url>
     <packaging>hpi</packaging>
 
     <developers>
@@ -46,8 +46,8 @@
         <dependencies>
             <dependency>
                 <groupId>io.jenkins.tools.bom</groupId>
-                <artifactId>bom-2.303.x</artifactId>
-                <version>1451.v15f1fdb_772a_f</version>
+                <artifactId>bom-2.387.x</artifactId>
+                <version>2244.vd60654536b_96</version>
                 <scope>import</scope>
                 <type>pom</type>
             </dependency>
@@ -86,12 +86,6 @@
         <repository>
             <id>repo.jenkins-ci.org</id>
             <url>https://repo.jenkins-ci.org/public/</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
         </repository>
     </repositories>
 
