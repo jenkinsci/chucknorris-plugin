@@ -21,12 +21,11 @@
  */
 package hudson.plugins.chucknorris;
 
-import java.util.Collection;
-import java.util.Collections;
-
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import hudson.model.Action;
 import hudson.model.Run;
+import java.util.Collection;
+import java.util.Collections;
 import jenkins.model.RunAction2;
 import jenkins.tasks.SimpleBuildStep.LastBuildAction;
 
@@ -81,6 +80,7 @@ public final class RoundhouseAction implements RunAction2, LastBuildAction {
      * Gets the action display name.
      * @return the display name
      */
+    @Override
     public String getDisplayName() {
         return "Chuck Norris";
     }
@@ -89,6 +89,7 @@ public final class RoundhouseAction implements RunAction2, LastBuildAction {
      * This action doesn't provide any icon file.
      * @return null
      */
+    @Override
     public String getIconFileName() {
         return null;
     }
@@ -97,6 +98,7 @@ public final class RoundhouseAction implements RunAction2, LastBuildAction {
      * Gets the URL name for this action.
      * @return the URL name
      */
+    @Override
     public String getUrlName() {
         return "chucknorris";
     }
@@ -106,11 +108,13 @@ public final class RoundhouseAction implements RunAction2, LastBuildAction {
      * @return the style
      */
     // TODO : check infra statistics to see if someone still has chucknorris in 0.2...
-    @SuppressFBWarnings(value = "UWF_UNWRITTEN_FIELD", justification = "that field could have been deserialized from old <= 0.2")
+    @SuppressFBWarnings(
+            value = "UWF_UNWRITTEN_FIELD",
+            justification = "that field could have been deserialized from old <= 0.2")
     public Style getStyle() {
         Style theStyle;
         if (mRun != null) {
-        	theStyle = Style.get(mRun.getResult());
+            theStyle = Style.get(mRun.getResult());
         } else if (mStyle != null) {
             theStyle = mStyle;
         } else {
@@ -123,7 +127,9 @@ public final class RoundhouseAction implements RunAction2, LastBuildAction {
      * Gets the Chuck Norris fact.
      * @return the fact
      */
-    @SuppressFBWarnings(value = "UWF_UNWRITTEN_FIELD", justification = "that field could have been deserialized from old <= 0.2")
+    @SuppressFBWarnings(
+            value = "UWF_UNWRITTEN_FIELD",
+            justification = "that field could have been deserialized from old <= 0.2")
     public String getFact() {
         String theFact;
         if (mFact != null) {
@@ -144,21 +150,20 @@ public final class RoundhouseAction implements RunAction2, LastBuildAction {
      */
     @Override
     public Collection<? extends Action> getProjectActions() {
-    	if (mRun != null) {
-    		return mRun.getParent().getLastCompletedBuild().getActions(RoundhouseAction.class);
-    	} else {
-    		return Collections.singletonList(this);
-    	}
+        if (mRun != null) {
+            return mRun.getParent().getLastCompletedBuild().getActions(RoundhouseAction.class);
+        } else {
+            return Collections.singletonList(this);
+        }
     }
 
-	@Override
-	public void onAttached(Run<?, ?> r) {
-		this.mRun = r;
-	}
+    @Override
+    public void onAttached(Run<?, ?> r) {
+        this.mRun = r;
+    }
 
-	@Override
-	public void onLoad(Run<?, ?> r) {
-		this.mRun = r;
-	}
-
+    @Override
+    public void onLoad(Run<?, ?> r) {
+        this.mRun = r;
+    }
 }

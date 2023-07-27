@@ -21,6 +21,7 @@
  */
 package hudson.plugins.chucknorris;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
 import hudson.FilePath;
 import hudson.Launcher;
 import hudson.model.AbstractBuild;
@@ -32,14 +33,10 @@ import hudson.model.Run;
 import hudson.model.TaskListener;
 import hudson.tasks.BuildStepMonitor;
 import hudson.tasks.Recorder;
-
 import java.io.IOException;
 import java.util.logging.Logger;
-
 import jenkins.tasks.SimpleBuildStep;
 import org.kohsuke.stapler.DataBoundConstructor;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
 
 /**
  * This class associates a RoundhouseAction to a job or a build. For more info
@@ -53,8 +50,7 @@ public class CordellWalkerRecorder extends Recorder implements SimpleBuildStep {
     /**
      * Logger.
      */
-    private static final Logger LOGGER = Logger
-            .getLogger(CordellWalkerRecorder.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(CordellWalkerRecorder.class.getName());
 
     /**
      * Fact generator.
@@ -119,8 +115,7 @@ public class CordellWalkerRecorder extends Recorder implements SimpleBuildStep {
      *             when there's an IO error
      */
     @Override
-    public final boolean perform(final AbstractBuild<?, ?> build,
-            final Launcher launcher, final BuildListener listener)
+    public final boolean perform(final AbstractBuild<?, ?> build, final Launcher launcher, final BuildListener listener)
             throws InterruptedException, IOException {
         perform(build);
         return true;
@@ -144,8 +139,10 @@ public class CordellWalkerRecorder extends Recorder implements SimpleBuildStep {
      */
     @Override
     public final void perform(
-            @NonNull final Run<?, ?> run, @NonNull final FilePath workspace,
-            @NonNull final Launcher launcher, @NonNull final TaskListener listener)
+            @NonNull final Run<?, ?> run,
+            @NonNull final FilePath workspace,
+            @NonNull final Launcher launcher,
+            @NonNull final TaskListener listener)
             throws InterruptedException, IOException {
         perform(run);
     }
@@ -154,6 +151,7 @@ public class CordellWalkerRecorder extends Recorder implements SimpleBuildStep {
      * Gets the required monitor service.
      * @return the BuildStepMonitor
      */
+    @Override
     public final BuildStepMonitor getRequiredMonitorService() {
         return BuildStepMonitor.NONE;
     }
@@ -169,5 +167,4 @@ public class CordellWalkerRecorder extends Recorder implements SimpleBuildStep {
         String fact = factGenerator.random();
         run.addAction(new RoundhouseAction(style, fact));
     }
-
 }
