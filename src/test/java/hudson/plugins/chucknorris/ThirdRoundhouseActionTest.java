@@ -12,7 +12,7 @@ import junit.framework.TestCase;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 
-public class RoundhouseActionTest extends TestCase {
+public class ThirdRoundhouseActionTest extends TestCase {
 
     private RoundhouseAction action;
 
@@ -25,26 +25,16 @@ public class RoundhouseActionTest extends TestCase {
         action = new RoundhouseAction(Style.BAD_ASS, "Chuck Norris can divide by zero.");
 
         run = mock(Run.class);
+        given(run.getResult()).willReturn(Result.SUCCESS);
 
         lastBuildAction = new RoundhouseAction(Style.ALERT, "Chuck Norris went out of an infinite loop.");
         final Job job = mock(Job.class);
         Run<?, ?> lastRun = mock(Run.class);
-
-        given(run.getParent()).willAnswer(new Answer<Job>() {
-            @Override
-            public Job answer(InvocationOnMock invocation) throws Throwable {
-                return job;
-            }
-        });
-        given(job.getLastCompletedBuild()).willReturn(lastRun);
-        given(lastRun.getActions(eq(RoundhouseAction.class))).willReturn(Arrays.asList(lastBuildAction));
     }
 
-    public void testGetProjectActionsFromLastProjectBuild() {
+    public void testGetStyleFromRunResult() {
         action.onAttached(run);
 
-        assertNotNull(action.getProjectActions());
-        assertEquals(1, action.getProjectActions().size());
-        assertSame(lastBuildAction, action.getProjectActions().iterator().next());
+        assertEquals(Style.THUMB_UP, action.getStyle());
     }
 }
