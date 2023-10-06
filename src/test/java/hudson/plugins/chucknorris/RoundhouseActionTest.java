@@ -5,7 +5,6 @@ import static org.mockito.Mockito.eq;
 import static org.mockito.Mockito.mock;
 
 import hudson.model.Job;
-import hudson.model.Result;
 import hudson.model.Run;
 import java.util.Arrays;
 import junit.framework.TestCase;

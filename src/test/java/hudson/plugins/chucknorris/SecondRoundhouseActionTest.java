@@ -1,16 +1,10 @@
 package hudson.plugins.chucknorris;
 
-import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.eq;
 import static org.mockito.Mockito.mock;
 
 import hudson.model.Job;
-import hudson.model.Result;
 import hudson.model.Run;
-import java.util.Arrays;
 import junit.framework.TestCase;
-import org.mockito.invocation.InvocationOnMock;
-import org.mockito.stubbing.Answer;
 
 public class SecondRoundhouseActionTest extends TestCase {
 
