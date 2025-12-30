@@ -6,3 +6,4 @@
 bin/
 .java-version
 *.iml
+.idea
