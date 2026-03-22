@@ -21,7 +21,6 @@
  */
 package hudson.plugins.chucknorris;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Random;
 
 /**
@@ -129,7 +128,6 @@ public class FactGenerator {
      * Retrieves a random fact.
      * @return a random fact
      */
-    @SuppressFBWarnings(value = "DMI_RANDOM_USED_ONLY_ONCE")
     public String random() {
         return FACTS[RANDOM.nextInt(FACTS.length)];
     }
