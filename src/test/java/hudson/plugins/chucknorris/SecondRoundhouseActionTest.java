@@ -1,29 +1,23 @@
 package hudson.plugins.chucknorris;
 
-import static org.mockito.Mockito.mock;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertSame;
 
-import hudson.model.Job;
-import hudson.model.Run;
-import junit.framework.TestCase;
+import org.junit.Before;
+import org.junit.Test;
 
 public class SecondRoundhouseActionTest {
 
     private RoundhouseAction action;
 
-    private Run<?, ?> run;
-    private RoundhouseAction lastBuildAction;
-
-    @Override
-    @SuppressWarnings("rawtypes")
+    @Before
     public void setUp() {
         action = new RoundhouseAction(Style.BAD_ASS, "Chuck Norris can divide by zero.");
-
-        run = mock(Run.class);
-        lastBuildAction = new RoundhouseAction(Style.ALERT, "Chuck Norris went out of an infinite loop.");
-        final Job job = mock(Job.class);
-        Run<?, ?> lastRun = mock(Run.class);
     }
 
+    @Test
     public void testAccessors() {
         assertEquals(Style.BAD_ASS, action.getStyle());
         assertEquals("Chuck Norris can divide by zero.", action.getFact());
@@ -32,6 +26,7 @@ public class SecondRoundhouseActionTest {
         assertEquals("chucknorris", action.getUrlName());
     }
 
+    @Test
     public void testGetProjectActions() {
         assertNotNull(action.getProjectActions());
         assertEquals(1, action.getProjectActions().size());
