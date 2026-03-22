@@ -127,9 +127,6 @@ public final class RoundhouseAction implements RunAction2, LastBuildAction {
      * Gets the Chuck Norris fact.
      * @return the fact
      */
-    @SuppressFBWarnings(
-            value = "UWF_UNWRITTEN_FIELD",
-            justification = "that field could have been deserialized from old <= 0.2")
     public String getFact() {
         String theFact;
         if (mFact != null) {
