@@ -8,7 +8,7 @@ import hudson.model.Result;
 import hudson.model.Run;
 import junit.framework.TestCase;
 
-public class ThirdRoundhouseActionTest extends TestCase {
+public class ThirdRoundhouseActionTest {
 
     private RoundhouseAction action;
 
