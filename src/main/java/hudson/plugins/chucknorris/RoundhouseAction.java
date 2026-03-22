@@ -21,12 +21,12 @@
  */
 package hudson.plugins.chucknorris;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import hudson.model.Action;
+import hudson.model.Run;
+import java.util.Collection;
+import java.util.Collections;
+import jenkins.model.RunAction2;
 import jenkins.tasks.SimpleBuildStep.LastBuildAction;
 
 /**
@@ -36,13 +36,13 @@ import jenkins.tasks.SimpleBuildStep.LastBuildAction;
  * >http://www.youtube.com/watch?v=Vb7lnpk3tRY</a>
  * @author cliffano
  */
-public final class RoundhouseAction implements Action, LastBuildAction {
+public final class RoundhouseAction implements RunAction2, LastBuildAction {
 
     /**
      * The style - for backward compatibility to version 0.2.
      */
     private Style style;
-    
+
     /**
      * The style.
      */
@@ -52,11 +52,16 @@ public final class RoundhouseAction implements Action, LastBuildAction {
      * The fact - for backward compatibility to version 0.2.
      */
     private String fact;
-    
+
     /**
      * The fact.
      */
     private String mFact;
+
+    /**
+     * The run
+     */
+    private transient Run<?, ?> mRun;
 
     /**
      * Constructs a RoundhouseAction with specified style and fact.
@@ -75,6 +80,7 @@ public final class RoundhouseAction implements Action, LastBuildAction {
      * Gets the action display name.
      * @return the display name
      */
+    @Override
     public String getDisplayName() {
         return "Chuck Norris";
     }
@@ -83,6 +89,7 @@ public final class RoundhouseAction implements Action, LastBuildAction {
      * This action doesn't provide any icon file.
      * @return null
      */
+    @Override
     public String getIconFileName() {
         return null;
     }
@@ -91,6 +98,7 @@ public final class RoundhouseAction implements Action, LastBuildAction {
      * Gets the URL name for this action.
      * @return the URL name
      */
+    @Override
     public String getUrlName() {
         return "chucknorris";
     }
@@ -100,10 +108,14 @@ public final class RoundhouseAction implements Action, LastBuildAction {
      * @return the style
      */
     // TODO : check infra statistics to see if someone still has chucknorris in 0.2...
-    @SuppressFBWarnings(value = "UWF_UNWRITTEN_FIELD", justification = "that field could have been deserialized from old <= 0.2")
+    @SuppressFBWarnings(
+            value = "UWF_UNWRITTEN_FIELD",
+            justification = "that field could have been deserialized from old <= 0.2")
     public Style getStyle() {
         Style theStyle;
-        if (mStyle != null) {
+        if (mRun != null) {
+            theStyle = Style.get(mRun.getResult());
+        } else if (mStyle != null) {
             theStyle = mStyle;
         } else {
             theStyle = style;
@@ -115,7 +127,6 @@ public final class RoundhouseAction implements Action, LastBuildAction {
      * Gets the Chuck Norris fact.
      * @return the fact
      */
-    @SuppressFBWarnings(value = "UWF_UNWRITTEN_FIELD", justification = "that field could have been deserialized from old <= 0.2")
     public String getFact() {
         String theFact;
         if (mFact != null) {
@@ -129,11 +140,27 @@ public final class RoundhouseAction implements Action, LastBuildAction {
     /**
      * Returns this action as a collection of all project actions.
      *
+     * Default jenkins behavior is to get the action on the last successful build (Stable or Unstable)
+     * while we want the last completed build (Stable, Unstable or Failure).
+     *
      * @return the project actions
      */
     @Override
     public Collection<? extends Action> getProjectActions() {
-        return Collections.singletonList(this);
+        if (mRun != null) {
+            return mRun.getParent().getLastCompletedBuild().getActions(RoundhouseAction.class);
+        } else {
+            return Collections.singletonList(this);
+        }
     }
 
+    @Override
+    public void onAttached(Run<?, ?> r) {
+        this.mRun = r;
+    }
+
+    @Override
+    public void onLoad(Run<?, ?> r) {
+        this.mRun = r;
+    }
 }
