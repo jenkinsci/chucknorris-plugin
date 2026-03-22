@@ -6,7 +6,7 @@ import hudson.model.Job;
 import hudson.model.Run;
 import junit.framework.TestCase;
 
-public class SecondRoundhouseActionTest extends TestCase {
+public class SecondRoundhouseActionTest {
 
     private RoundhouseAction action;
 
