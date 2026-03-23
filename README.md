@@ -18,11 +18,11 @@ or if need be by downloading the [latest .hpi](http://updates.jenkins-ci.org/lat
 
 ## Usage
 
-1.  After installing the plugin, go to job configuration page, a checkbox with the text _Activate Chuck Norris_ should appear.
+1.  After installing the plugin, open a job’s configuration page, click Add post-build action, and select Activate Chuck Norris.
 2.  Tick the checkbox and save the configuration.
     For a freestyle job, Chuck Norris image (along with a random quote) will appear on the job page.
 3.  Run a build. After it's completed, Chuck Norris image (and the random quote) should also appear on the build page.
-    This is applicable for both Freestyle, Maven and Jenkins Pipeline jobs.
+    This is applicable for both Freestyle, Maven, and Jenkins Pipeline jobs.
 
 ### Screenshots
 
