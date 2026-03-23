@@ -12,5 +12,5 @@
           padding-bottom: 270px !important;
         }
     </style>
-    <st:adjunct includes="hudson.plugins.chucknorris.RoundhouseAction.summary"/>
+    <st:adjunct includes="hudson.plugins.chucknorris.RoundhouseAction.summary-adjunct"/>
 </j:jelly>
