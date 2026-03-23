@@ -1,5 +1,6 @@
 package hudson.plugins.chucknorris;
 
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.eq;
 import static org.mockito.Mockito.mock;
@@ -7,20 +8,21 @@ import static org.mockito.Mockito.mock;
 import hudson.model.Job;
 import hudson.model.Run;
 import java.util.Arrays;
-import junit.framework.TestCase;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 
-public class RoundhouseActionTest extends TestCase {
+class RoundhouseActionTest {
 
     private RoundhouseAction action;
 
     private Run<?, ?> run;
     private RoundhouseAction lastBuildAction;
 
-    @Override
+    @BeforeEach
     @SuppressWarnings("rawtypes")
-    public void setUp() {
+    void setUp() {
         action = new RoundhouseAction(Style.BAD_ASS, "Chuck Norris can divide by zero.");
 
         run = mock(Run.class);
@@ -39,7 +41,8 @@ public class RoundhouseActionTest extends TestCase {
         given(lastRun.getActions(eq(RoundhouseAction.class))).willReturn(Arrays.asList(lastBuildAction));
     }
 
-    public void testGetProjectActionsFromLastProjectBuild() {
+    @Test
+    void testGetProjectActionsFromLastProjectBuild() {
         action.onAttached(run);
 
         assertNotNull(action.getProjectActions());

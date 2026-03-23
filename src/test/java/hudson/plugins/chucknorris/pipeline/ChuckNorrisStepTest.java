@@ -1,8 +1,6 @@
 package hudson.plugins.chucknorris.pipeline;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 
 import hudson.model.Result;
@@ -17,28 +15,35 @@ import org.jenkinsci.plugins.workflow.job.WorkflowRun;
 import org.jenkinsci.plugins.workflow.steps.StepContext;
 import org.jenkinsci.plugins.workflow.steps.StepExecution;
 import org.jenkinsci.plugins.workflow.test.steps.SemaphoreStep;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.jvnet.hudson.test.JenkinsRule;
+import org.jvnet.hudson.test.junit.jupiter.WithJenkins;
 
-public class ChuckNorrisStepTest {
-    @Rule
-    public JenkinsRule j = new JenkinsRule();
+@WithJenkins
+class ChuckNorrisStepTest {
+
+    private JenkinsRule j;
+
+    @BeforeEach
+    void setUp(JenkinsRule rule) {
+        j = rule;
+    }
 
     @Test
-    public void descriptorFunctionName() {
+    void descriptorFunctionName() {
         ChuckNorrisStep.DescriptorImpl descriptor = new ChuckNorrisStep.DescriptorImpl();
         assertEquals("chuckNorris", descriptor.getFunctionName());
     }
 
     @Test
-    public void descriptorDisplayName() {
+    void descriptorDisplayName() {
         ChuckNorrisStep.DescriptorImpl descriptor = new ChuckNorrisStep.DescriptorImpl();
         assertEquals("Submit to Chuck Norris' will", descriptor.getDisplayName());
     }
 
     @Test
-    public void descriptorRequiredContext() {
+    void descriptorRequiredContext() {
         ChuckNorrisStep.DescriptorImpl descriptor = new ChuckNorrisStep.DescriptorImpl();
         Set<? extends Class<?>> required = descriptor.getRequiredContext();
         assertTrue(required.contains(Run.class));
@@ -47,16 +52,16 @@ public class ChuckNorrisStepTest {
     }
 
     @Test
-    public void stepStartReturnsExecution() throws Exception {
+    void stepStartReturnsExecution() throws Exception {
         ChuckNorrisStep step = new ChuckNorrisStep();
         StepContext mockContext = mock(StepContext.class);
         StepExecution execution = step.start(mockContext);
         assertNotNull(execution);
-        assertTrue(execution instanceof ChuckNorrisStepExecution);
+        assertInstanceOf(ChuckNorrisStepExecution.class, execution);
     }
 
     @Test
-    public void badAssChuckNorris() throws Exception {
+    void badAssChuckNorris() throws Exception {
         WorkflowJob p = j.createProject(WorkflowJob.class, "p");
         p.setDefinition(new CpsFlowDefinition("chuckNorris()\n" + "semaphore 'wait'\n", true));
         WorkflowRun b1 = p.scheduleBuild2(0).waitForStart();
@@ -72,7 +77,7 @@ public class ChuckNorrisStepTest {
     }
 
     @Test
-    public void alertChuckNorris() throws Exception {
+    void alertChuckNorris() throws Exception {
         WorkflowJob p = j.createProject(WorkflowJob.class, "p");
         p.setDefinition(new CpsFlowDefinition("chuckNorris()\n" + "semaphore 'wait'\n", true));
         WorkflowRun b1 = p.scheduleBuild2(0).waitForStart();
@@ -89,7 +94,7 @@ public class ChuckNorrisStepTest {
     }
 
     @Test
-    public void thumbsUpChuckNorris() throws Exception {
+    void thumbsUpChuckNorris() throws Exception {
         WorkflowJob p = j.createProject(WorkflowJob.class, "p");
         p.setDefinition(new CpsFlowDefinition("chuckNorris()\n" + "semaphore 'wait'\n", true));
         WorkflowRun b1 = p.scheduleBuild2(0).waitForStart();
@@ -105,7 +110,7 @@ public class ChuckNorrisStepTest {
     }
 
     @Test
-    public void projectPageChuckNorris() throws Exception {
+    void projectPageChuckNorris() throws Exception {
         WorkflowJob p = j.createProject(WorkflowJob.class, "p");
         p.setDefinition(new CpsFlowDefinition("chuckNorris()\n" + "semaphore 'wait'\n", true));
         WorkflowRun b1 = p.scheduleBuild2(0).waitForStart();

@@ -1,24 +1,28 @@
 package hudson.plugins.chucknorris;
 
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 
 import hudson.model.AbstractProject;
-import junit.framework.TestCase;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-public class BeardDescriptorTest extends TestCase {
+class BeardDescriptorTest {
 
     private BeardDescriptor descriptor;
 
-    @Override
-    public void setUp() {
+    @BeforeEach
+    void setUp() {
         descriptor = new BeardDescriptor();
     }
 
-    public void testGetDisplayName() {
+    @Test
+    void testGetDisplayName() {
         assertEquals("Activate Chuck Norris", descriptor.getDisplayName());
     }
 
-    public void testIsApplicableGivesTrue() {
+    @Test
+    void testIsApplicableGivesTrue() {
         assertTrue(descriptor.isApplicable(mock(AbstractProject.class).getClass()));
     }
 }

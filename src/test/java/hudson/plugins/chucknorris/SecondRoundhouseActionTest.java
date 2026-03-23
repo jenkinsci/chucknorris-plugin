@@ -1,24 +1,21 @@
 package hudson.plugins.chucknorris;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.*;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-public class SecondRoundhouseActionTest {
+class SecondRoundhouseActionTest {
 
     private RoundhouseAction action;
 
-    @Before
-    public void setUp() {
+    @BeforeEach
+    void setUp() {
         action = new RoundhouseAction(Style.BAD_ASS, "Chuck Norris can divide by zero.");
     }
 
     @Test
-    public void testAccessors() {
+    void testAccessors() {
         assertEquals(Style.BAD_ASS, action.getStyle());
         assertEquals("Chuck Norris can divide by zero.", action.getFact());
         assertEquals("Chuck Norris", action.getDisplayName());
@@ -27,7 +24,7 @@ public class SecondRoundhouseActionTest {
     }
 
     @Test
-    public void testGetProjectActions() {
+    void testGetProjectActions() {
         assertNotNull(action.getProjectActions());
         assertEquals(1, action.getProjectActions().size());
         assertSame(action, action.getProjectActions().iterator().next());

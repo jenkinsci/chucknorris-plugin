@@ -1,27 +1,34 @@
 package hudson.plugins.chucknorris;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 import hudson.model.Result;
-import junit.framework.TestCase;
+import org.junit.jupiter.api.Test;
 
-public class StyleTest extends TestCase {
+class StyleTest {
 
-    public void testGetWithFailureResultGivesBadAssStyle() {
+    @Test
+    void testGetWithFailureResultGivesBadAssStyle() {
         assertEquals(Style.BAD_ASS, Style.get(Result.FAILURE));
     }
 
-    public void testGetWithSuccessResultGivesSuitupStyle() {
+    @Test
+    void testGetWithSuccessResultGivesSuitupStyle() {
         assertEquals(Style.THUMB_UP, Style.get(Result.SUCCESS));
     }
 
-    public void testGetWithAbortedResultGivesAlertStyle() {
+    @Test
+    void testGetWithAbortedResultGivesAlertStyle() {
         assertEquals(Style.ALERT, Style.get(Result.ABORTED));
     }
 
-    public void testGetWithNotBuiltResultGivesAlertStyle() {
+    @Test
+    void testGetWithNotBuiltResultGivesAlertStyle() {
         assertEquals(Style.ALERT, Style.get(Result.NOT_BUILT));
     }
 
-    public void testGetWithUnstableResultGivesAlertStyle() {
+    @Test
+    void testGetWithUnstableResultGivesAlertStyle() {
         assertEquals(Style.ALERT, Style.get(Result.UNSTABLE));
     }
 }

@@ -1,23 +1,23 @@
 package hudson.plugins.chucknorris;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 
 import hudson.model.Result;
 import hudson.model.Run;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-public class ThirdRoundhouseActionTest {
+class ThirdRoundhouseActionTest {
 
     private RoundhouseAction action;
 
     private Run<?, ?> run;
 
-    @Before
+    @BeforeEach
     @SuppressWarnings("rawtypes")
-    public void setUp() {
+    void setUp() {
         action = new RoundhouseAction(Style.BAD_ASS, "Chuck Norris can divide by zero.");
 
         run = mock(Run.class);
@@ -25,7 +25,7 @@ public class ThirdRoundhouseActionTest {
     }
 
     @Test
-    public void testGetStyleFromRunResult() {
+    void testGetStyleFromRunResult() {
         action.onAttached(run);
 
         assertEquals(Style.THUMB_UP, action.getStyle());
