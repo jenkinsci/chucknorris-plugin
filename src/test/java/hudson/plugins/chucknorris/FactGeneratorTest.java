@@ -1,17 +1,21 @@
 package hudson.plugins.chucknorris;
 
-import junit.framework.TestCase;
+import static org.junit.jupiter.api.Assertions.*;
 
-public class FactGeneratorTest extends TestCase {
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+class FactGeneratorTest {
 
     private FactGenerator generator;
 
-    @Override
-    public void setUp() {
+    @BeforeEach
+    void setUp() {
         generator = new FactGenerator();
     }
 
-    public void testRandomGivesAtLeast2Facts() {
+    @Test
+    void testRandomGivesAtLeast2Facts() {
         String lastFact = null;
         for (int i = 0; i < 1000000; i++) {
             String currFact = generator.random();
