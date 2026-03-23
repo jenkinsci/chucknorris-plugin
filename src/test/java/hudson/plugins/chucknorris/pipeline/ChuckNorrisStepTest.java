@@ -2,13 +2,20 @@ package hudson.plugins.chucknorris.pipeline;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.mock;
 
 import hudson.model.Result;
+import hudson.model.Run;
+import hudson.model.TaskListener;
 import hudson.plugins.chucknorris.RoundhouseAction;
 import hudson.plugins.chucknorris.Style;
+import java.util.Set;
 import org.jenkinsci.plugins.workflow.cps.CpsFlowDefinition;
 import org.jenkinsci.plugins.workflow.job.WorkflowJob;
 import org.jenkinsci.plugins.workflow.job.WorkflowRun;
+import org.jenkinsci.plugins.workflow.steps.StepContext;
+import org.jenkinsci.plugins.workflow.steps.StepExecution;
 import org.jenkinsci.plugins.workflow.test.steps.SemaphoreStep;
 import org.junit.Rule;
 import org.junit.Test;
@@ -17,6 +24,36 @@ import org.jvnet.hudson.test.JenkinsRule;
 public class ChuckNorrisStepTest {
     @Rule
     public JenkinsRule j = new JenkinsRule();
+
+    @Test
+    public void descriptorFunctionName() {
+        ChuckNorrisStep.DescriptorImpl descriptor = new ChuckNorrisStep.DescriptorImpl();
+        assertEquals("chuckNorris", descriptor.getFunctionName());
+    }
+
+    @Test
+    public void descriptorDisplayName() {
+        ChuckNorrisStep.DescriptorImpl descriptor = new ChuckNorrisStep.DescriptorImpl();
+        assertEquals("Submit to Chuck Norris' will", descriptor.getDisplayName());
+    }
+
+    @Test
+    public void descriptorRequiredContext() {
+        ChuckNorrisStep.DescriptorImpl descriptor = new ChuckNorrisStep.DescriptorImpl();
+        Set<? extends Class<?>> required = descriptor.getRequiredContext();
+        assertTrue(required.contains(Run.class));
+        assertTrue(required.contains(TaskListener.class));
+        assertEquals(2, required.size());
+    }
+
+    @Test
+    public void stepStartReturnsExecution() throws Exception {
+        ChuckNorrisStep step = new ChuckNorrisStep();
+        StepContext mockContext = mock(StepContext.class);
+        StepExecution execution = step.start(mockContext);
+        assertNotNull(execution);
+        assertTrue(execution instanceof ChuckNorrisStepExecution);
+    }
 
     @Test
     public void badAssChuckNorris() throws Exception {
