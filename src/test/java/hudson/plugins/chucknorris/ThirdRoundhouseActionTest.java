@@ -18,7 +18,7 @@ class ThirdRoundhouseActionTest {
     @BeforeEach
     @SuppressWarnings("rawtypes")
     void setUp() {
-        action = new RoundhouseAction(Style.BAD_ASS, "Chuck Norris can divide by zero.");
+        action = new RoundhouseAction(Style.BAD_ASS, 0);
 
         run = mock(Run.class);
         given(run.getResult()).willReturn(Result.SUCCESS);

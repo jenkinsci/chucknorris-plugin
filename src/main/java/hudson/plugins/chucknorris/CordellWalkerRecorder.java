@@ -139,7 +139,7 @@ public class CordellWalkerRecorder extends Recorder implements SimpleBuildStep {
      */
     public void perform(final Run<?, ?> run) {
         Style style = Style.get(run.getResult());
-        String fact = factGenerator.random();
-        run.addAction(new RoundhouseAction(style, fact));
+        int factIndex = factGenerator.randomIndex();
+        run.addAction(new RoundhouseAction(style, factIndex));
     }
 }

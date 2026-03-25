@@ -26,8 +26,11 @@ import hudson.model.Action;
 import hudson.model.Run;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Locale;
 import jenkins.model.RunAction2;
 import jenkins.tasks.SimpleBuildStep.LastBuildAction;
+import org.kohsuke.stapler.Stapler;
+import org.kohsuke.stapler.StaplerRequest2;
 
 /**
  * {@link RoundhouseAction} keeps the style and fact associated with the action.
@@ -59,6 +62,11 @@ public final class RoundhouseAction implements RunAction2, LastBuildAction {
     private String mFact;
 
     /**
+     * The fact index for locale-aware lookup. -1 means legacy (no index stored).
+     */
+    private Integer mFactIndex;
+
+    /**
      * The run
      */
     private transient Run<?, ?> mRun;
@@ -67,13 +75,13 @@ public final class RoundhouseAction implements RunAction2, LastBuildAction {
      * Constructs a RoundhouseAction with specified style and fact.
      * @param style
      *            the style
-     * @param fact
-     *            the fact
+     * @param factIndex
+     *            the fact index for locale-aware lookup
      */
-    public RoundhouseAction(final Style style, final String fact) {
+    public RoundhouseAction(final Style style, final int factIndex) {
         super();
         this.mStyle = style;
-        this.mFact = fact;
+        this.mFactIndex = factIndex;
     }
 
     /**
@@ -124,17 +132,30 @@ public final class RoundhouseAction implements RunAction2, LastBuildAction {
     }
 
     /**
+     * Gets the fact index for locale-aware lookup in Jelly templates.
+     * @return the fact index, or null for legacy builds
+     */
+    public Integer getFactIndex() {
+        return mFactIndex;
+    }
+
+    /**
      * Gets the Chuck Norris fact.
      * @return the fact
      */
     public String getFact() {
-        String theFact;
-        if (mFact != null) {
-            theFact = mFact;
-        } else {
-            theFact = fact;
+        if (mFactIndex != null) {
+            Locale locale = Locale.getDefault();
+            StaplerRequest2 req = Stapler.getCurrentRequest2();
+            if (req != null) {
+                locale = req.getLocale();
+            }
+            return FactGenerator.getFact(mFactIndex, locale);
         }
-        return theFact;
+        if (mFact != null) {
+            return mFact;
+        }
+        return fact;
     }
 
     /**

@@ -23,11 +23,11 @@ class RoundhouseActionTest {
     @BeforeEach
     @SuppressWarnings("rawtypes")
     void setUp() {
-        action = new RoundhouseAction(Style.BAD_ASS, "Chuck Norris can divide by zero.");
+        action = new RoundhouseAction(Style.BAD_ASS, 0);
 
         run = mock(Run.class);
 
-        lastBuildAction = new RoundhouseAction(Style.ALERT, "Chuck Norris went out of an infinite loop.");
+        lastBuildAction = new RoundhouseAction(Style.ALERT, 1);
         final Job job = mock(Job.class);
         Run<?, ?> lastRun = mock(Run.class);
 
@@ -53,7 +53,7 @@ class RoundhouseActionTest {
     @Test
     @SuppressWarnings("rawtypes")
     void testGetProjectActionsWhenNoCompletedBuild() {
-        RoundhouseAction actionWithNoCompletedBuild = new RoundhouseAction(Style.BAD_ASS, "fact");
+        RoundhouseAction actionWithNoCompletedBuild = new RoundhouseAction(Style.BAD_ASS, 0);
         Run<?, ?> runWithNoCompletedBuild = mock(Run.class);
         final Job jobWithNoCompletedBuild = mock(Job.class);
         given(runWithNoCompletedBuild.getParent()).willAnswer(new Answer<Job>() {

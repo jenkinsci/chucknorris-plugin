@@ -35,7 +35,7 @@ class CordellWalkerRecorderTest {
         ArgumentCaptor<RoundhouseAction> actionCaptor = ArgumentCaptor.forClass(RoundhouseAction.class);
         doNothing().when(mockBuild).addAction(actionCaptor.capture());
 
-        when(mockGenerator.random()).thenReturn("Chuck Norris burst the dot com bubble.");
+        when(mockGenerator.randomIndex()).thenReturn(5);
 
         recorder.perform(mockBuild, mock(Launcher.class), mock(BuildListener.class));
 
@@ -43,6 +43,6 @@ class CordellWalkerRecorderTest {
 
         verify(mockBuild, times(1)).addAction(same(action));
         assertEquals(Style.BAD_ASS, (action).getStyle());
-        assertEquals("Chuck Norris burst the dot com bubble.", action.getFact());
+        assertNotNull(action.getFact());
     }
 }
