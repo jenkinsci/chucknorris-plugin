@@ -49,4 +49,27 @@ class RoundhouseActionTest {
         assertEquals(1, action.getProjectActions().size());
         assertSame(lastBuildAction, action.getProjectActions().iterator().next());
     }
+
+    @Test
+    @SuppressWarnings("rawtypes")
+    void testGetProjectActionsWhenNoCompletedBuild() {
+        RoundhouseAction actionWithNoCompletedBuild = new RoundhouseAction(Style.BAD_ASS, "fact");
+        Run<?, ?> runWithNoCompletedBuild = mock(Run.class);
+        final Job jobWithNoCompletedBuild = mock(Job.class);
+        given(runWithNoCompletedBuild.getParent()).willAnswer(new Answer<Job>() {
+            @Override
+            public Job answer(InvocationOnMock invocation) throws Throwable {
+                return jobWithNoCompletedBuild;
+            }
+        });
+        given(jobWithNoCompletedBuild.getLastCompletedBuild()).willReturn(null);
+
+        actionWithNoCompletedBuild.onAttached(runWithNoCompletedBuild);
+
+        assertNotNull(actionWithNoCompletedBuild.getProjectActions());
+        assertEquals(1, actionWithNoCompletedBuild.getProjectActions().size());
+        assertSame(
+                actionWithNoCompletedBuild,
+                actionWithNoCompletedBuild.getProjectActions().iterator().next());
+    }
 }
