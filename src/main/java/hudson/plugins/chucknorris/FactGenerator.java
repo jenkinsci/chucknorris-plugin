@@ -32,39 +32,44 @@ import java.util.ResourceBundle;
  */
 public class FactGenerator {
 
-    private static final String BUNDLE_NAME = "hudson.plugins.chucknorris.facts";
+    private static final String BUNDLE_NAME = FactGenerator.class.getName();
 
-    private static final String[] FACTS;
-
-    static {
-        FACTS = loadFacts();
-    }
-
-    /**
-     * Random instance.
-     */
     private static final Random RANDOM = new Random();
 
-    private static String[] loadFacts() {
+    private static final int FACT_COUNT;
+
+    static {
+        int count;
         try {
             ResourceBundle bundle =
-                    ResourceBundle.getBundle(BUNDLE_NAME, Locale.getDefault(), FactGenerator.class.getClassLoader());
-            int count = Integer.parseInt(bundle.getString("fact.count"));
-            String[] facts = new String[count];
-            for (int i = 0; i < count; i++) {
-                facts[i] = bundle.getString("fact." + i);
-            }
-            return facts;
+                    ResourceBundle.getBundle(BUNDLE_NAME, Locale.ENGLISH, FactGenerator.class.getClassLoader());
+            count = Integer.parseInt(bundle.getString("fact.count"));
         } catch (MissingResourceException | NumberFormatException e) {
-            return new String[] {"Chuck Norris can divide by zero."};
+            count = 1;
         }
+        FACT_COUNT = count;
     }
 
     /**
-     * Retrieves a random fact.
-     * @return a random fact
+     * Retrieves a random fact index.
+     * @return a random index into the facts list
      */
-    public String random() {
-        return FACTS[RANDOM.nextInt(FACTS.length)];
+    public int randomIndex() {
+        return RANDOM.nextInt(FACT_COUNT);
+    }
+
+    /**
+     * Retrieves a fact by index for the given locale.
+     * @param index the fact index
+     * @param locale the locale to use for lookup
+     * @return the localized fact string
+     */
+    public static String getFact(int index, Locale locale) {
+        try {
+            ResourceBundle bundle = ResourceBundle.getBundle(BUNDLE_NAME, locale, FactGenerator.class.getClassLoader());
+            return bundle.getString("fact." + index);
+        } catch (MissingResourceException e) {
+            return "Chuck Norris can divide by zero.";
+        }
     }
 }

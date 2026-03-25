@@ -2,6 +2,7 @@ package hudson.plugins.chucknorris;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.Locale;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -15,35 +16,41 @@ class FactGeneratorTest {
     }
 
     @Test
-    void testRandomGivesAtLeast2Facts() {
-        String lastFact = null;
+    void testRandomIndexGivesAtLeast2Indices() {
+        int lastIndex = -1;
         for (int i = 0; i < 1000000; i++) {
-            String currFact = generator.random();
-            if (lastFact != null && !lastFact.equals(currFact)) {
+            int currIndex = generator.randomIndex();
+            if (lastIndex >= 0 && lastIndex != currIndex) {
                 return;
             }
-            lastFact = currFact;
+            lastIndex = currIndex;
         }
-        fail("Random should give at least 2 different facts in 1000000 tries.");
+        fail("randomIndex should give at least 2 different indices in 1000000 tries.");
     }
 
     @Test
-    void testFactsLoadedFromBundle() {
-        String fact = generator.random();
+    void testGetFactReturnsNonEmpty() {
+        String fact = FactGenerator.getFact(0, Locale.ENGLISH);
         assertNotNull(fact, "Fact should not be null");
         assertFalse(fact.isEmpty(), "Fact should not be empty");
     }
 
     @Test
+    void testGetFactReturnsItalian() {
+        String englishFact = FactGenerator.getFact(0, Locale.ENGLISH);
+        String italianFact = FactGenerator.getFact(0, Locale.ITALIAN);
+        assertNotEquals(englishFact, italianFact, "Italian fact should differ from English");
+    }
+
+    @Test
     void testAllFactsLoaded() {
-        // Collect unique facts over many iterations to verify multiple facts are loaded
-        java.util.Set<String> uniqueFacts = new java.util.HashSet<>();
+        java.util.Set<Integer> uniqueIndices = new java.util.HashSet<>();
         for (int i = 0; i < 10000000; i++) {
-            uniqueFacts.add(generator.random());
-            if (uniqueFacts.size() >= 82) {
+            uniqueIndices.add(generator.randomIndex());
+            if (uniqueIndices.size() >= 82) {
                 return;
             }
         }
-        fail("Expected 82 unique facts but only found " + uniqueFacts.size());
+        fail("Expected 82 unique fact indices but only found " + uniqueIndices.size());
     }
 }

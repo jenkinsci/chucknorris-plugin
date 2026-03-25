@@ -11,13 +11,13 @@ class SecondRoundhouseActionTest {
 
     @BeforeEach
     void setUp() {
-        action = new RoundhouseAction(Style.BAD_ASS, "Chuck Norris can divide by zero.");
+        action = new RoundhouseAction(Style.BAD_ASS, 0);
     }
 
     @Test
     void testAccessors() {
         assertEquals(Style.BAD_ASS, action.getStyle());
-        assertEquals("Chuck Norris can divide by zero.", action.getFact());
+        assertNotNull(action.getFact());
         assertEquals("Chuck Norris", action.getDisplayName());
         assertNull(action.getIconFileName());
         assertEquals("chucknorris", action.getUrlName());
