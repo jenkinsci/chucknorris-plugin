@@ -148,10 +148,12 @@ public final class RoundhouseAction implements RunAction2, LastBuildAction {
     @Override
     public Collection<? extends Action> getProjectActions() {
         if (mRun != null) {
-            return mRun.getParent().getLastCompletedBuild().getActions(RoundhouseAction.class);
-        } else {
-            return Collections.singletonList(this);
+            Run<?, ?> lastBuild = mRun.getParent().getLastCompletedBuild();
+            if (lastBuild != null) {
+                return lastBuild.getActions(RoundhouseAction.class);
+            }
         }
+        return Collections.singletonList(this);
     }
 
     @Override
