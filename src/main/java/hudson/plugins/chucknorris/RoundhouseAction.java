@@ -75,8 +75,8 @@ public final class RoundhouseAction implements RunAction2, LastBuildAction {
      * Constructs a RoundhouseAction with specified style and fact.
      * @param style
      *            the style
-     * @param fact
-     *            the fact
+     * @param factIndex
+     *            the fact index for locale-aware lookup
      */
     public RoundhouseAction(final Style style, final int factIndex) {
         super();
