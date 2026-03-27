@@ -65,7 +65,9 @@ See [GitHub Releases](https://github.com/jenkinsci/chucknorris-plugin/releases).
 Facts are displayed in the user's browser locale when available. Supported languages:
 
 - English (default)
+- German
 - Italian
+- Slovak
 
 Contributions of new translations are welcome — see the `FactGenerator.properties` files under `src/main/resources`.
 

@@ -50,6 +50,13 @@ class FactGeneratorTest {
     }
 
     @Test
+    void testGetFactReturnsSlovak() {
+        String englishFact = FactGenerator.getFact(0, Locale.ENGLISH);
+        String slovakFact = FactGenerator.getFact(0, new Locale("sk"));
+        assertNotEquals(englishFact, slovakFact, "Slovak fact should differ from English");
+    }
+
+    @Test
     void testAllFactsLoaded() {
         java.util.Set<Integer> uniqueIndices = new java.util.HashSet<>();
         for (int i = 0; i < 10000000; i++) {
