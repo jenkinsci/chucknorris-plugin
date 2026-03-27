@@ -13,16 +13,38 @@ Why not you?
 
 ## Download & Installation
 
-You can preferably install this plugin directly from the Plugins Update Center,
-or if need be by downloading the [latest .hpi](http://updates.jenkins-ci.org/latest/chucknorris.hpi) and install it from the _Manage Plugins_ menu.
+Install this plugin from the Jenkins Plugin Manager (_Manage Jenkins > Plugins > Available plugins_),
+or download the [latest .hpi](https://updates.jenkins.io/latest/chucknorris.hpi) and upload it via _Manage Jenkins > Plugins > Advanced settings_.
 
 ## Usage
 
-1.  After installing the plugin, open a job’s configuration page, click Add post-build action, and select Activate Chuck Norris.
-2.  Tick the checkbox and save the configuration.
-    For a freestyle job, Chuck Norris image (along with a random quote) will appear on the job page.
-3.  Run a build. After it's completed, Chuck Norris image (and the random quote) should also appear on the build page.
-    This is applicable for both Freestyle, Maven, and Jenkins Pipeline jobs.
+### Freestyle / Maven jobs
+
+1.  Open the job’s configuration page, click **Add post-build action**, and select **Activate Chuck Norris**.
+2.  Save the configuration.
+3.  Run a build. After it completes, Chuck Norris (along with a random quote) will appear on the job and build pages.
+
+### Pipeline jobs
+
+Add the `chuckNorris()` step to your Jenkinsfile:
+
+```groovy
+pipeline {
+    agent any
+    stages {
+        stage(‘Build’) {
+            steps {
+                echo ‘Building...’
+            }
+        }
+    }
+    post {
+        always {
+            chuckNorris()
+        }
+    }
+}
+```
 
 ### Screenshots
 
@@ -36,9 +58,18 @@ See [GitHub Releases](https://github.com/jenkinsci/chucknorris-plugin/releases).
 
 ## Testimonials
 
--   Uncle Bob Martin said ChuckNorris Plugin [is *very* motivating](http://twitter.com/unclebobmartin/statuses/10741488856).
+-   Uncle Bob Martin said ChuckNorris Plugin [is *very* motivating](https://x.com/unclebobmartin/status/10741488856).
+
+## Localization
+
+Facts are displayed in the user's browser locale when available. Supported languages:
+
+- English (default)
+- Italian
+
+Contributions of new translations are welcome — see the `FactGenerator.properties` files under `src/main/resources`.
 
 ## Credits
 
-* [Chuck Norris 'The Programmer' facts](http://www.codesqueeze.com/the-ultimate-top-25-chuck-norris-the-programmer-jokes)
+* [Chuck Norris 'The Programmer' facts](https://web.archive.org/web/2020/http://www.codesqueeze.com/the-ultimate-top-25-chuck-norris-the-programmer-jokes)
 * [Emotional Jenkins Plugin](https://plugins.jenkins.io/emotional-jenkins-plugin/).
