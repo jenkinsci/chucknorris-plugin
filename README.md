@@ -73,3 +73,11 @@ Contributions of new translations are welcome — see the `FactGenerator.propert
 
 * [Chuck Norris 'The Programmer' facts](https://web.archive.org/web/2020/http://www.codesqueeze.com/the-ultimate-top-25-chuck-norris-the-programmer-jokes)
 * [Emotional Jenkins Plugin](https://plugins.jenkins.io/emotional-jenkins-plugin/).
+
+## Maintainer
+
+This plugin is actively maintained. Co-contributors and feedback are welcome — please open an issue or pull request.
+
+---
+
+[Jenkins community](https://www.jenkins.io/participate/) • [Report a bug](https://github.com/jenkinsci/chucknorris-plugin/issues)
