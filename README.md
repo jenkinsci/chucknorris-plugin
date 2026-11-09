@@ -4,12 +4,27 @@
 [![GitHub release](https://img.shields.io/github/release/jenkinsci/chucknorris-plugin.svg?label=changelog)](https://github.com/jenkinsci/chucknorris-plugin/releases/latest)
 [![Jenkins Plugin Installs](https://img.shields.io/jenkins/plugin/i/chucknorris.svg?color=blue)](https://plugins.jenkins.io/chucknorris)
 
+## What it is ? 
+
 This plugin adds an absolutely delightful feature to Jenkins:
 depending if your build succeeds, fails, or is unstable,
 it will show a picture of Chuck Norris *auto-adapting* (that's right, computer science it is!) to the build result!
 
 Seeing that, already many thousands (yes, *thousands*!) of people have decided to take the plunge and install this plugin to finally see the light.
 Why not you?
+
+## Table of Contents
+
+- [Download & Installation](#download--installation)
+- [Usage](#usage)
+  - [Freestyle / Maven Jobs](#freestyle--maven-jobs)
+  - [Pipeline Jobs](#pipeline-jobs)
+- [Screenshots](#screenshots)
+- [Release Notes](#release-notes)
+- [Testimonials](#testimonials)
+- [Localization](#localization)
+- [Credits](#credits)
+- [Maintainer](#maintainer)
 
 ## Download & Installation
 
