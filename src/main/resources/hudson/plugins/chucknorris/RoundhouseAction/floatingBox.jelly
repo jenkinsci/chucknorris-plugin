@@ -1,13 +1,8 @@
 <?jelly escape-by-default='true'?>
-<j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:d="jelly:define" xmlns:l="/lib/layout" xmlns:t="/lib/hudson" xmlns:f="/lib/form" xmlns:i="jelly:fmt" xmlns:local="local">
-    <img src="${rootURL}/plugin/chucknorris/images/icon.jpg" width="16" height="16" alt="${from.displayName} Icon"/><st:nbsp/><j:out value="${from.fact}"/>
-    <style>
-        .chuck-style {
-          background-image: url(${rootURL}/plugin/chucknorris/images/<j:out value="${from.style.toString().toLowerCase()}"/>.png);
-          background-repeat: no-repeat;
-          background-position: bottom right;
-          padding-bottom: 270px !important;
-        }
-    </style>
-    <st:adjunct includes="hudson.plugins.chucknorris.RoundhouseAction.floatingBox-adjunct"/>
+<j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler">
+    <link rel="stylesheet" type="text/css" href="${resURL}/plugin/chucknorris/css/chucknorris.css"/>
+    <img src="${resURL}/plugin/chucknorris/images/icon.png" width="16" height="16" alt="${from.displayName}"/>
+    <st:nbsp/>
+    <span class="chuck-norris-marker" data-chuck-style="${from.style.cssClass}">${from.fact}</span>
+    <st:adjunct includes="hudson.plugins.chucknorris.RoundhouseAction.chucknorris"/>
 </j:jelly>

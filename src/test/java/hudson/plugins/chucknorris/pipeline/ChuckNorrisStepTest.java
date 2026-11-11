@@ -6,8 +6,10 @@ import static org.mockito.Mockito.mock;
 import hudson.model.Result;
 import hudson.model.Run;
 import hudson.model.TaskListener;
+import hudson.plugins.chucknorris.FactGenerator;
 import hudson.plugins.chucknorris.RoundhouseAction;
 import hudson.plugins.chucknorris.Style;
+import java.util.Locale;
 import java.util.Set;
 import org.jenkinsci.plugins.workflow.cps.CpsFlowDefinition;
 import org.jenkinsci.plugins.workflow.job.WorkflowJob;
@@ -141,5 +143,66 @@ class ChuckNorrisStepTest {
         RoundhouseAction projectAction = p.getAction(RoundhouseAction.class);
         assertEquals(Style.BAD_ASS, projectAction.getStyle());
         assertNotNull(projectAction.getFact());
+    }
+
+    @Test
+    void stepReturnsFactAndPrintsItToTheLog() throws Exception {
+        WorkflowJob p = j.createProject(WorkflowJob.class, "p");
+        p.setDefinition(new CpsFlowDefinition("def fact = chuckNorris()\necho \"RETURNED=${fact}\"\n", true));
+        WorkflowRun b1 = j.buildAndAssertSuccess(p);
+
+        String fact = FactGenerator.getFact(b1.getAction(RoundhouseAction.class).getFactIndex(), Locale.getDefault());
+        j.assertLogContains("Chuck Norris says: " + fact, b1);
+        j.assertLogContains("RETURNED=" + fact, b1);
+    }
+
+    @Test
+    void callingTheStepTwiceKeepsASingleAction() throws Exception {
+        WorkflowJob p = j.createProject(WorkflowJob.class, "p");
+        p.setDefinition(new CpsFlowDefinition("chuckNorris()\nchuckNorris()\n", true));
+        WorkflowRun b1 = j.buildAndAssertSuccess(p);
+
+        assertEquals(1, b1.getActions(RoundhouseAction.class).size());
+        assertEquals(Style.THUMB_UP, b1.getAction(RoundhouseAction.class).getStyle());
+    }
+
+    @Test
+    void disappointedChuckNorrisWhenAborted() throws Exception {
+        WorkflowJob p = j.createProject(WorkflowJob.class, "p");
+        p.setDefinition(new CpsFlowDefinition("chuckNorris()\n" + "semaphore 'wait'\n", true));
+        WorkflowRun b1 = p.scheduleBuild2(0).waitForStart();
+        SemaphoreStep.waitForStart("wait/1", b1);
+        b1.doStop();
+
+        j.waitForCompletion(b1);
+        j.assertBuildStatus(Result.ABORTED, b1);
+        assertEquals(Style.DISAPPOINTED, b1.getAction(RoundhouseAction.class).getStyle());
+    }
+
+    @Test
+    void declarativePostAlwaysReflectsFinalResult() throws Exception {
+        WorkflowJob p = j.createProject(WorkflowJob.class, "p");
+        p.setDefinition(new CpsFlowDefinition("""
+                pipeline {
+                    agent none
+                    stages {
+                        stage('Build') {
+                            steps {
+                                error 'boom'
+                            }
+                        }
+                    }
+                    post {
+                        always {
+                            chuckNorris()
+                        }
+                    }
+                }
+                """, true));
+        WorkflowRun b1 = j.buildAndAssertStatus(Result.FAILURE, p);
+
+        assertEquals(1, b1.getActions(RoundhouseAction.class).size());
+        assertEquals(Style.BAD_ASS, b1.getAction(RoundhouseAction.class).getStyle());
+        j.assertLogContains("Chuck Norris says: ", b1);
     }
 }

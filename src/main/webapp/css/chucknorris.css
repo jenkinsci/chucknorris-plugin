@@ -1,0 +1,50 @@
+/*
+ * Chuck Norris plugin styles.
+ *
+ * The plugin adds .chuck-style plus one modifier class (from Style#getCssClass)
+ * to Jenkins' #main-panel. Each modifier picks the image for that build result.
+ *
+ * To swap in new artwork, replace the file under src/main/webapp/images/ (or
+ * point the url() below at a new file). Images of any resolution are scaled
+ * down to --chuck-image-height, so high-resolution art is fine.
+ */
+:root {
+  --chuck-image-height: min(268px, 40vh);
+}
+
+.chuck-style {
+  background-repeat: no-repeat;
+  background-position: bottom right;
+  background-size: auto var(--chuck-image-height);
+  /* Leave room under the page content so the image never covers it. */
+  padding-bottom: calc(var(--chuck-image-height) + 1rem);
+}
+
+.chuck-style--thumb_up {
+  background-image: url("../images/thumb_up.png");
+}
+
+.chuck-style--alert {
+  background-image: url("../images/alert.png");
+}
+
+.chuck-style--bad_ass {
+  background-image: url("../images/bad_ass.png");
+}
+
+/* Aborted / not built. */
+.chuck-style--disappointed {
+  background-image: url("../images/disappointed.png");
+}
+
+.chuck-fact {
+  vertical-align: middle;
+}
+
+/* On narrow screens the image would crowd the content, so only show the fact. */
+@media (max-width: 768px) {
+  .chuck-style {
+    background-image: none;
+    padding-bottom: 0;
+  }
+}

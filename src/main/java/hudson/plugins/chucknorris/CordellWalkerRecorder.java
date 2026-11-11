@@ -31,6 +31,7 @@ import hudson.model.TaskListener;
 import hudson.tasks.BuildStepMonitor;
 import hudson.tasks.Recorder;
 import java.io.IOException;
+import java.util.Locale;
 import java.util.logging.Logger;
 import jenkins.tasks.SimpleBuildStep;
 import org.kohsuke.stapler.DataBoundConstructor;
@@ -92,7 +93,7 @@ public class CordellWalkerRecorder extends Recorder implements SimpleBuildStep {
     @Override
     public final boolean perform(final AbstractBuild<?, ?> build, final Launcher launcher, final BuildListener listener)
             throws InterruptedException, IOException {
-        perform(build);
+        perform(build, listener);
         return true;
     }
 
@@ -119,7 +120,7 @@ public class CordellWalkerRecorder extends Recorder implements SimpleBuildStep {
             @NonNull final Launcher launcher,
             @NonNull final TaskListener listener)
             throws InterruptedException, IOException {
-        perform(run);
+        perform(run, listener);
     }
 
     /**
@@ -138,8 +139,28 @@ public class CordellWalkerRecorder extends Recorder implements SimpleBuildStep {
      *            the run
      */
     public void perform(final Run<?, ?> run) {
+        perform(run, null);
+    }
+
+    /**
+     * Adds a RoundhouseAction to the run, replacing any earlier one so that
+     * calling the step more than once still shows a single fact, and prints
+     * the fact to the build log.
+     * @param run
+     *            the run
+     * @param listener
+     *            the listener to print the fact to, may be {@code null}
+     * @return the fact, in the controller's default locale
+     */
+    public String perform(final Run<?, ?> run, final TaskListener listener) {
         Style style = Style.get(run.getResult());
         int factIndex = factGenerator.randomIndex();
+        run.removeActions(RoundhouseAction.class);
         run.addAction(new RoundhouseAction(style, factIndex));
+        String fact = FactGenerator.getFact(factIndex, Locale.getDefault());
+        if (listener != null) {
+            listener.getLogger().println("Chuck Norris says: " + fact);
+        }
+        return fact;
     }
 }

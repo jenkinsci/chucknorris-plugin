@@ -22,6 +22,7 @@
 package hudson.plugins.chucknorris;
 
 import hudson.model.Result;
+import java.util.Locale;
 
 /**
  * This class provides various Chuck Norris' styles.
@@ -40,7 +41,11 @@ public enum Style {
     /**
      * A total bad ass Chuck Norris ready to give you a good ass whoopin'.
      */
-    BAD_ASS;
+    BAD_ASS,
+    /**
+     * A disappointed Chuck Norris, for builds that were aborted or never built.
+     */
+    DISAPPOINTED;
 
     /**
      * Gets the style corresponding to the build result.
@@ -54,9 +59,19 @@ public enum Style {
             style = BAD_ASS;
         } else if (Result.SUCCESS.equals(result)) {
             style = THUMB_UP;
+        } else if (Result.ABORTED.equals(result) || Result.NOT_BUILT.equals(result)) {
+            style = DISAPPOINTED;
         } else {
             style = ALERT;
         }
         return style;
+    }
+
+    /**
+     * Gets the CSS modifier class used to pick the background image for this style.
+     * @return the CSS class, e.g. {@code chuck-style--bad_ass}
+     */
+    public String getCssClass() {
+        return "chuck-style--" + name().toLowerCase(Locale.ROOT);
     }
 }

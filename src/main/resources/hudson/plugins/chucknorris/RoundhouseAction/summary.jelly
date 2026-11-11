@@ -1,16 +1,13 @@
 <?jelly escape-by-default='true'?>
-<j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:d="jelly:define" xmlns:l="/lib/layout" xmlns:t="/lib/hudson" xmlns:f="/lib/form" xmlns:i="jelly:fmt" xmlns:local="local">
+<j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler">
     <tr>
-        <td><img src="${rootURL}/plugin/chucknorris/images/icon.jpg" width="48" height="48" alt="${it.displayName} Icon"/></td>
-        <td style="vertical-align:middle"><j:out value="${it.fact}"/></td>
+        <td>
+            <link rel="stylesheet" type="text/css" href="${resURL}/plugin/chucknorris/css/chucknorris.css"/>
+            <img src="${resURL}/plugin/chucknorris/images/icon.png" width="48" height="48" alt="${it.displayName}"/>
+        </td>
+        <td class="chuck-fact">
+            <span class="chuck-norris-marker" data-chuck-style="${it.style.cssClass}">${it.fact}</span>
+        </td>
     </tr>
-    <style>
-        .chuck-style {
-          background-image: url(${rootURL}/plugin/chucknorris/images/<j:out value="${it.style.toString().toLowerCase()}"/>.png);
-          background-repeat: no-repeat;
-          background-position: bottom right;
-          padding-bottom: 270px !important;
-        }
-    </style>
-    <st:adjunct includes="hudson.plugins.chucknorris.RoundhouseAction.summary-adjunct"/>
+    <st:adjunct includes="hudson.plugins.chucknorris.RoundhouseAction.chucknorris"/>
 </j:jelly>
