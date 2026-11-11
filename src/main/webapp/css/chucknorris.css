@@ -32,9 +32,9 @@
   background-image: url("../images/bad_ass.png");
 }
 
-/* Aborted / not built. TODO: replace with dedicated "disappointed" artwork. */
+/* Aborted / not built. */
 .chuck-style--disappointed {
-  background-image: url("../images/alert.png");
+  background-image: url("../images/disappointed.png");
 }
 
 .chuck-fact {
