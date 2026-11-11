@@ -4,6 +4,10 @@
 [![GitHub release](https://img.shields.io/github/release/jenkinsci/chucknorris-plugin.svg?label=changelog)](https://github.com/jenkinsci/chucknorris-plugin/releases/latest)
 [![Jenkins Plugin Installs](https://img.shields.io/jenkins/plugin/i/chucknorris.svg?color=blue)](https://plugins.jenkins.io/chucknorris)
 
+<a href="https://jenkins.io">
+    <img width="400" src="https://www.jenkins.io/images/jenkins-logo-title-dark.svg" alt="Jenkins logo"> 
+</a>
+
 ## What it is
 
 This plugin adds an absolutely delightful feature to Jenkins:
