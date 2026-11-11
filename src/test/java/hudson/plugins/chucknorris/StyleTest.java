@@ -18,13 +18,24 @@ class StyleTest {
     }
 
     @Test
-    void testGetWithAbortedResultGivesAlertStyle() {
-        assertEquals(Style.ALERT, Style.get(Result.ABORTED));
+    void testGetWithAbortedResultGivesDisappointedStyle() {
+        assertEquals(Style.DISAPPOINTED, Style.get(Result.ABORTED));
     }
 
     @Test
-    void testGetWithNotBuiltResultGivesAlertStyle() {
-        assertEquals(Style.ALERT, Style.get(Result.NOT_BUILT));
+    void testGetWithNotBuiltResultGivesDisappointedStyle() {
+        assertEquals(Style.DISAPPOINTED, Style.get(Result.NOT_BUILT));
+    }
+
+    @Test
+    void testGetWithNoResultYetGivesAlertStyle() {
+        assertEquals(Style.ALERT, Style.get(null));
+    }
+
+    @Test
+    void testCssClass() {
+        assertEquals("chuck-style--bad_ass", Style.BAD_ASS.getCssClass());
+        assertEquals("chuck-style--disappointed", Style.DISAPPOINTED.getCssClass());
     }
 
     @Test

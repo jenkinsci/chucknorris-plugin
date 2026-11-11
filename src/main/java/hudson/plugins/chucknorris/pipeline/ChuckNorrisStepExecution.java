@@ -6,7 +6,7 @@ import hudson.plugins.chucknorris.CordellWalkerRecorder;
 import org.jenkinsci.plugins.workflow.steps.StepContext;
 import org.jenkinsci.plugins.workflow.steps.SynchronousNonBlockingStepExecution;
 
-public class ChuckNorrisStepExecution extends SynchronousNonBlockingStepExecution<Void> {
+public class ChuckNorrisStepExecution extends SynchronousNonBlockingStepExecution<String> {
 
     /** serialVersionUID. */
     private static final long serialVersionUID = 1L;
@@ -15,16 +15,18 @@ public class ChuckNorrisStepExecution extends SynchronousNonBlockingStepExecutio
         super(context);
     }
 
+    /**
+     * Attaches Chuck Norris to the run and prints the fact to the build log.
+     * @return the fact, so pipelines can use it, e.g. {@code def fact = chuckNorris()}
+     */
     @Override
-    protected Void run() throws Exception {
+    protected String run() throws Exception {
         TaskListener listener = getContext().get(TaskListener.class);
         Run<?, ?> run = getContext().get(Run.class);
 
         listener.getLogger().println("Submitting to Chuck's will");
 
         CordellWalkerRecorder recorder = new CordellWalkerRecorder();
-        recorder.perform(run);
-
-        return null;
+        return recorder.perform(run, listener);
     }
 }

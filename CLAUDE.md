@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Build Commands
 
-**Requires JDK 17+** (CI tests on JDK 17 and 21)
+**Requires JDK 21+** (Jenkins baseline 2.568 targets Java 21; CI tests on JDK 21 and 25). Do not override `maven.compiler.release` — the parent POM derives it from the Jenkins baseline.
 
 ```bash
 mvn clean verify          # Full build + tests + SpotBugs + Spotless check
@@ -31,7 +31,7 @@ This is a Jenkins plugin (HPI packaging) that displays a Chuck Norris fact and i
 - **Freestyle/Maven jobs:** `CordellWalkerRecorder` (extends `Recorder`, implements `SimpleBuildStep`) -- configured as a post-build action via `BeardDescriptor`
 - **Pipeline jobs:** `ChuckNorrisStep` -- invoked as `chuckNorris()` in Jenkinsfiles, delegates to `ChuckNorrisStepExecution` which creates a `CordellWalkerRecorder`
 
-**Core flow:** Both paths create a `RoundhouseAction` attached to the build run. This action stores a random fact index and a `Style` (THUMB_UP/ALERT/BAD_ASS based on build result). Jelly templates (`summary.jelly`, `floatingBox.jelly`) render the image and fact on build/project pages.
+**Core flow:** Both paths create a `RoundhouseAction` attached to the build run. This action stores a random fact index and a `Style` (THUMB_UP/ALERT/BAD_ASS/DISAPPOINTED based on build result). Jelly templates (`summary.jelly`, `floatingBox.jelly`) render the fact; the shared `chucknorris.js` adjunct adds `chuck-style` plus `Style#getCssClass()` to `#main-panel`, and `src/main/webapp/css/chucknorris.css` maps each class to its image. Keep the views free of inline `<style>`/`style=` (Jenkins CSP). To change artwork, replace the files in `src/main/webapp/images/` or update the `url()` in the CSS.
 
 **Gotcha:** `RoundhouseAction` has legacy fields (`style`, `fact`) for backward compatibility with v0.2 serialized data — do not remove them even though they appear unused.
 
@@ -43,7 +43,7 @@ Use the `/add-translation <language>` skill to automate this entire workflow, in
 
 **Manual steps:**
 1. Create `src/main/resources/hudson/plugins/chucknorris/FactGenerator_XX.properties` (XX = locale code)
-2. Include `fact.count=82` and keys `fact.0` through `fact.81` with Unicode-escaped diacritics
+2. Include `fact.count=102` and keys `fact.0` through `fact.101` with Unicode-escaped diacritics
 3. Verify translation quality via Google Translate back-translation (use `.claude/skills/add-translation/scripts/back_translate.py`) — Claude's own back-translation has blind spots since the same model can make consistent errors in both directions
 4. Add a test in `FactGeneratorTest` verifying the new locale differs from English
 5. Update the Localization section in `README.md`
@@ -56,6 +56,6 @@ Use the `/add-translation <language>` skill to automate this entire workflow, in
 
 ## CI
 
-- **Jenkinsfile:** `buildPlugin()` on Linux (JDK 21) and Windows (JDK 17)
+- **Jenkinsfile:** `buildPlugin()` on Linux (JDK 25) and Windows (JDK 21)
 - **GitHub Actions:** `cd.yaml` for continuous delivery, `jenkins-security-scan.yml` for security scanning
 - **Renovate** manages dependency updates via `jenkinsci/renovate-config`

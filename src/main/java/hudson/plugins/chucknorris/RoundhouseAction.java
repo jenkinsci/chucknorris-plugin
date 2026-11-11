@@ -62,7 +62,7 @@ public final class RoundhouseAction implements RunAction2, LastBuildAction {
     private String mFact;
 
     /**
-     * The fact index for locale-aware lookup. -1 means legacy (no index stored).
+     * The fact index for locale-aware lookup. {@code null} means legacy (no index stored).
      */
     private Integer mFactIndex;
 

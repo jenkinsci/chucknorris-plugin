@@ -27,7 +27,7 @@ Before doing any work, validate the user's request:
 2. **If multiple ResourceBundle families exist**, list them and ask the user which one to translate.
 
 3. **Parse the base file** to determine:
-   - Total number of translatable entries (skip metadata keys whose values are just numbers, like `fact.count=82`)
+   - Total number of translatable entries (skip metadata keys whose values are just numbers, like `fact.count=102`)
    - Key naming pattern (e.g., `fact.0` through `fact.81`)
    - Any special escaping conventions (`\=`, `\:`)
 
@@ -55,7 +55,7 @@ Before doing any work, validate the user's request:
    - Preserve proper nouns and technical terms (e.g., `NP-Hard`, `RSA`, `GOTO`)
    - Maintain humor, puns, and wordplay. When a pun is language-specific (e.g., "expressions" meaning both facial expressions and regular expressions), find the closest equivalent in the target language that preserves the double meaning
 
-4. Include any metadata keys unchanged (e.g., `fact.count=82`).
+4. Include any metadata keys unchanged (e.g., `fact.count=102`).
 
 ## Phase 3: Back-Translation Verification
 

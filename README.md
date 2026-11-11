@@ -4,7 +4,7 @@
 [![GitHub release](https://img.shields.io/github/release/jenkinsci/chucknorris-plugin.svg?label=changelog)](https://github.com/jenkinsci/chucknorris-plugin/releases/latest)
 [![Jenkins Plugin Installs](https://img.shields.io/jenkins/plugin/i/chucknorris.svg?color=blue)](https://plugins.jenkins.io/chucknorris)
 
-## What it is ? 
+## What it is
 
 This plugin adds an absolutely delightful feature to Jenkins:
 depending if your build succeeds, fails, or is unstable,
@@ -47,9 +47,9 @@ Add the `chuckNorris()` step to your Jenkinsfile:
 pipeline {
     agent any
     stages {
-        stage(‘Build’) {
+        stage('Build') {
             steps {
-                echo ‘Building...’
+                echo 'Building...'
             }
         }
     }
@@ -60,6 +60,31 @@ pipeline {
     }
 }
 ```
+
+Put `chuckNorris()` in `post { always { ... } }` so Chuck reacts to the final build result.
+Calling the step more than once in a run is fine: the latest call replaces the earlier fact.
+
+The step prints the fact to the build log and returns it, so you can reuse it elsewhere:
+
+```groovy
+post {
+    always {
+        script {
+            def fact = chuckNorris()
+            echo "Today's wisdom: ${fact}"
+        }
+    }
+}
+```
+
+### Moods
+
+| Build result          | Chuck's mood                 |
+|-----------------------|------------------------------|
+| Success               | Thumbs up                    |
+| Unstable / running    | Alert                        |
+| Failure               | Bad ass                      |
+| Aborted / not built   | Disappointed                 |
 
 ### Screenshots
 
