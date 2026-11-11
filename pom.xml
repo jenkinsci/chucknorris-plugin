@@ -18,7 +18,7 @@
   <name>ChuckNorris Plugin</name>
   <description>Displays a picture of Chuck Norris (instead of Jenkins the butler) and a random Chuck Norris 'The Programmer' fact on each build page.</description>
 
-  <url>https://github.com/jenkinsci/chucknorris-plugin</url>
+  <url>https://github.com/jenkinsci/${project.artifactId}-plugin</url>
 
   <licenses>
     <license>
