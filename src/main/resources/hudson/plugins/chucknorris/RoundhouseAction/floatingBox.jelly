@@ -1,8 +1,9 @@
 <?jelly escape-by-default='true'?>
 <j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler">
     <link rel="stylesheet" type="text/css" href="${resURL}/plugin/chucknorris/css/chucknorris.css"/>
-    <img src="${resURL}/plugin/chucknorris/images/icon.png" width="16" height="16" alt="${from.displayName}"/>
-    <st:nbsp/>
-    <span class="chuck-norris-marker" data-chuck-style="${from.style.cssClass}">${from.fact}</span>
+    <div class="chuck-floating">
+        <img src="${resURL}/plugin/chucknorris/images/icon.png" width="16" height="16" alt="${from.displayName}"/>
+        <span class="chuck-norris-marker" data-chuck-style="${from.style.cssClass}">${from.fact}</span>
+    </div>
     <st:adjunct includes="hudson.plugins.chucknorris.RoundhouseAction.chucknorris"/>
 </j:jelly>
