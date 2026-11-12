@@ -12,12 +12,18 @@
   --chuck-image-height: min(268px, 40vh);
 }
 
-.chuck-style {
+/*
+ * "#main-panel.chuck-style" (id + class) is needed to win over Jenkins' own
+ * "#main-panel { padding: ... }" rule; a plain class selector loses, the
+ * reserved space disappears and the image slides under the page content.
+ */
+#main-panel.chuck-style {
   background-repeat: no-repeat;
-  background-position: bottom right;
+  /* Align with the content's right edge instead of the panel's outer edge. */
+  background-position: right var(--section-padding, 1.6rem) bottom;
   background-size: auto var(--chuck-image-height);
   /* Leave room under the page content so the image never covers it. */
-  padding-bottom: calc(var(--chuck-image-height) + 1rem);
+  padding-bottom: calc(var(--chuck-image-height) + var(--section-padding, 1.6rem));
 }
 
 .chuck-style--thumb_up {
@@ -41,9 +47,17 @@
   vertical-align: middle;
 }
 
+/* Project page: keep the fact on its own line, clear of the next heading. */
+.chuck-floating {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: var(--section-padding, 1.6rem);
+}
+
 /* On narrow screens the image would crowd the content, so only show the fact. */
 @media (max-width: 768px) {
-  .chuck-style {
+  #main-panel.chuck-style {
     background-image: none;
     padding-bottom: 0;
   }
