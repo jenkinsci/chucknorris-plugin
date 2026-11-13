@@ -1,0 +1,169 @@
+
+# Automatically classify pull requests by title and branch.
+# Uses labels compatible with Release Drafter.
+name: Auto-label PR
+
+on:
+  pull_request_target:
+    types: [opened, edited, synchronize, reopened]
+
+permissions:
+  contents: read
+  pull-requests: write
+  issues: write
+
+jobs:
+  auto-label:
+    name: Auto-label
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Apply PR labels
+        uses: actions/github-script@v9
+        with:
+          script: |
+            const pr = context.payload.pull_request;
+            const title = pr.title.toLowerCase();
+            const branch = pr.head.ref.toLowerCase();
+
+            const labels = new Set();
+
+            console.log(`PR #${pr.number}: ${pr.title}`);
+            console.log(`Branch: ${branch}`);
+
+            // Breaking changes
+            if (
+              title.includes('breaking') ||
+              title.includes('!:') ||
+              branch.startsWith('breaking/')
+            ) {
+              labels.add('breaking');
+            }
+
+            // Major enhancements
+            const majorEnhancement =
+              title.includes('major') &&
+              (title.includes('feat') || title.includes('enhancement'));
+
+            if (majorEnhancement) {
+              labels.add('major-enhancement');
+            }
+
+            // Major bugs
+            const majorBug =
+              title.includes('major') &&
+              (title.includes('fix') || title.includes('bug'));
+
+            if (majorBug) {
+              labels.add('major-bug');
+            }
+
+            // Removed / Deprecated
+            if (title.includes('deprecat')) {
+              labels.add('deprecated');
+            } else if (title.includes('remov')) {
+              labels.add('removed');
+            }
+
+            // Features / Enhancements
+            if (
+              !majorEnhancement &&
+              (
+                /^(feat|feature)(:|\(|\s)/.test(title) ||
+                title.includes('enhancement') ||
+                title.startsWith('add ') ||
+                title.startsWith('add:') ||
+                branch.startsWith('feature/') ||
+                branch.startsWith('feat/')
+              )
+            ) {
+              labels.add('enhancement');
+            }
+
+            // Bug fixes
+            if (
+              !majorBug &&
+              (
+                title.startsWith('fix') ||
+                title.includes('bugfix') ||
+                title.includes('bug fix') ||
+                title.includes('regression') ||
+                branch.startsWith('fix/') ||
+                branch.startsWith('bugfix/')
+              )
+            ) {
+              labels.add('bug');
+            }
+
+            // Documentation
+            if (
+              title.startsWith('docs') ||
+              title.startsWith('doc:') ||
+              branch.startsWith('docs/') ||
+              branch.startsWith('doc/')
+            ) {
+              labels.add('documentation');
+            }
+
+            // Maintenance / CI / Build
+            if (
+              /^(chore|maint|ci|build|deps)(:|\(|\s)/.test(title) ||
+              branch.startsWith('chore/') ||
+              branch.startsWith('maint/') ||
+              branch.startsWith('ci/') ||
+              branch.startsWith('build/')
+            ) {
+              labels.add('chore');
+            }
+
+            // Refactoring
+            if (
+              title.startsWith('refactor') ||
+              title.includes('refactoring') ||
+              branch.startsWith('refactor/')
+            ) {
+              labels.add('refactor');
+            }
+
+            // Tests
+            if (
+              title.startsWith('test') ||
+              branch.startsWith('test/')
+            ) {
+              labels.add('tests');
+            }
+
+            // Security
+            if (
+              title.includes('security') ||
+              title.includes('cve-') ||
+              title.includes('vulnerability') ||
+              branch.startsWith('security/')
+            ) {
+              labels.add('security');
+            }
+
+            // Apply only missing labels
+            const currentLabels = new Set(
+              pr.labels.map(label => label.name)
+            );
+
+            const newLabels = [...labels].filter(
+              label => !currentLabels.has(label)
+            );
+
+            if (newLabels.length === 0) {
+              console.log('No new labels to apply.');
+              return;
+            }
+
+            console.log(`Adding labels: ${newLabels.join(', ')}`);
+
+            await github.rest.issues.addLabels({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: pr.number,
+              labels: newLabels
+            });
+
+            console.log('PR labels applied successfully.');
