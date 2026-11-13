@@ -110,6 +110,7 @@ Facts are displayed in the user's browser locale when available. Supported langu
 
 - English (default)
 - Italian
+- German
 
 Contributions of new translations are welcome — see the `FactGenerator.properties` files under `src/main/resources`.
 
