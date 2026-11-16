@@ -87,7 +87,7 @@ class FactGeneratorTest {
                 "FactGenerator.properties",
                 "FactGenerator_de.properties",
                 "FactGenerator_it.properties",
-                "FactGenerator_pt_br.properties"
+                "FactGenerator_pt_BR.properties"
             })
     void testEveryLocaleFileIsComplete(String fileName) throws IOException {
         byte[] raw;
