@@ -71,7 +71,8 @@ class CordellWalkerRecorderTest {
         String fact = recorder.perform(mockBuild, listener);
 
         assertEquals(FactGenerator.getFact(5, Locale.getDefault()), fact);
-        assertTrue(log.toString(StandardCharsets.UTF_8).contains("You know what? " + fact));
+        String expectedLog = Messages.CordellWalkerRecorder_FactLog(fact);
+        assertTrue(log.toString(StandardCharsets.UTF_8).contains(expectedLog));
     }
 
     @Test

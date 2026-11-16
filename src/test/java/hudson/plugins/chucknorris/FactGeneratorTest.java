@@ -59,6 +59,13 @@ class FactGeneratorTest {
     }
 
     @Test
+    void testGetFactReturnsBrazilianPortuguese() {
+        String englishFact = FactGenerator.getFact(0, Locale.ENGLISH);
+        String brazilianFact = FactGenerator.getFact(0, Locale.forLanguageTag("pt-BR"));
+        assertNotEquals(englishFact, brazilianFact, "Brazilian Portuguese fact should differ from English");
+    }
+
+    @Test
     void testAllFactsLoaded() {
         java.util.Set<Integer> uniqueIndices = new java.util.HashSet<>();
         for (int i = 0; i < 10000000; i++) {
@@ -75,7 +82,13 @@ class FactGeneratorTest {
      * and checks that it declares the right fact.count and defines every fact.N key, written in ASCII only.
      */
     @ParameterizedTest
-    @ValueSource(strings = {"FactGenerator.properties", "FactGenerator_de.properties", "FactGenerator_it.properties"})
+    @ValueSource(
+            strings = {
+                "FactGenerator.properties",
+                "FactGenerator_de.properties",
+                "FactGenerator_it.properties",
+                "FactGenerator_pt_BR.properties"
+            })
     void testEveryLocaleFileIsComplete(String fileName) throws IOException {
         byte[] raw;
         try (InputStream in = FactGenerator.class.getResourceAsStream(fileName)) {
