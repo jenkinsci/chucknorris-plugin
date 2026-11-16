@@ -35,8 +35,8 @@ import org.kohsuke.stapler.StaplerRequest2;
 /**
  * {@link RoundhouseAction} keeps the style and fact associated with the action.
  * For more info, please watch <a
- * href="http://www.youtube.com/watch?v=Vb7lnpk3tRY"
- * >http://www.youtube.com/watch?v=Vb7lnpk3tRY</a>
+ * href="https://www.youtube.com/watch?v=Vb7lnpk3tRY"
+ * >https://www.youtube.com/watch?v=Vb7lnpk3tRY</a>
  * @author cliffano
  */
 public final class RoundhouseAction implements RunAction2, LastBuildAction {
