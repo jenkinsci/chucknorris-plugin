@@ -25,6 +25,7 @@ import hudson.Extension;
 import hudson.model.AbstractProject;
 import hudson.tasks.BuildStepDescriptor;
 import hudson.tasks.Publisher;
+import org.jenkinsci.Symbol;
 
 /**
  * This class provides build step description. If you're interested to become a
@@ -34,6 +35,7 @@ import hudson.tasks.Publisher;
  * @author cliffano
  */
 @Extension
+@Symbol("chuckNorris")
 public class BeardDescriptor extends BuildStepDescriptor<Publisher> {
 
     /**
