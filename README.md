@@ -92,9 +92,21 @@ post {
 
 ### Screenshots
 
-![](docs/images/chucknorris_badass.jpg)
-![](docs/images/chucknorris_thumbup.jpg)
-![](docs/images/chucknorris_alert.jpg)
+| Success | Unstable |
+|---------|----------|
+| ![Successful build: Chuck gives a thumbs up](docs/images/build-success.png) | ![Unstable build: Chuck is on alert](docs/images/build-unstable.png) |
+| **Failure** | **Aborted / not built** |
+| ![Failed build: Chuck is bad ass](docs/images/build-failure.png) | ![Aborted build: Chuck is disappointed](docs/images/build-aborted.png) |
+
+The fact of the latest build also appears on the job page, and Chuck works with the dark theme too:
+
+| Job page | Dark theme |
+|----------|------------|
+| ![Job page showing the latest fact](docs/images/project-page.png) | ![Failed build in the dark theme](docs/images/build-failure-dark.png) |
+
+The step also prints the fact to the build log:
+
+![Console output with the Chuck Norris fact](docs/images/console-log.png)
 
 ## Release Notes
 
