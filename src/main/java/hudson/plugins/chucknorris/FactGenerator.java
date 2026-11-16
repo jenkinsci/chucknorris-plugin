@@ -66,7 +66,11 @@ public class FactGenerator {
      */
     public static String getFact(int index, Locale locale) {
         try {
-            ResourceBundle bundle = ResourceBundle.getBundle(BUNDLE_NAME, locale, FactGenerator.class.getClassLoader());
+            ResourceBundle bundle = ResourceBundle.getBundle(
+                    BUNDLE_NAME,
+                    locale,
+                    FactGenerator.class.getClassLoader(),
+                    ResourceBundle.Control.getNoFallbackControl(ResourceBundle.Control.FORMAT_DEFAULT));
             return bundle.getString("fact." + index);
         } catch (MissingResourceException e) {
             return "Chuck Norris can divide by zero.";
