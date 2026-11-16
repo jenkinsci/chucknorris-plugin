@@ -51,9 +51,10 @@ public class CordellWalkerRecorder extends Recorder implements SimpleBuildStep {
     private static final Logger LOGGER = Logger.getLogger(CordellWalkerRecorder.class.getName());
 
     /**
-     * Fact generator.
+     * Fact generator. Transient because it holds no state: saving it only added
+     * an empty {@code <factGenerator/>} element to each job's config.xml.
      */
-    private FactGenerator factGenerator;
+    private transient FactGenerator factGenerator;
 
     /**
      * Constructs a {@link CordellWalkerRecorder} with default
@@ -73,6 +74,18 @@ public class CordellWalkerRecorder extends Recorder implements SimpleBuildStep {
     public CordellWalkerRecorder(final FactGenerator factGenerator) {
         this.factGenerator = factGenerator;
         LOGGER.fine("Chuck Norris is activated");
+    }
+
+    /**
+     * Recreates the transient {@link FactGenerator} after the recorder is
+     * loaded from a job's config.xml.
+     * @return this recorder
+     */
+    protected Object readResolve() {
+        if (factGenerator == null) {
+            factGenerator = new FactGenerator();
+        }
+        return this;
     }
 
     /**
