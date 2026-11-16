@@ -159,7 +159,7 @@ public class CordellWalkerRecorder extends Recorder implements SimpleBuildStep {
         run.addAction(new RoundhouseAction(style, factIndex));
         String fact = FactGenerator.getFact(factIndex, Locale.getDefault());
         if (listener != null) {
-            listener.getLogger().println("Chuck Norris says: " + fact);
+            listener.getLogger().println(Messages.CordellWalkerRecorder_FactLog(fact));
         }
         return fact;
     }

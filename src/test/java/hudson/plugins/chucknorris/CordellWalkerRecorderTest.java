@@ -71,6 +71,17 @@ class CordellWalkerRecorderTest {
         String fact = recorder.perform(mockBuild, listener);
 
         assertEquals(FactGenerator.getFact(5, Locale.getDefault()), fact);
-        assertTrue(log.toString(StandardCharsets.UTF_8).contains("Chuck Norris says: " + fact));
+        assertTrue(log.toString(StandardCharsets.UTF_8).contains("You know what? " + fact));
+    }
+
+    @Test
+    void testFactLogLineIsTranslated() {
+        assertEquals(
+                "You know what? x", Messages._CordellWalkerRecorder_FactLog("x").toString(Locale.ENGLISH));
+        assertEquals(
+                "Wei\u00dft du was? x",
+                Messages._CordellWalkerRecorder_FactLog("x").toString(Locale.GERMAN));
+        assertEquals(
+                "Sai una cosa? x", Messages._CordellWalkerRecorder_FactLog("x").toString(Locale.ITALIAN));
     }
 }

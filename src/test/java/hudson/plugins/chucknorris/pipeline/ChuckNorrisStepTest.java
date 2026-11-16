@@ -152,7 +152,7 @@ class ChuckNorrisStepTest {
         WorkflowRun b1 = j.buildAndAssertSuccess(p);
 
         String fact = FactGenerator.getFact(b1.getAction(RoundhouseAction.class).getFactIndex(), Locale.getDefault());
-        j.assertLogContains("Chuck Norris says: " + fact, b1);
+        j.assertLogContains("You know what? " + fact, b1);
         j.assertLogContains("RETURNED=" + fact, b1);
     }
 
@@ -203,6 +203,6 @@ class ChuckNorrisStepTest {
 
         assertEquals(1, b1.getActions(RoundhouseAction.class).size());
         assertEquals(Style.BAD_ASS, b1.getAction(RoundhouseAction.class).getStyle());
-        j.assertLogContains("Chuck Norris says: ", b1);
+        j.assertLogContains("You know what? ", b1);
     }
 }
