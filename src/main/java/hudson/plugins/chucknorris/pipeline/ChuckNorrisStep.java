@@ -34,7 +34,7 @@ public class ChuckNorrisStep extends Step {
         @NonNull
         @Override
         public String getDisplayName() {
-            return "Submit to Chuck Norris' will";
+            return Messages.ChuckNorrisStep_DisplayName();
         }
 
         @Override

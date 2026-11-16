@@ -134,7 +134,9 @@ Facts are displayed in the user's browser locale when available. Supported langu
 - Italian
 - German
 
-Contributions of new translations are welcome — see the `FactGenerator.properties` files under `src/main/resources`.
+The plugin's own text is translated into the same languages: the post-build action and step names, and the lines it writes to the build log. Build log lines use the Jenkins controller's language, because the log is written before anyone views it.
+
+Contributions of new translations are welcome — see the `FactGenerator.properties` (facts) and `Messages.properties` (plugin text) files under `src/main/resources`.
 
 ## Credits
 
