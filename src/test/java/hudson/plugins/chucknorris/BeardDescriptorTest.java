@@ -25,4 +25,11 @@ class BeardDescriptorTest {
     void testIsApplicableGivesTrue() {
         assertTrue(descriptor.isApplicable(mock(AbstractProject.class).getClass()));
     }
+
+    @Test
+    void testHasChuckNorrisSymbolForJobDslAndConfigurationAsCode() {
+        org.jenkinsci.Symbol symbol = BeardDescriptor.class.getAnnotation(org.jenkinsci.Symbol.class);
+        assertNotNull(symbol);
+        assertArrayEquals(new String[] {"chuckNorris"}, symbol.value());
+    }
 }
