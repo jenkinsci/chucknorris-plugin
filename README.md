@@ -43,6 +43,16 @@ or download the [latest .hpi](https://updates.jenkins.io/latest/chucknorris.hpi)
 2.  Save the configuration.
 3.  Run a build. After it completes, Chuck Norris (along with a random quote) will appear on the job and build pages.
 
+With [Job DSL](https://plugins.jenkins.io/job-dsl/), including jobs created through Configuration as Code, use the `chuckNorris` symbol:
+
+```groovy
+freeStyleJob('my-app') {
+    publishers {
+        chuckNorris()
+    }
+}
+```
+
 ### Pipeline jobs
 
 Add the `chuckNorris()` step to your Jenkinsfile:
