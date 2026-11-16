@@ -30,8 +30,8 @@ import org.jenkinsci.Symbol;
 /**
  * This class provides build step description. If you're interested to become a
  * fan of Chuck Norris' beard, please visit <a
- * href="http://www.facebook.com/pages/Chuck-Norriss-Beard/80391285997"
- * >http://www.facebook.com/pages/Chuck-Norriss-Beard/80391285997</a>.
+ * href="https://www.facebook.com/pages/Chuck-Norriss-Beard/80391285997"
+ * >https://www.facebook.com/pages/Chuck-Norriss-Beard/80391285997</a>.
  * @author cliffano
  */
 @Extension
