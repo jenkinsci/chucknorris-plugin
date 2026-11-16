@@ -1,0 +1,17 @@
+<div>
+  <p>
+    Shows Chuck Norris and a random Chuck Norris fact on the build page and the job page, prints the fact to the
+    build log and returns it as a <code>String</code>.
+  </p>
+  <p>Call it in a <code>post</code> section so Chuck's mood reflects the final build result:</p>
+  <pre>
+post {
+    always {
+        chuckNorris()
+    }
+}</pre>
+  <p>
+    To reuse the fact, assign the return value, for example <code>def fact = chuckNorris()</code> inside a
+    <code>script</code> block. Calling the step more than once in a build replaces the earlier fact.
+  </p>
+</div>
