@@ -66,6 +66,13 @@ class FactGeneratorTest {
     }
 
     @Test
+    void testGetFactReturnsDutch() {
+        String englishFact = FactGenerator.getFact(0, Locale.ENGLISH);
+        String dutchFact = FactGenerator.getFact(0, Locale.forLanguageTag("nl"));
+        assertNotEquals(englishFact, dutchFact, "Dutch fact should differ from English");
+    }
+
+    @Test
     void testAllFactsLoaded() {
         java.util.Set<Integer> uniqueIndices = new java.util.HashSet<>();
         for (int i = 0; i < 10000000; i++) {
@@ -87,7 +94,8 @@ class FactGeneratorTest {
                 "FactGenerator.properties",
                 "FactGenerator_de.properties",
                 "FactGenerator_it.properties",
-                "FactGenerator_pt_BR.properties"
+                "FactGenerator_pt_BR.properties",
+                "FactGenerator_nl.properties"
             })
     void testEveryLocaleFileIsComplete(String fileName) throws IOException {
         byte[] raw;
