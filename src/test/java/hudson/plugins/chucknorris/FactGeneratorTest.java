@@ -67,6 +67,18 @@ class FactGeneratorTest {
 
     @Test
     void testGetFactReturnsDutch() {
+    void testGetFactReturnsChinese() {
+        String englishFact = FactGenerator.getFact(0, Locale.ENGLISH);
+        String chineseFact = FactGenerator.getFact(0, Locale.SIMPLIFIED_CHINESE);
+        assertNotEquals(englishFact, chineseFact, "Chinese fact should differ from English");
+    }
+
+    @Test
+    void testGetFactReturnsTraditionalChinese() {
+        String englishFact = FactGenerator.getFact(0, Locale.ENGLISH);
+        String traditionalChineseFact = FactGenerator.getFact(0, Locale.TRADITIONAL_CHINESE);
+        assertNotEquals(englishFact, traditionalChineseFact, "Traditional Chinese fact should differ from English");
+    void testGetFactReturnsRussian() {
         String englishFact = FactGenerator.getFact(0, Locale.ENGLISH);
         String dutchFact = FactGenerator.getFact(0, Locale.forLanguageTag("nl"));
         assertNotEquals(englishFact, dutchFact, "Dutch fact should differ from English");
@@ -96,6 +108,9 @@ class FactGeneratorTest {
                 "FactGenerator_it.properties",
                 "FactGenerator_pt_BR.properties",
                 "FactGenerator_nl.properties"
+                "FactGenerator_zh_CN.properties",
+                "FactGenerator_zh_TW.properties"
+                "FactGenerator_ru.properties"
             })
     void testEveryLocaleFileIsComplete(String fileName) throws IOException {
         byte[] raw;
