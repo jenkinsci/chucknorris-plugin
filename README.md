@@ -134,6 +134,10 @@ Facts are displayed in the user's browser locale when available. Supported langu
 - Italian
 - German
 - Brazilian
+- Russian
+- Dutch
+- Simplified Chinese
+- Traditional Chinese
 
 The plugin's own text is translated into the same languages: the post-build action and step names, and the lines it writes to the build log. Build log lines use the Jenkins controller's language, because the log is written before anyone views it.
 
