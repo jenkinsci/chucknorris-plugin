@@ -55,10 +55,12 @@
   margin-bottom: var(--section-padding, 1.6rem);
 }
 
-/* On narrow screens the image would crowd the content, so only show the fact. */
+/*
+ * On narrow screens keep the image, but smaller, so it still fits under the
+ * content. Changing the variable also shrinks the space reserved for it.
+ */
 @media (max-width: 768px) {
   #main-panel.chuck-style {
-    background-image: none;
-    padding-bottom: 0;
+    --chuck-image-height: min(120px, 25vh);
   }
 }
