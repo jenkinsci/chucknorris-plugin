@@ -78,10 +78,30 @@ class FactGeneratorTest {
         String englishFact = FactGenerator.getFact(0, Locale.ENGLISH);
         String traditionalChineseFact = FactGenerator.getFact(0, Locale.TRADITIONAL_CHINESE);
         assertNotEquals(englishFact, traditionalChineseFact, "Traditional Chinese fact should differ from English");
+    }
+
+    @Test
     void testGetFactReturnsRussian() {
         String englishFact = FactGenerator.getFact(0, Locale.ENGLISH);
         String dutchFact = FactGenerator.getFact(0, Locale.forLanguageTag("nl"));
         assertNotEquals(englishFact, dutchFact, "Dutch fact should differ from English");
+    }
+
+    @Test
+    void testMissingFactFallsBackToEnglishFallback() {
+        assertEquals("Chuck Norris can divide by zero.", FactGenerator.getFact(999, Locale.ENGLISH));
+        assertEquals("Chuck Norris can divide by zero.", FactGenerator.getFact(-1, Locale.ENGLISH));
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"de", "it", "pt-BR", "ru", "zh-CN", "zh-TW"})
+    void testMissingFactFallsBackToLocalizedFallback(String languageTag) {
+        Locale locale = Locale.forLanguageTag(languageTag);
+        String fallback = FactGenerator.getFact(999, locale);
+        assertNotEquals(
+                FactGenerator.getFact(999, Locale.ENGLISH),
+                fallback,
+                "Fallback fact for " + languageTag + " should not be the English text");
     }
 
     @Test
@@ -109,7 +129,7 @@ class FactGeneratorTest {
                 "FactGenerator_pt_BR.properties",
                 "FactGenerator_nl.properties"
                 "FactGenerator_zh_CN.properties",
-                "FactGenerator_zh_TW.properties"
+                "FactGenerator_zh_TW.properties",
                 "FactGenerator_ru.properties"
             })
     void testEveryLocaleFileIsComplete(String fileName) throws IOException {
