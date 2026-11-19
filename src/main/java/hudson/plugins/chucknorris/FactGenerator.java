@@ -34,6 +34,10 @@ public class FactGenerator {
 
     private static final String BUNDLE_NAME = FactGenerator.class.getName();
 
+    private static final String FALLBACK_KEY = "fact.fallback";
+
+    private static final String DEFAULT_FALLBACK = "Chuck Norris can divide by zero.";
+
     private static final Random RANDOM = new Random();
 
     private static final int FACT_COUNT;
@@ -59,21 +63,27 @@ public class FactGenerator {
     }
 
     /**
-     * Retrieves a fact by index for the given locale.
+     * Retrieves a fact by index for the given locale. If there is no fact with that index (for example because
+     * facts were removed in a later release), the localized fallback fact is returned instead.
      * @param index the fact index
      * @param locale the locale to use for lookup
      * @return the localized fact string
      */
     public static String getFact(int index, Locale locale) {
+        ResourceBundle bundle;
         try {
-            ResourceBundle bundle = ResourceBundle.getBundle(
+            bundle = ResourceBundle.getBundle(
                     BUNDLE_NAME,
                     locale,
                     FactGenerator.class.getClassLoader(),
                     ResourceBundle.Control.getNoFallbackControl(ResourceBundle.Control.FORMAT_DEFAULT));
+        } catch (MissingResourceException e) {
+            return DEFAULT_FALLBACK;
+        }
+        try {
             return bundle.getString("fact." + index);
         } catch (MissingResourceException e) {
-            return "Chuck Norris can divide by zero.";
+            return bundle.containsKey(FALLBACK_KEY) ? bundle.getString(FALLBACK_KEY) : DEFAULT_FALLBACK;
         }
     }
 }
