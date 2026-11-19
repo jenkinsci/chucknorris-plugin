@@ -87,6 +87,23 @@ class FactGeneratorTest {
     }
 
     @Test
+    void testMissingFactFallsBackToEnglishFallback() {
+        assertEquals("Chuck Norris can divide by zero.", FactGenerator.getFact(999, Locale.ENGLISH));
+        assertEquals("Chuck Norris can divide by zero.", FactGenerator.getFact(-1, Locale.ENGLISH));
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"de", "it", "pt-BR", "ru", "zh-CN", "zh-TW"})
+    void testMissingFactFallsBackToLocalizedFallback(String languageTag) {
+        Locale locale = Locale.forLanguageTag(languageTag);
+        String fallback = FactGenerator.getFact(999, locale);
+        assertNotEquals(
+                FactGenerator.getFact(999, Locale.ENGLISH),
+                fallback,
+                "Fallback fact for " + languageTag + " should not be the English text");
+    }
+
+    @Test
     void testAllFactsLoaded() {
         java.util.Set<Integer> uniqueIndices = new java.util.HashSet<>();
         for (int i = 0; i < 10000000; i++) {
