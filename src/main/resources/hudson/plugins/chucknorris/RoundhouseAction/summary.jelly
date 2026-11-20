@@ -1,13 +1,18 @@
 <?jelly escape-by-default='true'?>
-<j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler">
+<j:jelly xmlns:j="jelly:core">
     <tr>
         <td>
             <link rel="stylesheet" type="text/css" href="${resURL}/plugin/chucknorris/css/chucknorris.css"/>
             <img src="${resURL}/plugin/chucknorris/images/icon.png" width="48" height="48" alt="${it.displayName}"/>
         </td>
         <td class="chuck-fact">
-            <span class="chuck-norris-marker" data-chuck-style="${it.style.cssClass}">${it.fact}</span>
+            <span>${it.fact}</span>
         </td>
     </tr>
-    <st:adjunct includes="hudson.plugins.chucknorris.RoundhouseAction.chucknorris"/>
+    <tr>
+        <td/>
+        <td>
+            <img class="chuck-image ${it.style.cssClass}" src="${resURL}/plugin/chucknorris/images/${it.style.imageFile}" alt=""/>
+        </td>
+    </tr>
 </j:jelly>

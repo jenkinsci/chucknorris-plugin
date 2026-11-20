@@ -3,12 +3,8 @@ package hudson.plugins.chucknorris;
 import static org.junit.jupiter.api.Assertions.*;
 
 import hudson.model.Result;
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;
@@ -51,20 +47,20 @@ class StyleTest {
         assertEquals(Style.ALERT, Style.get(Result.UNSTABLE));
     }
 
+    @Test
+    void testGetImageFile() {
+        assertEquals("thumb_up.png", Style.THUMB_UP.getImageFile());
+        assertEquals("bad_ass.png", Style.BAD_ASS.getImageFile());
+    }
+
     /**
-     * Every style needs a CSS rule in chucknorris.css whose background image exists, so a missing or misspelled
-     * image file fails the build instead of showing a blank page.
+     * Every style's image must be bundled with the plugin, so a missing or misspelled image file fails the build
+     * instead of showing a broken image.
      */
     @ParameterizedTest
     @EnumSource(Style.class)
-    void testEveryStyleHasAnExistingImage(Style style) throws IOException {
-        Path webapp = Path.of("src", "main", "webapp");
-        String css = Files.readString(webapp.resolve("css/chucknorris.css"), StandardCharsets.UTF_8);
-
-        Matcher rule = Pattern.compile(
-                        "\\." + Pattern.quote(style.getCssClass()) + "\\s*\\{[^}]*url\\(\"\\.\\./([^\"]+)\"\\)")
-                .matcher(css);
-        assertTrue(rule.find(), "chucknorris.css has no background-image rule for ." + style.getCssClass());
-        assertTrue(Files.isRegularFile(webapp.resolve(rule.group(1))), "missing image " + rule.group(1));
+    void testEveryStyleHasAnExistingImage(Style style) {
+        Path image = Path.of("src", "main", "webapp", "images", style.getImageFile());
+        assertTrue(Files.isRegularFile(image), "missing image " + image);
     }
 }
