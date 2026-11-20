@@ -4,10 +4,14 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import hudson.model.FreeStyleBuild;
 import hudson.model.FreeStyleProject;
+import hudson.model.Result;
+import java.util.List;
 import java.util.Locale;
+import org.htmlunit.html.HtmlImage;
 import org.htmlunit.html.HtmlPage;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.jvnet.hudson.test.FailureBuilder;
 import org.jvnet.hudson.test.JenkinsRule;
 import org.jvnet.hudson.test.junit.jupiter.WithJenkins;
 
@@ -30,27 +34,64 @@ class RoundhouseActionPageTest {
     }
 
     @Test
-    void buildPageShowsFactAndAppliesStyleClass() throws Exception {
+    void buildPageShowsFactAndImage() throws Exception {
         try (JenkinsRule.WebClient wc = j.createWebClient()) {
             HtmlPage page = wc.getPage(build);
 
             String fact = FactGenerator.getFact(factIndex(), Locale.ENGLISH);
             assertTrue(page.asNormalizedText().contains(fact), "fact should be on the build page");
-
-            String panelClass = page.getElementById("main-panel").getAttribute("class");
-            assertTrue(panelClass.contains("chuck-style"), panelClass);
-            assertTrue(panelClass.contains(Style.THUMB_UP.getCssClass()), panelClass);
+            assertChuckImage(page, Style.THUMB_UP);
         }
     }
 
     @Test
-    void projectPageShowsFact() throws Exception {
+    void projectPageShowsFactAndImage() throws Exception {
         try (JenkinsRule.WebClient wc = j.createWebClient()) {
             HtmlPage page = wc.getPage(project);
 
             String fact = FactGenerator.getFact(factIndex(), Locale.ENGLISH);
             assertTrue(page.asNormalizedText().contains(fact), "fact should be on the project page");
+            assertChuckImage(page, Style.THUMB_UP);
         }
+    }
+
+    /**
+     * The image is part of the plugin's own markup, so it must be there without any script and without relying on
+     * Jenkins' page layout (such as the {@code #main-panel} element).
+     */
+    @Test
+    void imageIsRenderedWithoutJavaScript() throws Exception {
+        try (JenkinsRule.WebClient wc = j.createWebClient()) {
+            wc.setJavaScriptEnabled(false);
+            HtmlPage page = wc.getPage(build);
+
+            assertChuckImage(page, Style.THUMB_UP);
+        }
+    }
+
+    @Test
+    void imageFollowsBuildResult() throws Exception {
+        project.getBuildersList().add(new FailureBuilder());
+        FreeStyleBuild failed = j.buildAndAssertStatus(Result.FAILURE, project);
+        try (JenkinsRule.WebClient wc = j.createWebClient()) {
+            assertChuckImage(wc.getPage(failed), Style.BAD_ASS);
+        }
+    }
+
+    private void assertChuckImage(HtmlPage page, Style style) throws Exception {
+        List<HtmlImage> images = page.getByXPath("//img[contains(@class, 'chuck-image')]");
+        assertEquals(1, images.size(), "expected exactly one Chuck image");
+        HtmlImage image = images.get(0);
+        assertTrue(image.getAttribute("class").contains(style.getCssClass()), image.getAttribute("class"));
+        assertTrue(
+                image.getSrcAttribute().endsWith("/plugin/chucknorris/images/" + style.getImageFile()),
+                image.getSrcAttribute());
+        assertEquals(
+                200,
+                page.getWebClient()
+                        .getPage(page.getFullyQualifiedUrl(image.getSrcAttribute()))
+                        .getWebResponse()
+                        .getStatusCode());
     }
 
     @Test
@@ -69,7 +110,7 @@ class RoundhouseActionPageTest {
         try (JenkinsRule.WebClient wc = j.createWebClient()) {
             String html = wc.getPage(build).getWebResponse().getContentAsString();
 
-            assertFalse(html.contains(".chuck-style {"), "styles must come from chucknorris.css, not inline");
+            assertFalse(html.contains(".chuck-image {"), "styles must come from chucknorris.css, not inline");
             assertTrue(html.contains("/plugin/chucknorris/css/chucknorris.css"), "stylesheet should be linked");
         }
     }
