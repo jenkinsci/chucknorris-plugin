@@ -6,6 +6,5 @@
             <img src="${resURL}/plugin/chucknorris/images/icon.png" width="16" height="16" alt="${from.displayName}"/>
             <span>${from.fact}</span>
         </div>
-        <img class="chuck-image ${from.style.cssClass}" src="${resURL}/plugin/chucknorris/images/${from.style.imageFile}" alt=""/>
     </div>
 </j:jelly>

@@ -56,6 +56,28 @@ class RoundhouseActionPageTest {
     }
 
     /**
+     * On the project page the fact stays in the right-hand column, and the image sits in the main area (next to the
+     * test results and permalinks), not under the fact.
+     */
+    @Test
+    void projectPageShowsImageInMainArea() throws Exception {
+        try (JenkinsRule.WebClient wc = j.createWebClient()) {
+            HtmlPage page = wc.getPage(project);
+
+            assertEquals(
+                    1,
+                    page.getByXPath("//div[@class='chuck-job-image']/img[contains(@class, 'chuck-image')]")
+                            .size(),
+                    "image should be in the main area");
+            assertEquals(
+                    0,
+                    page.getByXPath("//div[@class='chuck-floating']//img[contains(@class, 'chuck-image')]")
+                            .size(),
+                    "image should not be under the fact in the right-hand column");
+        }
+    }
+
+    /**
      * The image is part of the plugin's own markup, so it must be there without any script and without relying on
      * Jenkins' page layout (such as the {@code #main-panel} element).
      */

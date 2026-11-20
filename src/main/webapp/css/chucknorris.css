@@ -26,7 +26,7 @@
   vertical-align: middle;
 }
 
-/* Project page: the fact on its own line, then the image, clear of the next heading. */
+/* Project page, right-hand column: the fact, clear of the next heading. */
 .chuck-floating {
   margin-bottom: var(--section-padding, 1.6rem);
 }
@@ -35,7 +35,16 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  margin-bottom: 0.5rem;
+}
+
+/*
+ * Project page, main area: the image floats right, so the blocks after it
+ * (test results, permalinks) run down its left-hand side.
+ */
+.chuck-job-image {
+  float: right;
+  clear: right;
+  margin: 0 0 1rem 1rem;
 }
 
 /* On narrow screens keep the image, but smaller. */
