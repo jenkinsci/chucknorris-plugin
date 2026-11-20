@@ -138,6 +138,9 @@ Facts are displayed in the user's browser locale when available. Supported langu
 - Dutch
 - Simplified Chinese
 - Traditional Chinese
+- Spanish
+- French
+- Japanese
 
 The plugin's own text is translated into the same languages: the post-build action and step names, and the lines it writes to the build log. The fact line in the **Console Output** page is shown in the viewer's language, the same as on the build page. The plain text log (*View as plain text*, `consoleText`) and the value returned by `chuckNorris()` use the Jenkins controller's language, because they are produced before anyone views them.
 
