@@ -43,6 +43,16 @@ class RoundhouseActionTest {
     }
 
     @Test
+    void testGetStyleShowsThumbUpWhileBuildIsRunning() {
+        Run<?, ?> run = mock(Run.class);
+        when(run.isBuilding()).thenReturn(true);
+
+        action.onAttached(run);
+
+        assertEquals(Style.THUMB_UP, action.getStyle());
+    }
+
+    @Test
     void testGetProjectActionsWithoutRunReturnsItself() {
         assertEquals(List.of(action), List.copyOf(action.getProjectActions()));
     }
