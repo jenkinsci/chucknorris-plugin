@@ -30,6 +30,8 @@ class BeardDescriptorTest {
                 Messages._BeardDescriptor_DisplayName().toString(Locale.GERMAN));
         assertEquals(
                 "Attiva Chuck Norris", Messages._BeardDescriptor_DisplayName().toString(Locale.ITALIAN));
+        assertEquals(
+                "Activar Chuck Norris", Messages._BeardDescriptor_DisplayName().toString(Locale.forLanguageTag("es")));
     }
 
     @Test
