@@ -85,6 +85,8 @@ class CordellWalkerRecorderTest {
         assertEquals(
                 "Sai una cosa? x", Messages._CordellWalkerRecorder_FactLog("x").toString(Locale.ITALIAN));
         assertEquals(
+                "¿Sabes qué? x", Messages._CordellWalkerRecorder_FactLog("x").toString(Locale.forLanguageTag("es")));
+        assertEquals(
                 "Tu sais quoi ? x", Messages._CordellWalkerRecorder_FactLog("x").toString(Locale.FRENCH));
         assertEquals(
                 "\u77e5\u3063\u3066\u308b\u304b\u3044\uff1f x",
