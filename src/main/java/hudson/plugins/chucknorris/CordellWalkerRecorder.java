@@ -158,7 +158,9 @@ public class CordellWalkerRecorder extends Recorder implements SimpleBuildStep {
     /**
      * Adds a RoundhouseAction to the run, replacing any earlier one so that
      * calling the step more than once still shows a single fact, and prints
-     * the fact to the build log.
+     * the fact to the build log. The log line is written in the controller's
+     * default locale and carries a {@link FactNote}, so the console page shows
+     * it in the viewer's locale, like the build page.
      * @param run
      *            the run
      * @param listener
@@ -172,7 +174,8 @@ public class CordellWalkerRecorder extends Recorder implements SimpleBuildStep {
         run.addAction(new RoundhouseAction(style, factIndex));
         String fact = FactGenerator.getFact(factIndex, Locale.getDefault());
         if (listener != null) {
-            listener.getLogger().println(Messages.CordellWalkerRecorder_FactLog(fact));
+            String line = Messages._CordellWalkerRecorder_FactLog(fact).toString(Locale.getDefault());
+            listener.getLogger().println(FactNote.encodeTo(factIndex, line));
         }
         return fact;
     }
