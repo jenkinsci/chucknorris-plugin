@@ -23,6 +23,7 @@ package hudson.plugins.chucknorris;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import hudson.model.Action;
+import hudson.model.Result;
 import hudson.model.Run;
 import java.util.Collection;
 import java.util.Collections;
@@ -122,7 +123,12 @@ public final class RoundhouseAction implements RunAction2, LastBuildAction {
     public Style getStyle() {
         Style theStyle;
         if (mRun != null) {
-            theStyle = Style.get(mRun.getResult());
+            Result result = mRun.getResult();
+            if (result == null && mRun.isBuilding()) {
+                theStyle = Style.THUMB_UP;
+            } else {
+                theStyle = Style.get(result);
+            }
         } else if (mStyle != null) {
             theStyle = mStyle;
         } else {
@@ -130,7 +136,6 @@ public final class RoundhouseAction implements RunAction2, LastBuildAction {
         }
         return theStyle;
     }
-
     /**
      * Gets the fact index for locale-aware lookup in Jelly templates.
      * @return the fact index, or null for legacy builds
