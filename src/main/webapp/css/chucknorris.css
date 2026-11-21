@@ -1,66 +1,55 @@
 /*
  * Chuck Norris plugin styles.
  *
- * The plugin adds .chuck-style plus one modifier class (from Style#getCssClass)
- * to Jenkins' #main-panel. Each modifier picks the image for that build result.
+ * Chuck's image is an <img class="chuck-image"> inside the plugin's own
+ * summary and floating box markup, so it does not depend on Jenkins' page
+ * layout. The image file comes from Style#getImageFile, and the image also
+ * carries one modifier class (from Style#getCssClass) per build result.
  *
- * To swap in new artwork, replace the file under src/main/webapp/images/ (or
- * point the url() below at a new file). Images of any resolution are scaled
- * down to --chuck-image-height, so high-resolution art is fine.
+ * To swap in new artwork, replace the files under src/main/webapp/images/.
+ * Images of any resolution are scaled down to --chuck-image-height, so
+ * high-resolution art is fine.
  */
 :root {
   --chuck-image-height: min(268px, 40vh);
 }
 
-/*
- * "#main-panel.chuck-style" (id + class) is needed to win over Jenkins' own
- * "#main-panel { padding: ... }" rule; a plain class selector loses, the
- * reserved space disappears and the image slides under the page content.
- */
-#main-panel.chuck-style {
-  background-repeat: no-repeat;
-  /* Align with the content's right edge instead of the panel's outer edge. */
-  background-position: right var(--section-padding, 1.6rem) bottom;
-  background-size: auto var(--chuck-image-height);
-  /* Leave room under the page content so the image never covers it. */
-  padding-bottom: calc(var(--chuck-image-height) + var(--section-padding, 1.6rem));
-}
-
-.chuck-style--thumb_up {
-  background-image: url("../images/thumb_up.png");
-}
-
-.chuck-style--alert {
-  background-image: url("../images/alert.png");
-}
-
-.chuck-style--bad_ass {
-  background-image: url("../images/bad_ass.png");
-}
-
-/* Aborted / not built. */
-.chuck-style--disappointed {
-  background-image: url("../images/disappointed.png");
+.chuck-image {
+  display: block;
+  height: var(--chuck-image-height);
+  width: auto;
+  max-width: 100%;
+  object-fit: contain;
 }
 
 .chuck-fact {
   vertical-align: middle;
 }
 
-/* Project page: keep the fact on its own line, clear of the next heading. */
+/* Project page, right-hand column: the fact, clear of the next heading. */
 .chuck-floating {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
   margin-bottom: var(--section-padding, 1.6rem);
 }
 
+.chuck-floating__fact {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
 /*
- * On narrow screens keep the image, but smaller, so it still fits under the
- * content. Changing the variable also shrinks the space reserved for it.
+ * Project page, main area: the image floats right, so the blocks after it
+ * (test results, permalinks) run down its left-hand side.
  */
+.chuck-job-image {
+  float: right;
+  clear: right;
+  margin: 0 0 1rem 1rem;
+}
+
+/* On narrow screens keep the image, but smaller. */
 @media (max-width: 768px) {
-  #main-panel.chuck-style {
+  .chuck-image {
     --chuck-image-height: min(120px, 25vh);
   }
 }

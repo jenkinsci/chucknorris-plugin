@@ -68,10 +68,20 @@ public enum Style {
     }
 
     /**
-     * Gets the CSS modifier class used to pick the background image for this style.
+     * Gets the CSS modifier class added to Chuck's image for this style, so the
+     * image can be styled per build result.
      * @return the CSS class, e.g. {@code chuck-style--bad_ass}
      */
     public String getCssClass() {
         return "chuck-style--" + name().toLowerCase(Locale.ROOT);
+    }
+
+    /**
+     * Gets the file name of Chuck's image for this style, under the plugin's
+     * {@code images} directory.
+     * @return the image file name, e.g. {@code bad_ass.png}
+     */
+    public String getImageFile() {
+        return name().toLowerCase(Locale.ROOT) + ".png";
     }
 }
