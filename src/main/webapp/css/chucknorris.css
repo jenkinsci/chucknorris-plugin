@@ -47,9 +47,85 @@
   margin: 0 0 1rem 1rem;
 }
 
+/*
+ * Build page: summary.jelly is the only hook Jenkins gives a build action, and
+ * it renders inside the summary table, so an in-flow image would push down
+ * everything after the table (changes, upstream builds, ...). Instead, the
+ * summary table spans the full width and the image is pinned to its top-right
+ * corner, level with the summary rows. The rows and the content after the
+ * table keep clear of it with right padding, and ::after on the container makes
+ * sure the image never runs past the bottom of the page content.
+ *
+ * Core's "Started ... ago / Took ..." block is floated right with an inline
+ * style, where it would sit above the image; it is moved to the left, above
+ * the summary rows (the inline style needs !important to override).
+ *
+ * The container is found with :has() rather than by id; browsers without
+ * :has() keep the image inline under the fact.
+ */
+:root {
+  /* Widest artwork is 337x400; keep text clear of it plus a gap. */
+  --chuck-build-image-clearance: calc(var(--chuck-image-height) * 0.85 + 1rem);
+}
+
+@supports selector(:has(*)) {
+  :has(> table .chuck-build-image) {
+    position: relative;
+  }
+
+  :has(> table .chuck-build-image) > div[style*="float"] {
+    float: none !important;
+    margin-left: 0 !important;
+  }
+
+  /*
+   * A zero-width float, as tall as the image, starting where the summary table
+   * starts. The ::after below clears it, so the page content is always at
+   * least as tall as the image and the image never overlaps the footer.
+   */
+  :has(> table .chuck-build-image) > div[style*="float"]::after {
+    content: "";
+    float: right;
+    width: 0;
+    height: calc(var(--chuck-image-height) + 1rem);
+  }
+
+  :has(> table .chuck-build-image)::after {
+    content: "";
+    display: block;
+    clear: both;
+  }
+
+  table:has(.chuck-build-image) {
+    position: relative;
+    width: 100%;
+  }
+
+  /* The text column takes the extra width, so the icon column stays narrow. */
+  table:has(.chuck-build-image) td:last-child {
+    width: 100%;
+  }
+
+  /* The image is out of the flow, so its own row collapses. */
+  table:has(.chuck-build-image) tr:has(.chuck-build-image) > td {
+    padding: 0;
+  }
+
+  table:has(.chuck-build-image) td:last-child,
+  table:has(.chuck-build-image) ~ * {
+    padding-right: var(--chuck-build-image-clearance);
+  }
+
+  .chuck-build-image {
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+}
+
 /* On narrow screens keep the image, but smaller. */
 @media (max-width: 768px) {
-  .chuck-image {
+  :root {
     --chuck-image-height: min(120px, 25vh);
   }
 }
