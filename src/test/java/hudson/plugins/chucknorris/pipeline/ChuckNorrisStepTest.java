@@ -19,6 +19,8 @@ import org.jenkinsci.plugins.workflow.steps.StepExecution;
 import org.jenkinsci.plugins.workflow.test.steps.SemaphoreStep;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.jvnet.hudson.test.JenkinsRule;
 import org.jvnet.hudson.test.junit.jupiter.WithJenkins;
 
@@ -204,5 +206,24 @@ class ChuckNorrisStepTest {
         assertEquals(1, b1.getActions(RoundhouseAction.class).size());
         assertEquals(Style.BAD_ASS, b1.getAction(RoundhouseAction.class).getStyle());
         j.assertLogContains("You know what? ", b1);
+    }
+
+    /** Every translated locale must translate all of the pipeline step's text. */
+    @ParameterizedTest
+    @ValueSource(strings = {"de", "es", "fr", "it", "ja", "nl", "pt-BR", "ru", "zh-CN", "zh-TW"})
+    void everyLocaleTranslatesStepText(String tag) {
+        Locale locale = Locale.forLanguageTag(tag);
+        assertNotEquals(
+                Messages._ChuckNorrisStep_DisplayName().toString(Locale.ENGLISH),
+                Messages._ChuckNorrisStep_DisplayName().toString(locale),
+                tag);
+        assertNotEquals(
+                Messages._ChuckNorrisStepExecution_Submitting().toString(Locale.ENGLISH),
+                Messages._ChuckNorrisStepExecution_Submitting().toString(locale),
+                tag);
+        assertNotEquals(
+                Messages._SubmittingNote_DisplayName().toString(Locale.ENGLISH),
+                Messages._SubmittingNote_DisplayName().toString(locale),
+                tag);
     }
 }

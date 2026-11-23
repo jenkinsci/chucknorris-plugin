@@ -96,8 +96,8 @@ class CordellWalkerRecorderTest {
     }
 
     /**
-     * Every translated locale must translate the build log line and the post-build action name, or the build log
-     * falls back to the English "You know what?".
+     * Every translated locale must translate the build log line, the post-build action name and the console note
+     * name, or the build log falls back to the English "You know what?".
      */
     @ParameterizedTest
     @ValueSource(strings = {"de", "es", "fr", "it", "ja", "nl", "pt-BR", "ru", "zh-CN", "zh-TW"})
@@ -110,6 +110,10 @@ class CordellWalkerRecorderTest {
         assertNotEquals(
                 Messages._BeardDescriptor_DisplayName().toString(Locale.ENGLISH),
                 Messages._BeardDescriptor_DisplayName().toString(locale),
+                tag);
+        assertNotEquals(
+                Messages._FactNote_DisplayName().toString(Locale.ENGLISH),
+                Messages._FactNote_DisplayName().toString(locale),
                 tag);
     }
 }
