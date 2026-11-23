@@ -18,6 +18,8 @@ import java.nio.charset.StandardCharsets;
 import java.util.Locale;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.mockito.ArgumentCaptor;
 import org.mockito.InOrder;
 
@@ -91,5 +93,23 @@ class CordellWalkerRecorderTest {
         assertEquals(
                 "\u77e5\u3063\u3066\u308b\u304b\u3044\uff1f x",
                 Messages._CordellWalkerRecorder_FactLog("x").toString(Locale.JAPANESE));
+    }
+
+    /**
+     * Every translated locale must translate the build log line and the post-build action name, or the build log
+     * falls back to the English "You know what?".
+     */
+    @ParameterizedTest
+    @ValueSource(strings = {"de", "es", "fr", "it", "ja", "nl", "pt-BR", "ru", "zh-CN", "zh-TW"})
+    void testEveryLocaleTranslatesLogLineAndActionName(String tag) {
+        Locale locale = Locale.forLanguageTag(tag);
+        assertNotEquals(
+                Messages._CordellWalkerRecorder_FactLog("x").toString(Locale.ENGLISH),
+                Messages._CordellWalkerRecorder_FactLog("x").toString(locale),
+                tag);
+        assertNotEquals(
+                Messages._BeardDescriptor_DisplayName().toString(Locale.ENGLISH),
+                Messages._BeardDescriptor_DisplayName().toString(locale),
+                tag);
     }
 }
