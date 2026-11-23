@@ -35,7 +35,7 @@ This is a Jenkins plugin (HPI packaging) that displays a Chuck Norris fact and i
 
 **Gotcha:** `RoundhouseAction` has legacy fields (`style`, `fact`) for backward compatibility with v0.2 serialized data — do not remove them even though they appear unused.
 
-**Localization:** `FactGenerator` uses Java `ResourceBundle` to load locale-specific facts from `FactGenerator[_locale].properties`. Facts are resolved at display time using the browser's locale via `StaplerRequest2.getLocale()`. The build log line is written in the controller's default locale but carries a `FactNote` (a `ConsoleNote` holding the fact index), which re-renders it in the viewer's locale on the Console Output page. Non-ASCII characters in properties files must use `\uXXXX` Unicode escapes.
+**Localization:** `FactGenerator` uses Java `ResourceBundle` to load locale-specific facts from `FactGenerator[_locale].properties`. Facts are resolved at display time using the browser's locale via `StaplerRequest2.getLocale()`. The build log line is written in the controller's default locale but carries a `FactNote` (a `ConsoleNote` holding the fact index), which re-renders it in the viewer's locale on the Console Output page; the pipeline step's "Submitting to Chuck's will" line does the same with `pipeline.SubmittingNote`. Non-ASCII characters in properties files must use `\uXXXX` Unicode escapes.
 
 ## Adding a Translation
 

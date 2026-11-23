@@ -45,7 +45,17 @@ class FactNoteTest {
         WorkflowJob project = j.createProject(WorkflowJob.class, "p");
         project.setDefinition(new CpsFlowDefinition("chuckNorris()", true));
 
-        assertConsoleMatchesBuildPage(j.buildAndAssertSuccess(project));
+        Run<?, ?> build = j.buildAndAssertSuccess(project);
+        assertConsoleMatchesBuildPage(build);
+
+        // The step's "Submitting to Chuck's will" line follows the viewer's language too.
+        try (JenkinsRule.WebClient wc = j.createWebClient()) {
+            wc.addRequestHeader("Accept-Language", viewerLocale.toLanguageTag());
+            String shown = visibleConsoleText(wc.getPage(build, "console"));
+            assertTrue(shown.contains(submitting(viewerLocale)), shown);
+            assertFalse(shown.contains(submitting(Locale.getDefault())), shown);
+        }
+        j.assertLogContains(submitting(Locale.getDefault()), build);
     }
 
     @Test
@@ -67,9 +77,14 @@ class FactNoteTest {
             assertTrue(buildPage.contains(fact), "build page should show the fact in the viewer's language");
 
             HtmlPage console = wc.getPage(build, "console");
+            String original = line(build, Locale.getDefault());
             List<DomNode> hidden = console.getByXPath("//pre[@id='out']//span[@hidden]");
-            assertEquals(1, hidden.size(), "the original line should be kept, hidden");
-            assertEquals(line(build, Locale.getDefault()), hidden.get(0).getTextContent());
+            assertEquals(
+                    1,
+                    hidden.stream()
+                            .filter(n -> n.getTextContent().equals(original))
+                            .count(),
+                    "the original line should be kept, hidden");
 
             String shown = visibleConsoleText(console);
             assertTrue(shown.contains(line(build, viewerLocale)), shown);
@@ -101,6 +116,11 @@ class FactNoteTest {
             ((DomNode) hidden).remove();
         }
         return console.getElementById("out").asNormalizedText();
+    }
+
+    private static String submitting(Locale locale) {
+        return hudson.plugins.chucknorris.pipeline.Messages._ChuckNorrisStepExecution_Submitting()
+                .toString(locale);
     }
 
     private static String line(Run<?, ?> build, Locale locale) {

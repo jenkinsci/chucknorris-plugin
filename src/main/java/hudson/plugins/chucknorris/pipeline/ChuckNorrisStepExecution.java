@@ -24,7 +24,7 @@ public class ChuckNorrisStepExecution extends SynchronousNonBlockingStepExecutio
         TaskListener listener = getContext().get(TaskListener.class);
         Run<?, ?> run = getContext().get(Run.class);
 
-        listener.getLogger().println(Messages.ChuckNorrisStepExecution_Submitting());
+        listener.getLogger().println(SubmittingNote.encodeLine());
 
         CordellWalkerRecorder recorder = new CordellWalkerRecorder();
         return recorder.perform(run, listener);

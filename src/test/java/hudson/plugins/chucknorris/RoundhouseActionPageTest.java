@@ -91,6 +91,22 @@ class RoundhouseActionPageTest {
         }
     }
 
+    /**
+     * On the build page the image sits in a {@code chuck-build-image} wrapper, which the stylesheet pins to the
+     * bottom-right corner so it does not push down the content after the summary table.
+     */
+    @Test
+    void buildPageImageIsInBottomRightWrapper() throws Exception {
+        try (JenkinsRule.WebClient wc = j.createWebClient()) {
+            HtmlPage page = wc.getPage(build);
+
+            assertEquals(
+                    1,
+                    page.getByXPath("//div[@class='chuck-build-image']/img[contains(@class, 'chuck-image')]")
+                            .size());
+        }
+    }
+
     @Test
     void imageFollowsBuildResult() throws Exception {
         project.getBuildersList().add(new FailureBuilder());

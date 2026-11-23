@@ -12,7 +12,9 @@
     <tr>
         <td/>
         <td>
-            <img class="chuck-image ${it.style.cssClass}" src="${resURL}/plugin/chucknorris/images/${it.style.imageFile}" alt=""/>
+            <div class="chuck-build-image">
+                <img class="chuck-image ${it.style.cssClass}" src="${resURL}/plugin/chucknorris/images/${it.style.imageFile}" alt=""/>
+            </div>
         </td>
     </tr>
 </j:jelly>
