@@ -23,6 +23,7 @@ Why not you?
 - [Usage](#usage)
   - [Freestyle / Maven Jobs](#freestyle--maven-jobs)
   - [Pipeline Jobs](#pipeline-jobs)
+  - [Custom facts](#custom-facts)
 - [Screenshots](#screenshots)
 - [Release Notes](#release-notes)
 - [Testimonials](#testimonials)
@@ -99,6 +100,27 @@ post {
 | Unstable / running    | Alert                        |
 | Failure               | Bad ass                      |
 | Aborted / not built   | Disappointed                 |
+
+### Custom facts
+
+Administrators can add their own facts, for example team in-jokes, under **Manage Jenkins > System > Chuck Norris**,
+one per line. Builds pick from them as well as the built-in facts, each fact equally likely. Tick
+**Use only the custom facts** to leave the built-in ones out (while the list is empty, builds still use the built-in
+facts).
+
+Custom facts are shown as written, in every language, and HTML-escaped like the built-in ones. A build keeps the text of
+the fact it picked, so editing the list later does not change older builds.
+
+With [Configuration as Code](https://plugins.jenkins.io/configuration-as-code/):
+
+```yaml
+unclassified:
+  chuckNorris:
+    customFacts: |-
+      Chuck Norris reviews his own pull requests.
+      Chuck Norris's builds are never flaky.
+    customFactsOnly: true
+```
 
 ### Screenshots
 

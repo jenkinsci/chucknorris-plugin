@@ -6,8 +6,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringReader;
 import java.nio.charset.StandardCharsets;
+import java.util.List;
 import java.util.Locale;
 import java.util.Properties;
+import java.util.Random;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -181,5 +183,46 @@ class FactGeneratorTest {
             assertFalse(fact.isBlank(), fileName + " has an empty fact." + i);
         }
         assertNull(props.getProperty("fact." + EXPECTED_FACT_COUNT), fileName + " has facts beyond fact.count");
+    }
+
+    @Test
+    void noCustomFactsMeansABuiltInFact() {
+        assertNull(FactGenerator.randomCustomFact(List.of(), true, fixed(0)));
+    }
+
+    @Test
+    void customOnlyAlwaysPicksACustomFact() {
+        List<String> custom = List.of("First.", "Second.");
+
+        assertEquals("First.", FactGenerator.randomCustomFact(custom, true, fixed(0)));
+        assertEquals("Second.", FactGenerator.randomCustomFact(custom, true, fixed(1)));
+    }
+
+    @Test
+    void mixedPicksComeFromOnePoolOfBuiltInAndCustomFacts() {
+        List<String> custom = List.of("First.", "Second.");
+        int[] bound = new int[1];
+        Random last = new Random() {
+            @Override
+            public int nextInt(int b) {
+                bound[0] = b;
+                return b - 1;
+            }
+        };
+
+        assertNull(FactGenerator.randomCustomFact(custom, false, fixed(EXPECTED_FACT_COUNT - 1)), "a built-in pick");
+        assertEquals("First.", FactGenerator.randomCustomFact(custom, false, fixed(EXPECTED_FACT_COUNT)));
+        assertEquals("Second.", FactGenerator.randomCustomFact(custom, false, last));
+        assertEquals(EXPECTED_FACT_COUNT + 2, bound[0], "every built-in and custom fact is equally likely");
+    }
+
+    private static Random fixed(int value) {
+        return new Random() {
+            @Override
+            public int nextInt(int bound) {
+                assertTrue(value < bound, value + " is outside the pool of " + bound);
+                return value;
+            }
+        };
     }
 }

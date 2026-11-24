@@ -21,6 +21,7 @@
  */
 package hudson.plugins.chucknorris;
 
+import java.util.List;
 import java.util.Locale;
 import java.util.MissingResourceException;
 import java.util.Random;
@@ -60,6 +61,26 @@ public class FactGenerator {
      */
     public int randomIndex() {
         return RANDOM.nextInt(FACT_COUNT);
+    }
+
+    /**
+     * Picks a custom fact, or none so that a built-in fact is used. Every fact is equally likely: with the built-in
+     * facts mixed in, a custom fact is picked as often as any single built-in fact.
+     * @param customFacts the custom facts
+     * @param customFactsOnly true to pick only from the custom facts
+     * @return the custom fact, or null to use a built-in fact
+     */
+    public String randomCustomFact(List<String> customFacts, boolean customFactsOnly) {
+        return randomCustomFact(customFacts, customFactsOnly, RANDOM);
+    }
+
+    static String randomCustomFact(List<String> customFacts, boolean customFactsOnly, Random random) {
+        if (customFacts.isEmpty()) {
+            return null;
+        }
+        int builtIn = customFactsOnly ? 0 : FACT_COUNT;
+        int pick = random.nextInt(builtIn + customFacts.size());
+        return pick < builtIn ? null : customFacts.get(pick - builtIn);
     }
 
     /**

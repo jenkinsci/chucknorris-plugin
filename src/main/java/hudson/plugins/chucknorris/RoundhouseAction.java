@@ -86,6 +86,20 @@ public final class RoundhouseAction implements RunAction2, LastBuildAction {
     }
 
     /**
+     * Constructs a RoundhouseAction with a custom fact. The fact's text is stored with the build, so the build keeps
+     * it when the custom facts change, and it is shown as written in every language.
+     * @param style
+     *            the style
+     * @param customFact
+     *            the custom fact
+     */
+    public RoundhouseAction(final Style style, final String customFact) {
+        super();
+        this.mStyle = style;
+        this.mFact = customFact;
+    }
+
+    /**
      * Gets the action display name.
      * @return the display name
      */
