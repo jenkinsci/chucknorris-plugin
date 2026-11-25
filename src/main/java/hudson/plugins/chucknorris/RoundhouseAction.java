@@ -32,14 +32,19 @@ import jenkins.model.RunAction2;
 import jenkins.tasks.SimpleBuildStep.LastBuildAction;
 import org.kohsuke.stapler.Stapler;
 import org.kohsuke.stapler.StaplerRequest2;
+import org.kohsuke.stapler.export.Exported;
+import org.kohsuke.stapler.export.ExportedBean;
 
 /**
  * {@link RoundhouseAction} keeps the style and fact associated with the action.
  * For more info, please watch <a
  * href="https://www.youtube.com/watch?v=Vb7lnpk3tRY"
  * >https://www.youtube.com/watch?v=Vb7lnpk3tRY</a>
+ * <p>The style, fact and fact index are exported to the remote API, so a build's
+ * {@code api/json} carries them for dashboards, chat bots and build monitors.
  * @author cliffano
  */
+@ExportedBean
 public final class RoundhouseAction implements RunAction2, LastBuildAction {
 
     /**
@@ -134,6 +139,7 @@ public final class RoundhouseAction implements RunAction2, LastBuildAction {
     @SuppressFBWarnings(
             value = "UWF_UNWRITTEN_FIELD",
             justification = "that field could have been deserialized from old <= 0.2")
+    @Exported(visibility = 2)
     public Style getStyle() {
         Style theStyle;
         if (mRun != null) {
@@ -154,6 +160,7 @@ public final class RoundhouseAction implements RunAction2, LastBuildAction {
      * Gets the fact index for locale-aware lookup in Jelly templates.
      * @return the fact index, or null for legacy builds
      */
+    @Exported(visibility = 2)
     public Integer getFactIndex() {
         return mFactIndex;
     }
@@ -162,6 +169,7 @@ public final class RoundhouseAction implements RunAction2, LastBuildAction {
      * Gets the Chuck Norris fact.
      * @return the fact
      */
+    @Exported(visibility = 2)
     public String getFact() {
         if (mFactIndex != null) {
             Locale locale = Locale.getDefault();

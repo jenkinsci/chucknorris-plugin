@@ -24,6 +24,7 @@ Why not you?
   - [Freestyle / Maven Jobs](#freestyle--maven-jobs)
   - [Pipeline Jobs](#pipeline-jobs)
   - [Custom facts](#custom-facts)
+  - [REST API](#rest-api)
 - [Screenshots](#screenshots)
 - [Release Notes](#release-notes)
 - [Testimonials](#testimonials)
@@ -121,6 +122,25 @@ appearance:
       Chuck Norris's builds are never flaky.
     customFactsOnly: true
 ```
+
+### REST API
+
+A build's remote API carries Chuck's fact and mood, so dashboards, chat bots and build monitors can show them too.
+Open `/job/<job>/<build>/api/json` and look for the action with
+`"_class": "hudson.plugins.chucknorris.RoundhouseAction"`:
+
+```json
+{
+  "_class": "hudson.plugins.chucknorris.RoundhouseAction",
+  "fact": "Chuck Norris can divide by zero.",
+  "factIndex": 7,
+  "style": "THUMB_UP"
+}
+```
+
+`fact` is in the language of the request (its `Accept-Language` header), `factIndex` points to the same fact in every
+language, and `style` is the mood: `THUMB_UP`, `ALERT`, `BAD_ASS` or `DISAPPOINTED`.
+For a [custom fact](#custom-facts), `fact` is its text as written and `factIndex` is `null`.
 
 ### Screenshots
 
