@@ -169,8 +169,22 @@ public class CordellWalkerRecorder extends Recorder implements SimpleBuildStep {
      */
     public String perform(final Run<?, ?> run, final TaskListener listener) {
         Style style = Style.get(run.getResult());
-        int factIndex = factGenerator.randomIndex();
+        ChuckNorrisConfiguration config = ChuckNorrisConfiguration.getOrNull();
+        String customFact = config == null
+                ? null
+                : factGenerator.randomCustomFact(config.getCustomFactList(), config.isCustomFactsOnly());
         run.removeActions(RoundhouseAction.class);
+        if (customFact != null) {
+            // A custom fact is shown as written in every language, so its log line needs no FactNote.
+            run.addAction(new RoundhouseAction(style, customFact));
+            if (listener != null) {
+                listener.getLogger()
+                        .println(Messages._CordellWalkerRecorder_FactLog(customFact)
+                                .toString(Locale.getDefault()));
+            }
+            return customFact;
+        }
+        int factIndex = factGenerator.randomIndex();
         run.addAction(new RoundhouseAction(style, factIndex));
         String fact = FactGenerator.getFact(factIndex, Locale.getDefault());
         if (listener != null) {

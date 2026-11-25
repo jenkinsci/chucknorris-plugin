@@ -7,6 +7,7 @@ import hudson.model.FreeStyleProject;
 import hudson.model.Result;
 import java.util.Locale;
 import net.sf.json.JSONArray;
+import net.sf.json.JSONNull;
 import net.sf.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -48,6 +49,20 @@ class RoundhouseActionApiTest {
         FreeStyleBuild failed = j.buildAndAssertStatus(Result.FAILURE, project);
 
         assertEquals("BAD_ASS", chuckAction(failed).getString("style"));
+    }
+
+    @Test
+    void buildApiJsonHasACustomFactAsWrittenAndANullFactIndex() throws Exception {
+        ChuckNorrisConfiguration config = ChuckNorrisConfiguration.get();
+        config.setCustomFacts("Chuck Norris reviews his own pull requests.");
+        config.setCustomFactsOnly(true);
+
+        JSONObject action = chuckAction(j.buildAndAssertSuccess(project));
+
+        assertEquals("Chuck Norris reviews his own pull requests.", action.getString("fact"));
+        assertEquals(
+                JSONNull.getInstance(), action.get("factIndex"), "a custom fact has no index into the built-in facts");
+        assertEquals("THUMB_UP", action.getString("style"));
     }
 
     private JSONObject chuckAction(FreeStyleBuild build) throws Exception {

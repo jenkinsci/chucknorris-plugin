@@ -23,6 +23,7 @@ Why not you?
 - [Usage](#usage)
   - [Freestyle / Maven Jobs](#freestyle--maven-jobs)
   - [Pipeline Jobs](#pipeline-jobs)
+  - [Custom facts](#custom-facts)
   - [REST API](#rest-api)
 - [Screenshots](#screenshots)
 - [Release Notes](#release-notes)
@@ -101,6 +102,27 @@ post {
 | Failure               | Bad ass                      |
 | Aborted / not built   | Disappointed                 |
 
+### Custom facts
+
+Administrators can add their own facts, for example team in-jokes, under **Manage Jenkins > Appearance > Chuck Norris**,
+one per line. Builds pick from them as well as the built-in facts, each fact equally likely. Tick
+**Use only the custom facts** to leave the built-in ones out (while the list is empty, builds still use the built-in
+facts).
+
+Custom facts are shown as written, in every language, and HTML-escaped like the built-in ones. A build keeps the text of
+the fact it picked, so editing the list later does not change older builds.
+
+With [Configuration as Code](https://plugins.jenkins.io/configuration-as-code/):
+
+```yaml
+appearance:
+  chuckNorris:
+    customFacts: |-
+      Chuck Norris reviews his own pull requests.
+      Chuck Norris's builds are never flaky.
+    customFactsOnly: true
+```
+
 ### REST API
 
 A build's remote API carries Chuck's fact and mood, so dashboards, chat bots and build monitors can show them too.
@@ -118,6 +140,7 @@ Open `/job/<job>/<build>/api/json` and look for the action with
 
 `fact` is in the language of the request (its `Accept-Language` header), `factIndex` points to the same fact in every
 language, and `style` is the mood: `THUMB_UP`, `ALERT`, `BAD_ASS` or `DISAPPOINTED`.
+For a [custom fact](#custom-facts), `fact` is its text as written and `factIndex` is `null`.
 
 ### Screenshots
 

@@ -1,0 +1,11 @@
+<?jelly escape-by-default='true'?>
+<j:jelly xmlns:j="jelly:core" xmlns:f="/lib/form">
+    <f:section title="${%Chuck Norris}">
+        <f:entry title="${%Custom facts}" field="customFacts">
+            <f:textarea/>
+        </f:entry>
+        <f:entry field="customFactsOnly">
+            <f:checkbox title="${%Use only the custom facts}"/>
+        </f:entry>
+    </f:section>
+</j:jelly>

@@ -1,0 +1,6 @@
+appearance:
+  chuckNorris:
+    customFacts: |-
+      Chuck Norris reviews his own pull requests.
+      Chuck Norris's builds are never flaky.
+    customFactsOnly: true
