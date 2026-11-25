@@ -103,7 +103,7 @@ post {
 
 ### Custom facts
 
-Administrators can add their own facts, for example team in-jokes, under **Manage Jenkins > System > Chuck Norris**,
+Administrators can add their own facts, for example team in-jokes, under **Manage Jenkins > Appearance > Chuck Norris**,
 one per line. Builds pick from them as well as the built-in facts, each fact equally likely. Tick
 **Use only the custom facts** to leave the built-in ones out (while the list is empty, builds still use the built-in
 facts).
@@ -114,7 +114,7 @@ the fact it picked, so editing the list later does not change older builds.
 With [Configuration as Code](https://plugins.jenkins.io/configuration-as-code/):
 
 ```yaml
-unclassified:
+appearance:
   chuckNorris:
     customFacts: |-
       Chuck Norris reviews his own pull requests.

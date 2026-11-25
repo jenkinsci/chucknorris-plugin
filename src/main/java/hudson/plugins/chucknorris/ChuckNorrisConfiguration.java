@@ -6,21 +6,23 @@ import hudson.Util;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import jenkins.appearance.AppearanceCategory;
 import jenkins.model.GlobalConfiguration;
+import jenkins.model.GlobalConfigurationCategory;
 import jenkins.model.Jenkins;
 import org.jenkinsci.Symbol;
 import org.kohsuke.stapler.DataBoundSetter;
 
 /**
- * Facts that administrators add on top of the built-in ones, on the Manage Jenkins &gt; System page or through
- * Configuration as Code ({@code unclassified: chuckNorris:}).
+ * Facts that administrators add on top of the built-in ones, on the Manage Jenkins &gt; Appearance page or through
+ * Configuration as Code ({@code appearance: chuckNorris:}).
  */
 @Extension
 @Symbol("chuckNorris")
 public final class ChuckNorrisConfiguration extends GlobalConfiguration {
 
-    /** The custom facts, one per line. */
-    private String customFacts;
+    /** The custom facts, trimmed and without blank lines, so that builds don't parse them each time. */
+    private List<String> customFactList = new ArrayList<>();
 
     /** Whether builds pick only from the custom facts. */
     private boolean customFactsOnly;
@@ -46,11 +48,21 @@ public final class ChuckNorrisConfiguration extends GlobalConfiguration {
     }
 
     /**
-     * Gets the custom facts as entered, one per line.
+     * Shows this configuration on the Manage Jenkins &gt; Appearance page, since it only changes what builds show.
+     * @return the appearance category
+     */
+    @Override
+    public GlobalConfigurationCategory getCategory() {
+        return GlobalConfigurationCategory.get(AppearanceCategory.class);
+    }
+
+    /**
+     * Gets the custom facts, one per line.
      * @return the custom facts, or null if there are none
      */
     public String getCustomFacts() {
-        return customFacts;
+        List<String> facts = getCustomFactList();
+        return facts.isEmpty() ? null : String.join("\n", facts);
     }
 
     /**
@@ -59,7 +71,7 @@ public final class ChuckNorrisConfiguration extends GlobalConfiguration {
      */
     @DataBoundSetter
     public void setCustomFacts(String customFacts) {
-        this.customFacts = Util.fixEmptyAndTrim(customFacts);
+        this.customFactList = parse(customFacts);
         save();
     }
 
@@ -86,11 +98,16 @@ public final class ChuckNorrisConfiguration extends GlobalConfiguration {
      * @return the custom facts
      */
     public List<String> getCustomFactList() {
-        if (customFacts == null) {
-            return Collections.emptyList();
-        }
+        return customFactList == null ? Collections.emptyList() : Collections.unmodifiableList(customFactList);
+    }
+
+    private static List<String> parse(String customFacts) {
+        String text = Util.fixEmptyAndTrim(customFacts);
         List<String> facts = new ArrayList<>();
-        for (String line : customFacts.split("\\R")) {
+        if (text == null) {
+            return facts;
+        }
+        for (String line : text.split("\\R")) {
             String fact = line.trim();
             if (!fact.isEmpty()) {
                 facts.add(fact);

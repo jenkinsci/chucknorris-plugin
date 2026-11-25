@@ -13,7 +13,7 @@ import org.jvnet.hudson.test.JenkinsRule;
 import org.jvnet.hudson.test.junit.jupiter.WithJenkins;
 
 /**
- * Custom facts from the Manage Jenkins &gt; System page, in a running Jenkins.
+ * Custom facts from the Manage Jenkins &gt; Appearance page, in a running Jenkins.
  */
 @WithJenkins
 class ChuckNorrisConfigurationTest {
@@ -28,11 +28,15 @@ class ChuckNorrisConfigurationTest {
     }
 
     @Test
-    void settingsSurviveASaveOfTheSystemPage() throws Exception {
+    void settingsSurviveASaveOfTheAppearancePage() throws Exception {
         config.setCustomFacts("Chuck Norris reviews his own pull requests.\nChuck Norris's builds are never flaky.");
         config.setCustomFactsOnly(true);
 
-        j.configRoundtrip();
+        try (JenkinsRule.WebClient wc = j.createWebClient()) {
+            HtmlPage page = wc.goTo("manage/appearance");
+            assertNotNull(page.getElementByName("_.customFacts"), "the custom facts are on the Appearance page");
+            j.submit(page.getFormByName("config"));
+        }
 
         assertEquals(
                 List.of("Chuck Norris reviews his own pull requests.", "Chuck Norris's builds are never flaky."),
@@ -41,10 +45,36 @@ class ChuckNorrisConfigurationTest {
     }
 
     @Test
+    void notOnTheSystemPage() throws Exception {
+        try (JenkinsRule.WebClient wc = j.createWebClient()) {
+            assertTrue(wc.goTo("manage/configure")
+                    .getElementsByName("_.customFacts")
+                    .isEmpty());
+        }
+    }
+
+    @Test
     void blankLinesAndSurroundingSpacesAreDropped() {
         config.setCustomFacts("\n  First fact.  \r\n\n   \nSecond fact.\n");
 
         assertEquals(List.of("First fact.", "Second fact."), config.getCustomFactList());
+        assertEquals("First fact.\nSecond fact.", config.getCustomFacts());
+    }
+
+    @Test
+    void theParsedFactsAreSavedAndLoaded() {
+        config.setCustomFacts("First fact.\n\nSecond fact.");
+
+        assertEquals(List.of("First fact.", "Second fact."), new ChuckNorrisConfiguration().getCustomFactList());
+    }
+
+    @Test
+    void clearingTheFactsLeavesNone() {
+        config.setCustomFacts("First fact.");
+        config.setCustomFacts("   ");
+
+        assertEquals(List.of(), config.getCustomFactList());
+        assertNull(config.getCustomFacts());
     }
 
     @Test
