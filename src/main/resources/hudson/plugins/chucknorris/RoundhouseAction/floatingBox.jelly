@@ -5,6 +5,11 @@
         <div class="chuck-floating__fact">
             <img src="${resURL}/plugin/chucknorris/images/icon.png" width="16" height="16" alt="${from.displayName}"/>
             <span>${from.fact}</span>
+            <j:if test="${from.newFactAllowed}">
+                <form method="post" action="${rootURL}/${from.actionUrl}newFact" class="chuck-floating__new-fact">
+                    <button type="submit" class="jenkins-button jenkins-button--tertiary" tooltip="${%Pick another fact for this build}">${%New fact}</button>
+                </form>
+            </j:if>
         </div>
     </div>
 </j:jelly>

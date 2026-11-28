@@ -23,17 +23,25 @@ package hudson.plugins.chucknorris;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import hudson.model.Action;
+import hudson.model.Item;
 import hudson.model.Result;
 import hudson.model.Run;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Locale;
+import java.util.Objects;
 import jenkins.model.RunAction2;
 import jenkins.tasks.SimpleBuildStep.LastBuildAction;
+import org.kohsuke.accmod.Restricted;
+import org.kohsuke.accmod.restrictions.NoExternalUse;
+import org.kohsuke.stapler.HttpResponse;
+import org.kohsuke.stapler.HttpResponses;
 import org.kohsuke.stapler.Stapler;
 import org.kohsuke.stapler.StaplerRequest2;
 import org.kohsuke.stapler.export.Exported;
 import org.kohsuke.stapler.export.ExportedBean;
+import org.kohsuke.stapler.interceptor.RequirePOST;
 
 /**
  * {@link RoundhouseAction} keeps the style and fact associated with the action.
@@ -202,6 +210,77 @@ public final class RoundhouseAction implements RunAction2, LastBuildAction {
             }
         }
         return Collections.singletonList(this);
+    }
+
+    /**
+     * How many times {@link #pickNewFact} draws again when it gets the fact the build already shows.
+     */
+    private static final int NEW_FACT_DRAWS = 10;
+
+    /**
+     * Whether the current user may pick a new fact for this build: they need to be able to configure the job.
+     * Used by {@code floatingBox.jelly}.
+     * @return true if the New fact button should be shown
+     */
+    @Restricted(NoExternalUse.class)
+    public boolean isNewFactAllowed() {
+        return mRun != null && mRun.getParent().hasPermission(Item.CONFIGURE);
+    }
+
+    /**
+     * The URL of this action, relative to the Jenkins root. Used by {@code floatingBox.jelly}, where the action is
+     * shown on the job page.
+     * @return the URL of this action
+     */
+    @Restricted(NoExternalUse.class)
+    public String getActionUrl() {
+        return mRun == null ? null : mRun.getUrl() + getUrlName() + "/";
+    }
+
+    /**
+     * Picks another random fact for this build and saves it with the build, so everyone sees the same fact
+     * afterwards. The style still follows the build result. Needs a POST (with the CSRF crumb) and permission to
+     * configure the job.
+     * @param req the request
+     * @return a redirect to the job page
+     * @throws IOException if the build cannot be saved
+     */
+    @RequirePOST
+    @Restricted(NoExternalUse.class)
+    public HttpResponse doNewFact(StaplerRequest2 req) throws IOException {
+        if (mRun == null) {
+            return HttpResponses.notFound();
+        }
+        mRun.getParent().checkPermission(Item.CONFIGURE);
+        pickNewFact(new FactGenerator(), ChuckNorrisConfiguration.getOrNull());
+        mRun.save();
+        return HttpResponses.redirectTo(
+                req.getContextPath() + "/" + mRun.getParent().getUrl());
+    }
+
+    /**
+     * Replaces the fact with another one picked as {@link CordellWalkerRecorder} picks it (custom facts included),
+     * drawing again a few times if it gets the fact the build already shows.
+     * @param factGenerator the generator to pick from
+     * @param config the custom facts, or null if there is no Jenkins instance
+     */
+    void pickNewFact(FactGenerator factGenerator, ChuckNorrisConfiguration config) {
+        Integer oldIndex = mFactIndex;
+        String oldFact = oldIndex == null ? (mFact != null ? mFact : fact) : null;
+        Integer index = null;
+        String customFact = null;
+        for (int draw = 0; draw < NEW_FACT_DRAWS; draw++) {
+            customFact = config == null
+                    ? null
+                    : factGenerator.randomCustomFact(config.getCustomFactList(), config.isCustomFactsOnly());
+            index = customFact == null ? factGenerator.randomIndex() : null;
+            boolean same = index != null ? index.equals(oldIndex) : Objects.equals(customFact, oldFact);
+            if (!same) {
+                break;
+            }
+        }
+        mFactIndex = index;
+        mFact = customFact;
     }
 
     @Override

@@ -37,6 +37,12 @@
   gap: 0.5rem;
 }
 
+/* The New fact button (shown to users who can configure the job) sits after the fact. */
+.chuck-floating__new-fact {
+  margin: 0;
+  flex-shrink: 0;
+}
+
 /*
  * Project page, main area: the image floats right, so the blocks after it
  * (test results, permalinks) run down its left-hand side.
