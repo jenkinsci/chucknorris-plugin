@@ -81,6 +81,12 @@ public final class RoundhouseAction implements RunAction2, LastBuildAction {
     private Integer mFactIndex;
 
     /**
+     * Whether the build page and the job page hide Chuck's image (the step's {@code showImage: false}). Stored the
+     * negative way round so that builds saved before this field existed still show the image.
+     */
+    private boolean mHideImage;
+
+    /**
      * The run
      */
     private transient Run<?, ?> mRun;
@@ -164,6 +170,23 @@ public final class RoundhouseAction implements RunAction2, LastBuildAction {
         }
         return theStyle;
     }
+    /**
+     * Whether the build page and the job page show Chuck's image next to the fact. Used by {@code summary.jelly} and
+     * {@code jobMain.jelly}.
+     * @return false if the step was called with {@code showImage: false}
+     */
+    public boolean isShowImage() {
+        return !mHideImage;
+    }
+
+    /**
+     * Sets whether the build page and the job page show Chuck's image.
+     * @param showImage false to show only the fact
+     */
+    public void setShowImage(boolean showImage) {
+        this.mHideImage = !showImage;
+    }
+
     /**
      * Gets the fact index for locale-aware lookup in Jelly templates.
      * @return the fact index, or null for legacy builds
