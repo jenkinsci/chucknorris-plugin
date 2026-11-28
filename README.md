@@ -24,6 +24,7 @@ Why not you?
   - [Freestyle / Maven Jobs](#freestyle--maven-jobs)
   - [Pipeline Jobs](#pipeline-jobs)
   - [Custom facts](#custom-facts)
+  - [New fact](#new-fact)
   - [REST API](#rest-api)
 - [Screenshots](#screenshots)
 - [Release Notes](#release-notes)
@@ -122,6 +123,12 @@ appearance:
       Chuck Norris's builds are never flaky.
     customFactsOnly: true
 ```
+
+### New fact
+
+Users who can configure a job see a **New fact** button next to the fact on the job page. It picks another fact for
+the latest completed build, the same way builds pick one (custom facts included), without running a new build. The new
+fact is saved with the build, so everyone sees it afterwards. Chuck's mood still follows the build result.
 
 ### REST API
 
