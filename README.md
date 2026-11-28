@@ -94,6 +94,13 @@ post {
 }
 ```
 
+Two options tune what the step does. Both default to the behaviour above:
+
+| Option | Default | Effect |
+|---|---|---|
+| `quiet` | `false` | `chuckNorris(quiet: true)` prints nothing to the build log. The fact is still shown on the build page and the job page, and returned. |
+| `showImage` | `true` | `chuckNorris(showImage: false)` shows only the fact on the build page and the job page, without Chuck's image. |
+
 ### Moods
 
 | Build result          | Chuck's mood                 |

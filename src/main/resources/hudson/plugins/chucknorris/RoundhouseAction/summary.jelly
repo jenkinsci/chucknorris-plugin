@@ -9,6 +9,7 @@
             <span>${it.fact}</span>
         </td>
     </tr>
+    <j:if test="${it.showImage}">
     <tr>
         <td/>
         <td>
@@ -17,4 +18,5 @@
             </div>
         </td>
     </tr>
+    </j:if>
 </j:jelly>

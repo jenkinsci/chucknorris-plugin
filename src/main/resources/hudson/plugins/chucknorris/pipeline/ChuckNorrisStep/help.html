@@ -14,4 +14,8 @@ post {
     To reuse the fact, assign the return value, for example <code>def fact = chuckNorris()</code> inside a
     <code>script</code> block. Calling the step more than once in a build replaces the earlier fact.
   </p>
+  <p>
+    Options: <code>chuckNorris(quiet: true)</code> leaves the fact out of the build log (it is still shown and returned),
+    and <code>chuckNorris(showImage: false)</code> shows only the fact, without Chuck's image.
+  </p>
 </div>

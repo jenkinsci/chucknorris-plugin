@@ -6,7 +6,9 @@
 -->
 <j:jelly xmlns:j="jelly:core">
     <link rel="stylesheet" type="text/css" href="${resURL}/plugin/chucknorris/css/chucknorris.css"/>
-    <div class="chuck-job-image">
-        <img class="chuck-image ${it.style.cssClass}" src="${resURL}/plugin/chucknorris/images/${it.style.imageFile}" alt=""/>
-    </div>
+    <j:if test="${it.showImage}">
+        <div class="chuck-job-image">
+            <img class="chuck-image ${it.style.cssClass}" src="${resURL}/plugin/chucknorris/images/${it.style.imageFile}" alt=""/>
+        </div>
+    </j:if>
 </j:jelly>
